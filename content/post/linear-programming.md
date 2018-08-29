@@ -36,23 +36,65 @@ $$
 ## Example problem
 
 To make things more concrete, lets try to use an example and solve it. Let's
-suppose that a certain farmer wants to know which vegetables to cultivate in his
-farm. Let's suppose that the farmer can grow 2 kinds of vegetables, *corn* and
-*beans*. And the farmers main objective is the maximum profit.
+suppose that a certain farmer wants to know which cereal to cultivate in his
+farm. Let's suppose that the farmer can grow 2 kinds of cereals, *corn* and
+*beans*. And the farmers main objective is the maximum profit. The farm has 100
+acres, each acre of *corn* result in 8 sacks while each acre of *beans* result
+in 10 sacks. For planting of each acre of *corn* it is needed 3 hours of work,
+while for each acre of *beans* 2 hours of work are needed. The farmer has 240
+hours of work available but it costs 200$ for every hour. The maximum demand is
+limited by the market at a maximum of *480 sacks of corn* sold by 150$ each and
+*800 sacks of beans* sold by 120$ each. Which cereal should the farmer grow to
+have the maximum profit ?
 
 
 ## Problem modeling
 
-- Variables
-- Restrictions
-- Objective function
+To model the problem, we need to extract the 3 main characteristics of the
+problem, determine the variables, determine it's restrictions and calculate the
+objective function.
+
+### Variables
+
+Variables are everything that you can work on the problem, they are the moving
+parts and the input of the *objective function*.
+
+In the case of the proposed problem we have two variables, the amount of *corn*
+and *beans*. For brevity, let's call *corn* $x$ and *beans* $y$.
 
 
 ### Objective function
 
 It shows our target function to archive, it can be a **maximization** or
-**minimization** of the result of the function $Z$. Also, but not so common, is
-try to approximate $Z$ to a certain value.
+**minimization** of the result of the function $Z$, or in very rare cases, the
+objective is to approximate $Z$ to a certain value. The objective function is
+created to reflect the impact of the variables on the outcome. In other words,
+based on the variable values, it output has to represent the outcome in the real
+world.
+
+For the objective function of the example case above, the main objective is
+**maximum profit**, it means to maximize the output of the function that given
+the amount of *corn* and *beans* calculate the profit. We can define what profit
+is by the $Profit = Sell Price - Costs$.
+
+So:
+
+$$ Z(x,y) = (150 \times 8 \times x) + (120 \times 10 \times y) - (200 \times 3
+  \times x) - (200 \times 2 \times y) $$
+
+Let's break it down in some chunks and analyse it:
+
+- The amount of money for each acre of *corn* (named $x$) grown: $(150 \times 8 \times x)$
+- The amount of money for each acre of *beans* (named $y$) grown:  $(120 \times 10 \times y)$
+
+Then we subtract the costs of cultivating those crops:
+
+- The cost of cultivating one acre of *corn* $(200 \times 3 \times x)$
+- The cost of cultivating one acre of *beans*  $(200 \times 2 \times y)$
+
+We can optimize it by writing:
+
+$$ Z(x,y) = (1200 \times x) + (1200 \times y) - (600 \times x) - (400 \times y) $$
 
 ### Restrictions
 
