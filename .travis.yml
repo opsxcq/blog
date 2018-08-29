@@ -1,17 +1,18 @@
-# Install the apt prerequisites
-addons:
-  apt:
-    packages:
-      - python-pygments
+language: python
 
-# Clean and don't fail
+python:
+    - "3.6"
+
 install:
-  - rm -rf public || exit 0
+    # install latest release version
+    # - wget $(wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}')
+    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}' | xargs wget
+    - sudo dpkg -i hugo*.deb
+    - pip install Pygments
+    - rm -rf public 2> /dev/null
 
-# Build the website
 script:
-  - binaries/hugo
-
+    - hugo
 # Deploy to GitHub pages
 deploy:
   provider: pages
