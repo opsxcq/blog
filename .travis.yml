@@ -9,7 +9,6 @@ script:
     - hugo
 
 after_success: |
-    if [ -n "$GITHUB_TOKEN" ]; then
     git clone https://github.com/opsxcq/opsxcq.github.io deploy
     cd deploy
     mv ../public/* .
@@ -17,4 +16,3 @@ after_success: |
     git add -f --ignore-errors --all
     git -c user.name='travis' -c user.email='travis' commit -m 'Deploy from '$(date)
     git push -f -q https://opsxcq:$GITHUB_TOKEN@github.com/opsxcq.github.io master
-    fi
