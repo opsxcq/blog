@@ -176,7 +176,18 @@ Here is what the graph should look like after it is plotted.
 After plotting the restriction functions we have what is called **feasible
 region**, a region of the graph that give possible solutions for our problem
 based on the restrictions only. The second step is to determine which point in
-this region maximizes the result for the objective function $Z$.
+this region maximizes or minimizes the result for the objective function $Z$.
+
+The essence of this method is to create a visual analysis of those points of
+intersection which are called **corner points**. If the problem has a solution,
+this solution will be one of those corner points.
+
+In the example we have **5 intersection points**
+
+- 0 and **demand for beans**;
+- **demand for beans** and **available area**;
+- **demand for corn** and 0;
+- **available area** and **available labor**;
 
 
 ## Solving with python
