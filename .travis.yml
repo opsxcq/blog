@@ -9,7 +9,7 @@ script:
     - hugo
 
 after_success: |
-    if [ -n "$GITHUB_API_KEY" ]; then
+    if [ -n "$GITHUB_TOKEN" ]; then
     git clone https://github.com/opsxcq/opsxcq.github.io deploy
     cd deploy
     mv ../public/* .
