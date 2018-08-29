@@ -1,4 +1,4 @@
-baseURL = "http://998877.gitlab.io/blog/"
+baseURL = "https://strm.sh/"
 languageCode = "en-us"
 title = "STRM Blog"
 theme = "base16"
