@@ -1,18 +1,13 @@
 language: python
 
-python:
-    - "3.6"
-
 install:
-    # install latest release version
-    # - wget $(wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}')
-    - wget -qO- https://api.github.com/repos/gohugoio/hugo/releases/latest | sed -r -n '/browser_download_url/{/Linux-64bit.deb/{s@[^:]*:[[:space:]]*"([^"]*)".*@\1@g;p}}' | xargs wget
+    - wget https://github.com/gohugoio/hugo/releases/download/v0.31.1/hugo_0.31.1_Linux-64bit.deb
     - sudo dpkg -i hugo*.deb
     - pip install Pygments
-    - rm -rf public 2> /dev/null
 
 script:
     - hugo
+
 # Deploy to GitHub pages
 deploy:
   provider: pages
