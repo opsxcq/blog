@@ -1,6 +1,6 @@
-baseURL = "http://example.org/"
+baseURL = "http://strm.sh/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "STRM Blog"
 theme = "base16"
 pygmentsCodeFences = true
 pygmentsStyle = "native"
