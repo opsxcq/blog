@@ -1,7 +1,7 @@
 ---
 title: "Linear Programming"
 date: 2018-07-29T00:00:00Z
-draft: true 
+draft: false 
 tags: ["math", "python"]
 ---
 
