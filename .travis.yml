@@ -7,6 +7,7 @@ install:
 
 script:
     - hugo
+    - echo 'strm.sh' > public/CNAME
 
 # Deploy to GitHub pages
 deploy:
