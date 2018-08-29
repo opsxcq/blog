@@ -7,12 +7,6 @@ install:
 
 script:
     - hugo
-    - git clone https://github.com/opsxcq/opsxcq.github.io deploy
-    - cd deploy
-    - mv ../public/* .
-    - git add -f --ignore-errors --all
-    - git -c user.name='travis' -c user.email='travis' commit -m "Deploy from $(date)"
-    - git push -f -q https://opsxcq:$GITHUB_TOKEN@github.com/opsxcq.github.io master
 
 # Deploy to GitHub pages
 deploy:
