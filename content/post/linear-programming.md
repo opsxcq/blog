@@ -1,7 +1,7 @@
 ---
 title: "Linear Programming"
 date: 2018-07-29T00:00:00Z
-draft: false 
+draft: true 
 tags: ["math", "python"]
 ---
 
@@ -21,17 +21,6 @@ problems](https://en.wikipedia.org/wiki/Combinatorial_optimization). Assignment
 allocation of scarce resources. Some examples:
 
 - Determine which items to produce in a factory;
-
-$$
-\frac{1}{(\sqrt{\phi \sqrt{5}}-\phi) e^{\frac25 \pi}} =
-     1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {1+\frac{e^{-6\pi}}
-      {1+\frac{e^{-8\pi}} {1+\ldots} } } }
-$$
-
-$$
-X=Y
-$$
-
 
 ## Example problem
 
@@ -96,6 +85,10 @@ We can optimize it by writing:
 
 $$ Z(x,y) = (1200 \times x) + (1200 \times y) - (600 \times x) - (400 \times y) $$
 
+And again:
+
+$$ Z(x,y) = (600 \times x) + (800 \times y)$$
+
 ### Restrictions
 
 Restrictions are any restriction that we need to apply to our variables. The
@@ -104,11 +97,93 @@ cases where we are applying linear programming to production is the **non
 negativity** rule, it means, you can't produce -1 cars, all numbers of cars
 produced must be positive or no car produced at all (zero cars).
 
+> The maximization or minimization of the function $Z$ will always end up with
+> on restriction limiting it's result. So you can analyse that restriction and
+> determine the bottle neck of your function. In case of all restrictions being
+> reached it means that there was no bottle neck and all resources were
+> utilized.
+
+In the example problem we have some restrictions, it will be listed bellow:
+
+- 100 acres available, it means $x+y \leq 100$
+- The market demand for *corn* $8x \leq 480$
+- The market demand for *beans* $10y \leq 800$
+- The labour limitation defined by $ 3x + 2y \leq 240$
+- And finally, the non negativity rule, that give us $x \geq 0$ and $y \geq 0$
+
 ## Solving by hand
+
+We will apply the graphical solution here where the limitations are plotted so
+is possible to determine the solution visually. Bellow is the result of the
+above restrictions plotted in a graph.
+
+### Plot the graph
+
+For all restrictions listed above, we will create a table with two lines, one
+for the restriction result for the smallest value of $x$ and the maximization of
+the value $y$, and the other for the opposite. As you can see, if there is only
+one variable in the restriction the table is not needed, since we are looking
+for the maximization of the use, it will result only on a straight line in the
+graph. In the example case the limitations of the market can be seen in the
+graph as perpendicular lines across their axis.
+
+Since we are trying to maximize the resource usage, we remove the $\leq$ and
+replace it with an equal symbol.
+
+For the labour time restriction $3x + 2y = 240$
+
+|  X |   Y |
+|----|-----|
+|  0 | 120 |
+| 80 |   0 |
+
+It means that for this restriction you will draw a line from the point $(0,120)$
+to the point $(80,0)$. The are bellow the line, which for all elements there
+this function is true, is called **feasible region**.
+
+The second restriction is pretty straight forward, we will analyse the total available area for the crops, which is given by the $x+y = 100$.
+
+|   X |   Y |
+|-----|-----|
+|   0 | 100 |
+| 100 |   0 |
+
+It means that you will draw a line from the point $(0,100)$ to the point
+$(100,0)$.
+
+The market demand for production of *corn* $8x = 480$, that gives us $x=60$. The
+market demand for production of *beans* $10x = 800$, that gives us $y=80$. Both
+will be represented by a straight line each on the given point.
+
+With those restrictions calculated we can have some idea of the dimension of the
+graph that we are going to plot. Since our max value for $y$ is 120 (labour
+restriction) and for $x$ is 100 (total available area). Also adding a little bit
+of interpretation to this graph, we can tell that if we only grow corn crops, we
+won't be able to use all land that the farmer have, since the bottle neck in
+this case will be the labor available.
+
+Here is what the graph should look like after it is plotted.
+
+- Colored in **orange** the 100 acres available, it means $x+y \leq 100$
+- Colored in **stronger red** The labour limitation defined by $ 3x + 2y \leq 240$
+- Colored in **red** the market demand for *corn* $8x \leq 480$
+- Colored in **blue** the market demand for *beans* $10y \leq 800$
+
+<iframe src="https://www.desmos.com/calculator/qb0rwtlecb?embed" width="500px" height="500px" style="border: 1px solid #ccc" frameborder=0></iframe>
+
+### Intersection points
+
+After plotting the restriction functions we have what is called **feasible
+region**, a region of the graph that give possible solutions for our problem
+based on the restrictions only. The second step is to determine which point in
+this region maximizes the result for the objective function $Z$.
+
 
 ## Solving with python
 
 ## References
+
+ - [Feasible Region](https://en.wikipedia.org/wiki/Feasible_region)
 
 ## Books
 
