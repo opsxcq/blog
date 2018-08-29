@@ -13,3 +13,12 @@ script:
     - git add -f --ignore-errors --all
     - git -c user.name='travis' -c user.email='travis' commit -m "Deploy from $(date)"
     - git push -f -q https://opsxcq:$GITHUB_TOKEN@github.com/opsxcq.github.io master
+
+# Deploy to GitHub pages
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  local_dir: public
+  on:
+    branch: master
