@@ -99,8 +99,8 @@ produced must be positive or no car produced at all (zero cars).
 
 > The maximization or minimization of the function $Z$ will always end up with
 > on restriction limiting it's result. So you can analyse that restriction and
-> determine the bottle neck of your function. In case of all restrictions being
-> reached it means that there was no bottle neck and all resources were
+> determine the bottleneck of your function. In case of all restrictions being
+> reached it means that there was no bottleneck and all resources were
 > utilized.
 
 In the example problem we have some restrictions, it will be listed bellow:
@@ -159,7 +159,7 @@ With those restrictions calculated we can have some idea of the dimension of the
 graph that we are going to plot. Since our max value for $y$ is 120 (labour
 restriction) and for $x$ is 100 (total available area). Also adding a little bit
 of interpretation to this graph, we can tell that if we only grow corn crops, we
-won't be able to use all land that the farmer have, since the bottle neck in
+won't be able to use all land that the farmer have, since the bottleneck in
 this case will be the labor available.
 
 Here is what the graph should look like after it is plotted.
@@ -182,12 +182,185 @@ The essence of this method is to create a visual analysis of those points of
 intersection which are called **corner points**. If the problem has a solution,
 this solution will be one of those corner points.
 
-In the example we have **5 intersection points**
+In the example we have **5 intersection points**, they will be presented based
+on which restriction they intersect or 0, to make things easier to reference
+later, we will name those points with letters.
 
-- 0 and **demand for beans**;
-- **demand for beans** and **available area**;
-- **demand for corn** and 0;
-- **available area** and **available labor**;
+- A) 0 and **demand for beans**;
+- B) **demand for beans** and **available area**;
+- C) **available area** and **available labor**;
+- D) **available labor** and **demand for corn**
+- E) **demand for corn** and 0;
+
+Next step is to compile a table with all points and their values or $x$ and $y$.
+But to be able to work with that we need to solve the equations to know their
+values at their intersection point.
+
+Points **A** and **E** won't require any special effort since they have a know
+value in one of their axis.
+
+#### Point B
+
+Point **B** is the intersection between the demand of beans $y=80$ and the
+available area $x+y \leq 100$. So we just solve the system
+
+$$
+  x + y = 100
+$$
+
+Replacing $y$ with it's value.
+
+$$
+  x + 80 = 100
+$$
+
+And
+
+$$
+  x = 100 - 80
+$$
+
+It gives us the point $x=20$ and $y=80$ $(20,80)$.
+
+#### Point C
+
+Point **C** is the intersection between the available labor $3x+2y \leq 240$ and
+the available area $x+y \leq 100$. So we just solve the system
+
+$$
+3x+2y = 240
+$$
+
+$$
+x+y = 100
+$$
+
+We need to isolate one factor, so let's isolate $y$ in the second equation.
+
+$$
+x+y = 100 (\times -2)
+$$
+
+And making one big equation we will have
+
+$$
+3x +2y -2x -2y = 240 - 200
+$$
+
+
+$$
+x = 40
+$$
+
+Now that we have the $x$ value, we just need to replace it in any of this two
+equations and we will have the $y$ value for that point.
+
+$$
+40+y=100
+$$
+
+$$
+y=60
+$$
+
+It gives us the point $x=40$ and $y=60$ $(40,60)$.
+
+
+#### Point D
+
+
+Point **D** is the intersection between the available labor $3x+2y \leq 240$ and
+the demand for corn $x=60$. So we just solve the system by replacing $x$
+
+$$
+ 180 + 2y = 240
+$$
+
+$$
+ 2y = 240 - 180
+$$
+
+$$
+ y = 30
+$$
+
+It gives us the point $y=30$ and $x=60$ $(60,30)$.
+
+#### Corner points table
+
+Now that all points are calculated, just replace the $x$ and $y$ symbols by
+their values on the table bellow and calculate the objective function with it.
+It will give the output for those variables, and using this output if our
+objective is to maximize the result of the function, we will take the biggest
+value on the table as the optimal value, if the objective is to minimize, we
+take the smallest, simple as that.
+
+Given the objective function
+
+$$ Z(x,y) = (600 \times x) + (800 \times y)$$
+
+| Point |  x |  y | Objective Function |
+|-------|----|----|--------------------|
+| A     |  0 | 80 |              64000 |
+| B     | 20 | 80 |              76000 |
+| C     | 40 | 60 |              72000 |
+| D     | 60 | 30 |              60000 |
+| E     | 60 |  0 |              36000 |
+
+## Conclusion
+
+Based on the table in the last section we can determine that the optimal area
+for the maximization of the profit is **20 acres of corn** and **80 acres of beans**,
+which will give a **profit of 76000$**.
+
+This is enough, but we can look further and determine the bottlenecks, in other
+words, what is limiting the maximization of the objective function. In this
+example, this is a point of the analysis that gives the answer about what should
+be worked on to improve the profit.
+
+### Bottleneck analysis
+
+To determine which restrictions are limiting the objective function, just
+analyse the values of $x$ and $y$, if restrictions match the value it means that
+this restriction is limiting the best outcome.
+
+Applying our example
+
+#### Available area
+
+All available area was used, since
+$$
+20+80 = 100
+$$
+
+#### Demand for corn
+
+The market demand for corn was not met, it means that if more corn was produced,
+it would be sold.
+
+$$
+8 \times 20 \leq 480
+$$
+
+#### Demand for beans
+
+THe market demand for beans was met, it means that even if more beans were
+produced, they won't be sold and won't generate any profit.
+
+$$10 \times 80 = 800$$
+
+#### Labor limitation
+
+Still 20 hours of labor remaining after all the production, it can be determined
+by:
+
+$$
+3 \times 20 + 2 \times 80 \leq 240
+$$
+
+$$
+220 \leq 240
+$$
 
 
 ## Solving with python
