@@ -21,6 +21,9 @@ problems](https://en.wikipedia.org/wiki/Combinatorial_optimization). Assignment
 allocation of scarce resources. Some examples:
 
 - Determine which items to produce in a factory;
+- Sudoku;
+- Scheduling problems;
+- Resourcing problems.
 
 ## Example problem
 
@@ -344,7 +347,7 @@ $$
 
 #### Demand for beans
 
-THe market demand for beans was met, it means that even if more beans were
+The market demand for beans was met, it means that even if more beans were
 produced, they won't be sold and won't generate any profit.
 
 $$10 \times 80 = 800$$
@@ -365,9 +368,13 @@ $$
 
 ## Solving with python
 
+For solving this problem with python we are going to use **PuLP**.
+
 ## References
 
  - [Feasible Region](https://en.wikipedia.org/wiki/Feasible_region)
+ - [PuLP Homepage](https://pythonhosted.org/PuLP/)
+ - [PuLP Repository](https://github.com/coin-or/pulp)
 
 ## Books
 
@@ -378,7 +385,3 @@ img[alt="cover"]{
 </style>
 
 ![cover](/books/covers/george-b-dantzig-linear-programming.jpg)
-
-## References
-
-
