@@ -8,6 +8,7 @@ install:
 script:
     - hugo
     - echo 'strm.sh' > public/CNAME
+    - mv keybase.txt public/
 
 # Deploy to GitHub pages
 deploy:
