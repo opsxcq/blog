@@ -1,7 +1,7 @@
 ---
 title: "Linear Programming"
 date: 2018-07-29T00:00:00Z
-draft: true 
+draft: false
 tags: ["math", "python"]
 ---
 
@@ -20,16 +20,17 @@ problems](https://en.wikipedia.org/wiki/Combinatorial_optimization). Assignment
 (or allocation) problems are basically the kind of problem that asks for the
 allocation of scarce resources. Some examples:
 
-- Determine which items to produce in a factory;
-- Sudoku;
 - Scheduling problems;
-- Resourcing problems.
+- Resourcing problems;
+- Assignment problems;
+- Balance your meals to fit your macro nutrient goals;
+- Sudoku.
 
 ## Example problem
 
-To make things more concrete, lets try to use an example and solve it. Let's
+To make things more concrete, I will present an example and solve it. Let's
 suppose that a certain farmer wants to know which cereal to cultivate in his
-farm. Let's suppose that the farmer can grow 2 kinds of cereals, *corn* and
+farm. Let's suppose that the farmer can grow only 2 kinds of cereals, *corn* and
 *beans*. And the farmers main objective is the maximum profit. The farm has 100
 acres, each acre of *corn* result in 8 sacks while each acre of *beans* result
 in 10 sacks. For planting of each acre of *corn* it is needed 3 hours of work,
@@ -368,7 +369,148 @@ $$
 
 ## Solving with python
 
-For solving this problem with python we are going to use **PuLP**.
+For solving this problem with python we are going to use **PuLP**. To setup PuLP
+on Debian is easy, just `pip3 install pulp` and that is it.
+
+### Modeling the problem
+
+For modeling this problem using PuLP basically we will need to import PuLP and
+create a problem:
+
+```python
+import pulp
+problem = pulp.LpProblem("Farmer", pulp.LpMaximize)
+```
+
+Then we can add our variables to the problem, note that the restrictions based
+on variable values are mapped here, so the non negativity rule and all others
+based on the range of values should be applied at this point.
+
+- The minimum bound of a variable is defined by the **lowBound** parameter.
+- The maximum bound of a variable is defined by the **upBound** parameter.
+
+Continuing our example, to create the $x$ and $y$ variables
+
+```python
+x = pulp.LpVariable('x', lowBound=0, cat='Continuous')
+y = pulp.LpVariable('y', lowBound=0, cat='Continuous')
+```
+
+Now we define our objective function, we can write it as plain python code and
+just `+=` it into the `problem` variable like this:
+
+```python
+problem += 600 * x + 800 * y, "Z"
+```
+
+Now we do the same to all our restrictions, we can just `+=` them into the
+problem.
+
+```python
+problem += x + y <= 100
+problem += 8 * x <= 480
+problem += 10 * y <= 800
+problem += 3 * x + 2 * y <= 240
+```
+
+To print the actual state of the problem, just type the variable name in the
+python console:
+
+```
+>>> problem
+Farmer:
+MAXIMIZE
+600*x + 800*y + 0
+SUBJECT TO
+_C1: x + y <= 100
+
+_C2: 8 x <= 480
+
+_C3: 10 y <= 800
+
+_C4: 3 x + 2 y <= 240
+
+VARIABLES
+x Continuous
+y Continuous
+```
+
+### Solving the problem
+
+After the problem is modelled we can run it to make PuLP find a solution for us
+by calling the `solve()` method in the problem object.
+
+```python
+problem.solve()
+```
+
+And check the status of the solution passing the `problem.status` variable to
+the PuLP array that contains all the status codes:
+
+```python
+pulp.LpStatus[problem.status]
+```
+
+As you can check in this problem, the output was `Optimal`, which means that it
+found the optimal solution. Depending on the problem status, several outputs can
+be shown:
+
+- **Not Solved**: The problem status when it is created, before calling
+  `problem.solve()` method.
+- **Optimal**: The optimal solution has been found.
+- **Infeasible**: There are no feasible solutions, maybe a contradiction in the
+  problem definition, or a range of variables that can't exist like define two
+  restrictions, one being $x \leq 10$ and the other $x \geq 20$
+- **Unbounded**: There are no upper or lower bound to the variables, so the
+  solution tend to the positive or negative infinite.
+- **Undefined**: Maybe there is an optimal solution but it may not have been
+  found.
+  
+### Getting the solution
+
+To get the values for the solution of the problem, you can access both variables
+directly or you can access them using the problem variable. With the problem
+variable will look like this:
+
+```python
+[(v.name, v.value()) for v in problem.variables()]
+```
+
+And it will show an array of tuples with the variables names and values
+
+```python
+[('x', 20.0), ('y', 80.0)]
+```
+
+As you can check, we modelled the *corn* as being the $x$ variable, and the
+optimal solution given by PuLP matches the optimal solution that we found by
+hand. The same occurs to the *beans* that we modelled as $y$ variable.
+
+You can also access directly the variables `x` and `y`.
+
+```python
+>>> y.value()
+80.0
+>>> x.value()
+20.0
+```
+
+The very last thing is to know our profit, it can be accessed using the
+`pulp.value(objective)` method, the objective variable that it expects is the
+`problem.objective` value. An example:
+
+```python
+>>> pulp.value(problem.objective)
+76000.0
+```
+
+As you can check, the very same solution that we found by hand.
+
+# Forewords
+
+This is just an introduction to solving these kind of problems using the graphic
+method. If you are interested into getting more info, there are several books
+out there about it.
 
 ## References
 
