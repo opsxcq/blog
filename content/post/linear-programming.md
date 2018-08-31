@@ -169,8 +169,8 @@ this case will be the labor available.
 Here is what the graph should look like after it is plotted.
 
 - Colored in **orange** the 100 acres available, it means $x+y \leq 100$
-- Colored in **stronger red** The labour limitation defined by $ 3x + 2y \leq 240$
-- Colored in **red** the market demand for *corn* $8x \leq 480$
+- Colored in **red** The labour limitation defined by $ 3x + 2y \leq 240$
+- Colored in **purple** the market demand for *corn* $8x \leq 480$
 - Colored in **blue** the market demand for *beans* $10y \leq 800$
 
 <iframe src="https://www.desmos.com/calculator/qb0rwtlecb?embed" width="500px" height="500px" style="border: 1px solid #ccc" frameborder=0></iframe>
