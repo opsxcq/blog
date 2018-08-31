@@ -523,6 +523,9 @@ PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.m
 
 ## Books
 
+If you want to read a book about it, I recommend this one by Dantzig, who is one
+of the most important contributor of the field.
+
 <style>
 img[alt="cover"]{
   max-width: 12rem;
