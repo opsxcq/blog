@@ -512,6 +512,9 @@ This is just an introduction to solving these kind of problems using the graphic
 method. If you are interested into getting more info, there are several books
 out there about it.
 
+[If you think that you can help make this post better, send me a
+PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.md)
+
 ## References
 
  - [Feasible Region](https://en.wikipedia.org/wiki/Feasible_region)
