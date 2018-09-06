@@ -16,7 +16,10 @@ ephemeral as your containers, if something goes wrong, you can inspect the
 precise state that the container was left. Even with Tasker supporting reusing
 the container(`reuse: true`) this is not recommended.
 
-## Maintain images with your dependencies is time consuming
+Let your tasks be ephemeral as possible, you can always count on a clean
+environment for every execution.
+
+## Maintain custom images is time consuming
 
 This is the main point of using Tasker, imagine that you have 3 tasks to run,
 one in Python, one in Javascript (nodejs) and the other is a backup tasks that
@@ -29,18 +32,21 @@ it, so another step is giving access to it.
 With Tasker, you simply use the images that are already available, no more extra
 work required.
 
-## No alert when tasks fail
+## No alerts when tasks fail
 
-Cron doesn't provide anything out of the box to alert about your tasks. Tasker
-in the other hand come with batteries included and ships alerting out of the
-box, [here the official docs](https://github.com/opsxcq/tasker#notifications).
+Cron doesn't provide anything out of the box to alert about your tasks execution
+status. Tasker in the other hand come with batteries included and ships alerting
+out of the box, [here the official
+docs](https://github.com/opsxcq/tasker#notifications).
 
 ## Is hard to keep everything *as code*
 
 Considering the first scenario, with 3 tasks each one with a image for each. If
 you keep the good practices, you will create a git repository for each one, with
 their own build. It means that you have 3 additional repositories to keep track
-of. With Tasker you can simply have one configuration file and replace all those
+of. 
+
+With Tasker you can simply have one configuration file and replace all those
 repositories with one repository.
 
 # Introduction to Tasker
@@ -82,7 +88,7 @@ in two main sections, `schedule` and `tasks**.
 `schedule`. These schedules are defined by two main properties, when they will
 trigger the task, and what tasks they will trigger.
 
-Another good point of tasker is that you don't have to memorize some abstract
+Another good point of Tasker is that you don't have to memorize some abstract
 *cron* syntax, it uses a more human language, like in this example `every:
 minute`, it means every 1 minute this task will run. Test it, change to `every:
 10 minutes` and observe the results. You can also set it as a default *cron*
@@ -141,7 +147,7 @@ replicate it using *cron* you would had to create 3 images, one for each base
 image + the cron daemon, and, or map your scripts to it, or copy it on the
 build. After a while the maintenance required to keep everything updated will
 consume a significant amount of time. This is one of the main scenarios where
-tasker simplifies a lot the work required.
+Tasker simplifies a lot the work required.
 
 Basically everything that you need to configure in a container, from
 **networking**, **volumes**, and everything else can be done using this
