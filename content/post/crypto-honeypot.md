@@ -1,6 +1,6 @@
 ---
 title: "Cryptographic honeypots"
-date: 2018-08-02T00:00:00Z
+date: 2016-02-04T00:00:00Z
 draft: true
 tags: ["cryptography", "bitcoin", "blockchain"]
 ---

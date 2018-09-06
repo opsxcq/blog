@@ -26,7 +26,8 @@ allocation of scarce resources. Some examples:
 - Balance your meals to fit your macro nutrient goals;
 - Sudoku.
 
-## Example problem
+
+## <a name=""></a>Example problem
 
 To make things more concrete, I will present an example and solve it. Let's
 suppose that a certain farmer wants to know which cereal to cultivate in his
