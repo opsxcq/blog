@@ -558,10 +558,8 @@ The demands of plates.
 
 - Min on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \geq 32$
 - Max on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \leq 42$
-
 - Min on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \geq 17$
 - Max on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \leq 27$
-
 - Min on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \geq 21$
 - Max on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \leq 31$
 
