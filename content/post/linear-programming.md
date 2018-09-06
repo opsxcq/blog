@@ -78,10 +78,11 @@ $$ Z(x,y) = (150 \times 8 \times x) + (120 \times 10 \times y) - (200 \times 3
 
 Let's break it down in some chunks and analyse it:
 
-- The amount of money for each acre of *corn* (named $x$) grown: $(150 \times 8 \times x)$
-- The amount of money for each acre of *beans* (named $y$) grown:  $(120 \times 10 \times y)$
+- The amount of money obtained for each acre of *corn* (named $x$) grown: $(150 \times 8 \times x)$
+- The amount of money obtained for each acre of *beans* (named $y$) grown:  $(120 \times 10 \times y)$
 
-Then we subtract the costs of cultivating those crops:
+Then we subtract the costs of cultivating those crops, considering that each
+work hour costs $200$ dollars:
 
 - The cost of cultivating one acre of *corn* $(200 \times 3 \times x)$
 - The cost of cultivating one acre of *beans*  $(200 \times 2 \times y)$
@@ -115,6 +116,27 @@ In the example problem we have some restrictions, it will be listed bellow:
 - The market demand for *beans* $10y \leq 800$
 - The labour limitation defined by $ 3x + 2y \leq 240$
 - And finally, the non negativity rule, that give us $x \geq 0$ and $y \geq 0$
+
+### 100 acres available
+
+Since we are calculating with our variables $x$ and $y$ being the acres
+cultivated, they directly represent it, so no transformation is needed.
+
+### The market demand for *corn*
+
+We are using acres as our base value, the demand of *corn* is represented as the
+amount of $x$ times how many sacks of *corn* each acre produces: $8x \leq 480$
+
+### The market demand for *beans*
+
+We are using acres as our base value, the demand of *beans* is represented as the
+amount of $y$ times how many sacks of *beans* each acre produces: $10y \leq 800$
+
+### The labour limitation
+
+The same logic applies here, since we are using acres as our base value, we
+multiply the labor needed for each acre of each cereal, it means that *corn*
+needs $3$ hours of labor, and *beans* need $2$ hours.
 
 ## Solving by hand
 
