@@ -5,8 +5,8 @@ draft = true
 +++
 
 While is perfectly possible to use *cron* inside a container, I strongly advise
-you to don't do it. Some of the most important points on why this is a **bad
-practice**:
+you to don't do it. Some of the most important points on why is a **bad
+practice to run cron inside a container**:
 
 ## Your tasks need to be ephemeral as your containers
 
