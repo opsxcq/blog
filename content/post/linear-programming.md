@@ -338,7 +338,7 @@ $$ Z(x,y) = (600 \times x) + (800 \times y)$$
 
 ## Conclusion
 
-Based on the table in the last section we can determine that the optimal area
+Based on the table in the last section we can determine that the **optimal** area
 for the maximization of the profit is **20 acres of corn** and **80 acres of beans**,
 which will give a **profit of 76000$**.
 
@@ -531,6 +531,42 @@ The very last thing is to know our profit, it can be accessed using the
 
 As you can check, the very same solution that we found by hand.
 
+# Another example
+
+Problem of **minimization**
+
+Metal plate cutting for war tanks building.
+
+Uncut metal plates have 50cm.
+
+They can be cut in 3 ways, 15cm, 17.5cm and 20cm. 
+
+The max spare cut plate is 10 units of each size. 
+
+## Variables
+
+- Amount of metal plates that will be cut according with each specification:
+  $x_i$ with $i$ being a number from 1 to 6.
+
+## Objective function
+
+$Z = 5 \times x_1 + 2.5 \times x_2 + 0 \times x_3 + 0 \times x_4 + 12.5 \times x_5 + 10 \times x_6$
+
+## Restrictions
+
+The demands of plates.
+
+- Min on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \geq 32$
+- Max on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \leq 42$
+
+- Min on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \geq 17$
+- Max on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \leq 27$
+
+- Min on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \geq 21$
+- Max on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \leq 31$
+
+And finally the **non negativity** rule: $x_i \geq 0$
+
 # Forewords
 
 This is just an introduction to solving these kind of problems using the graphic
@@ -545,6 +581,7 @@ PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.m
  - [Feasible Region](https://en.wikipedia.org/wiki/Feasible_region)
  - [PuLP Homepage](https://pythonhosted.org/PuLP/)
  - [PuLP Repository](https://github.com/coin-or/pulp)
+ - [Simplex Algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm)
 
 ## Books
 
