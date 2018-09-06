@@ -78,8 +78,10 @@ $$ Z(x,y) = (150 \times 8 \times x) + (120 \times 10 \times y) - (200 \times 3
 
 Let's break it down in some chunks and analyse it:
 
-- The amount of money obtained for each acre of *corn* (named $x$) grown: $(150 \times 8 \times x)$
-- The amount of money obtained for each acre of *beans* (named $y$) grown:  $(120 \times 10 \times y)$
+- The amount of money obtained for each acre of *corn* (named $x$) grown: $(150
+  \times 8 \times x)$
+- The amount of money obtained for each acre of *beans* (named $y$) grown: $(120
+  \times 10 \times y)$
 
 Then we subtract the costs of cultivating those crops, considering that each
 work hour costs $200$ dollars:
