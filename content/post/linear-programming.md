@@ -52,8 +52,9 @@ objective function.
 Variables are everything that you can work on the problem, they are the moving
 parts and the input of the *objective function*.
 
-In the case of the proposed problem we have two variables, the amount of *corn*
-and *beans*. For brevity, let's call *corn* $x$ and *beans* $y$.
+In the case of the proposed problem we have two variables, acres of *corn* and
+*beans* that will be cultivated. For brevity, let's call *corn* $x$ and *beans*
+$y$.
 
 
 ### Objective function
