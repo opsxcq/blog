@@ -5,50 +5,20 @@ draft = true
 tags = ["cryptography", "bitcoin", "blockchain"]
 +++
 
-Analyse Bitcoin blockchain. Found **123 vulnerable transactions** and **416
-private keys** were recovered summing up **26.85729198 btcs** (2685729198
-satoshis) which at this exact moment worth **166,219.51 dollars**.
+This post aims to analyse an attack against the Bitcoin, in this attack were
+Found **123 vulnerable transactions** and **416 private keys** were recovered
+summing up **26.85729198 btcs** (2685729198 satoshis) could have been
+compromised, which at this exact moment worth **166,219.51 dollars**.
 
 ![wallet](/img/bitcoin-nonce-reuse-wallet.png)
 
-
-# Example transaction
-
-Let's analyse the transaction
-89380c9fb072cbb5af43428788edfd000f2c9c0e1f8649e436d255270e331b02, which sent
-*0.00075095* BTC from `1FaapwdwYVVBiV6Qvkis88c2KHPoxX1Jb1`,
-`14Er6oawkdH62W7GcpLRr5ds6HoFiPrLRY` and `1LTA33Wv6Ptg2Co9trERLeMEp2AbEL4Bo4` to
-`17nQuSuoDDGaXcvaExNpre5v7bKEtywG3N` .
-
-Let's choose to attack the address `1FaapwdwYVVBiV6Qvkis88c2KHPoxX1Jb1`.
-
-Bellow the variables:
-
-```python
-R=6819641642398093696120236467967538361543858578256722584730163952555838220871
-S1=5111069398017465712735164463809304352000044522184731945150717785434666956473
-M1=4834837306435966184874350434501389872155834069808640791394730023708942795899
-S2=31133511789966193434473156682648022965280901634950536313584626906865295404159
-M2=108808786585075507407446857551522706228868950080801424952567576192808212665067
-```
-
-Running the algorithm against those values it split gives the value of the
-private key
-$35027840177330064405683178523079910253772859809146826320797401203281604260438$.
-
-This key converted in **WIF** format is
-`KypFJ5YhPwyDV7SKiQCwmHJkjZdHVz6hmb5UcVn7eaHR5pBByLvx`. Just import it in your
-wallet and check it.
-
- 
-
-# Cryptographic concept 
+# Cryptographic concept of the attack
 
 When the nonce is reused it become vulnerable and result in a trivial equation
 to be solved.
 
 $$
-Key = ((r \times (s_1 - s_2))^{p - 2} \mod{p}) \times ((m_1 \times s_2) - (m_2 \times s_1)) \mod{p}
+Key=((r \times (s_1 - s_2))^{p - 2} \mod{p}) \times ((m_1 \times s_2) - (m_2 \times s_1)) \mod{p}
 $$
 
 Where:
@@ -74,9 +44,38 @@ r.multiply(
                   ).mod(p);
 ```
 
+# Attacking an transaction
+
+To illustrate the attack let's use the transaction
+**89380c9fb072cbb5af43428788edfd000f2c9c0e1f8649e436d255270e331b02** as example,
+which sent *0.00075095** BTC from `1FaapwdwYVVBiV6Qvkis88c2KHPoxX1Jb1`,
+`14Er6oawkdH62W7GcpLRr5ds6HoFiPrLRY` and `1LTA33Wv6Ptg2Co9trERLeMEp2AbEL4Bo4` to
+`17nQuSuoDDGaXcvaExNpre5v7bKEtywG3N` .
+
+Let's choose to attack the address `1FaapwdwYVVBiV6Qvkis88c2KHPoxX1Jb1`.
+
+Bellow the variables:
+
+```python
+R=6819641642398093696120236467967538361543858578256722584730163952555838220871
+S1=5111069398017465712735164463809304352000044522184731945150717785434666956473
+M1=4834837306435966184874350434501389872155834069808640791394730023708942795899
+S2=31133511789966193434473156682648022965280901634950536313584626906865295404159
+M2=108808786585075507407446857551522706228868950080801424952567576192808212665067
+```
+
+Running the algorithm against those values it split gives the value of the
+private key
+$35027840177330064405683178523079910253772859809146826320797401203281604260438$.
+
+This key converted in **WIF** format is
+`KypFJ5YhPwyDV7SKiQCwmHJkjZdHVz6hmb5UcVn7eaHR5pBByLvx`. Just import it in your
+wallet and check it.
+
 # Vulnerability
 
-A similar vulnerability found on
+This vulnerability relies on a poor choice for a random number while signing the
+message on the ECDSA system. A similar vulnerability found on
 [PS3](https://events.ccc.de/congress/2010/Fahrplan/attachments/1780_27c3_console_hacking_2010.pdf)
 in 2010.
 
@@ -129,6 +128,11 @@ for block in blocks:
   for transaction in block:
     attack(transaction)
 ```
+
+This is enough to go through all bitcoin transactions in the blockchain and
+attack those that have weak signature. I gathered several transactions and
+listed them bellow so you don't need to go through all the trouble of
+calculating it, which in a modest computer take about 4 hours.
 
 # Private keys
 
@@ -1200,7 +1204,7 @@ L5ZSTwHKNX3wSRb3CaD75WcWvhRn5RetgmxjV55NpbKtsz2uiiVh
 
 # Transactions
 
-Bellow a list of all transactions that were vulnerable to this attack:
+Bellow a list of all transactions that are vulnerable to this attack:
 #### [79ad0220c8ab7dc3ae5a21ba64b0a49cc26646134baaeec8d262198e84c9e483](https://www.blockchain.com/btc/tx/79ad0220c8ab7dc3ae5a21ba64b0a49cc26646134baaeec8d262198e84c9e483)
 - Block broadcast date: Mon Nov 10 11:48:17 UTC 2014
 - Block: [0000000000000000079dda7dbd5e7bd8c6ee2583b3d74331c5990164b29a0573](https://blockexplorer.com/block/0000000000000000079dda7dbd5e7bd8c6ee2583b3d74331c5990164b29a0573)
