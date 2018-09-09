@@ -1,7 +1,7 @@
 +++
 title = "Bitcoin nonce reuse vulnerability"
 date = 2018-08-09T00:00:00Z
-tags = ["cryptography", "bitcoin", "blockchain"]
+tags = ["cryptography", "bitcoin", "blockchain", "math"]
 +++
 
 This post aims to analyse an attack against the Bitcoin, in this attack were
