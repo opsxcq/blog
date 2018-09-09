@@ -1,7 +1,6 @@
 +++
 title = "Bitcoin nonce reuse vulnerability"
 date = 2018-08-09T00:00:00Z
-draft = true
 tags = ["cryptography", "bitcoin", "blockchain"]
 +++
 
