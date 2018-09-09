@@ -1,6 +1,7 @@
 +++
 date = "2018-09-06T19:22:38Z"
 title = "Running Cron tasks on docker - The correct way"
+tags = ["docker", "devops"]
 +++
 
 While is perfectly possible to use *cron* inside a container, I strongly advise
