@@ -7168,3 +7168,4 @@ M2: 1797212958007033966352334190431706297421348076165832490776900255896236043975
 
 - [Some SecureRandom Thoughts](https://android-developers.googleblog.com/2013/08/some-securerandom-thoughts.html)
 - [Bitcoin.org official notice](https://bitcoin.org/en/alert/2013-08-11-android)
+- [Identifying Key Leakage of Bitcoin Users](https://christian-rossow.de/publications/btcsteal-raid2018.pdf)
