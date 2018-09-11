@@ -1,5 +1,5 @@
 +++
-title = "Bitcoin nonce reuse vulnerability"
+title = "Bitcoin transaction nonce reuse vulnerability"
 date = 2018-08-09T00:00:00Z
 tags = ["cryptography", "bitcoin", "blockchain", "math"]
 +++
