@@ -47,7 +47,7 @@ r.multiply(
 
 To illustrate the attack let's use the transaction
 **89380c9fb072cbb5af43428788edfd000f2c9c0e1f8649e436d255270e331b02** as example,
-which sent *0.00075095** BTC from `1FaapwdwYVVBiV6Qvkis88c2KHPoxX1Jb1`,
+which sent **0.00075095*** BTC from `1FaapwdwYVVBiV6Qvkis88c2KHPoxX1Jb1`,
 `14Er6oawkdH62W7GcpLRr5ds6HoFiPrLRY` and `1LTA33Wv6Ptg2Co9trERLeMEp2AbEL4Bo4` to
 `17nQuSuoDDGaXcvaExNpre5v7bKEtywG3N` .
 
