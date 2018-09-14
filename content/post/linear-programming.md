@@ -544,6 +544,44 @@ They can be cut in 3 ways, 15cm, 17.5cm and 20cm.
 
 The max spare cut plate is 10 units of each size. 
 
+## Determine the possibilities
+
+```python
+
+def combination(available):
+    solutions = []
+    cuts = [15, 17.5, 20]
+    for cut in cuts:
+        if available >= cut:
+            next = combination(available - cut)
+            if len(next) == 0:
+                solutions.append([cut])
+            else:
+                for possibilities in next:
+                    possibilities.append(cut)
+                    solutions.append(possibilities)
+    return solutions
+
+```
+
+```python
+def combination(available, cuts):
+    solutions = []
+    for cut in cuts:
+        if available >= cut:
+            next = combination(available - cut, cuts)
+            if len(next) == 0:
+                solutions.append([cut])
+            else:
+                for possibilities in next:
+                    possibilities.append(cut)
+                    solutions.append(possibilities)
+    return solutions
+
+combination(50, [15, 17.5, 20])
+
+```
+
 ## Variables
 
 - Amount of metal plates that will be cut according with each specification:
