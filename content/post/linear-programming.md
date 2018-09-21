@@ -530,7 +530,26 @@ The very last thing is to know our profit, it can be accessed using the
 76000.0
 ```
 
-As you can check, the very same solution that we found by hand.
+As you can check, the very same solution that we found by hand. Here is the
+complete source code:
+
+```python
+import pulp
+problem = pulp.LpProblem("Farmer", pulp.LpMaximize)
+x = pulp.LpVariable('x', lowBound=0, cat='Continuous')
+y = pulp.LpVariable('y', lowBound=0, cat='Continuous')
+problem += 600 * x + 800 * y, "Z"
+problem += x + y <= 100
+problem += 8 * x <= 480
+problem += 10 * y <= 800
+problem += 3 * x + 2 * y <= 240
+problem.solve()
+
+print("Problem status: " + pulp.LpStatus[problem.status])
+print("Optimal corn amount to grow: "+str(x.value()))
+print("Optimal beans amount to grow: "+str(y.value()))
+print("By growing them the profit will be: "+str(pulp.value(problem.objective)))
+```
 
 # Another example
 
