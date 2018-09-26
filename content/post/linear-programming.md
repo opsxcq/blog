@@ -32,6 +32,7 @@ This post will be divided into
 
  - [Solving the example 1 by hand using the graphic method](#example1-graphic)
  - [Solving the example 1 with python](#example1-python)
+ - [Solving the example 1 by hand with tableau simplex method](#example1-tableau)
 
 [Example 2](#example2):
 
@@ -408,7 +409,7 @@ $$
 $$
 
 
-# <a name="example1-python"></a> Solving with python
+# <a name="example1-python"></a> Solving example 1 with python
 
 For solving this problem with python we are going to use **PuLP**. To setup PuLP
 on Debian is easy, just `pip3 install pulp` and that is it.
@@ -566,6 +567,18 @@ print("Optimal beans amount to grow: "+str(y.value()))
 print("By growing them the profit will be: "+str(pulp.value(problem.objective)))
 ```
 
+# <a name="example1-tableau"></a>Solving the example 1 by hand with tableau simplex method
+
+To make it possible to solve a linear programming problem using the tableau
+simplex method, the first thing to be done is to rearrange the problem into the
+**normal form**.
+
+
+- make it into equations
+- add variables `f1` and so on
+- standard form
+
+
 # <a name="example2"></a> Example 2
 
 Since linear programming advances were due to the war, this example focus on the
@@ -666,16 +679,6 @@ $Z = 5 \times x_1 + 2.5 \times x_2 + 0 \times x_3 + 0 \times x_4 + 12.5 \times x
 
 For keep the explanation clear and straight to the point, all above formulas
 weren't optimized in any way.
-
-# <a name="example2-tableau"></a> Solving the example 2 with the tableau simplex method
-
-
-
-
-# <a name="example2-python"></a> Solving the example 2 with Python
-
-First of all we start importing **PuLP** and creating a **minimization**
-problem.
 
 ```python
 import pulp
@@ -800,6 +803,8 @@ PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.m
  - [PuLP Homepage](https://pythonhosted.org/PuLP/)
  - [PuLP Repository](https://github.com/coin-or/pulp)
  - [Simplex Algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm)
+ - [Tableau Simplex](http://math.uww.edu/~mcfarlat/s-prob.htm)
+
 
 ## Books
 
