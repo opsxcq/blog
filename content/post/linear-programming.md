@@ -35,7 +35,7 @@ This post will be divided into
 
 [Example 2](#example2):
 
- - [Solving the example 2 by hand using the graphic method](#example2-graphic)
+ - [Solving the example 2 by hand using the tableau simplex method](#example2-tableau)
  - [Solving the example 2 with python](#example2-python)
  
 While the first example is focused on explaining the concepts, the second
@@ -664,7 +664,73 @@ $Z$ function is based on the loss of each cut.
 $Z = 5 \times x_1 + 2.5 \times x_2 + 0 \times x_3 + 0 \times x_4 + 12.5 \times x_5 + 10 \times x_6$
 
 
-# <a name="example2-python"/> Python
+For keep the explanation clear and straight to the point, all above formulas
+weren't optimized in any way.
+
+# <a name="example2-tableau"></a> Solving the example 2 with the tableau simplex method
+
+
+
+
+# <a name="example2-python"></a> Solving the example 2 with Python
+
+First of all we start importing **PuLP** and creating a **minimization**
+problem.
+
+```python
+import pulp
+problem = pulp.LpProblem("Tank", pulp.LpMinimize)
+```
+
+Then we create the $x$ variables as integers (`cat=Integer`).
+
+```python
+x_1 = pulp.LpVariable('x_1', lowBound=0, cat='Integer')
+x_2 = pulp.LpVariable('x_2', lowBound=0, cat='Integer')
+x_3 = pulp.LpVariable('x_3', lowBound=0, cat='Integer')
+x_4 = pulp.LpVariable('x_4', lowBound=0, cat='Integer')
+x_5 = pulp.LpVariable('x_5', lowBound=0, cat='Integer')
+x_6 = pulp.LpVariable('x_6', lowBound=0, cat='Integer')
+```
+
+Next step is just transcribe the $Z$ function and the restrictions as python
+code:
+
+```python
+problem += (5 * x_1) + (2.5 * x_2) + (0 * x_3) + (0 * x_4) + (12.5 * x_5) + (10 * x_6), "Z"
+problem += (3 * x_1) + (2 * x_2) + x_3 >= 32
+problem += (3 * x_1) + (2 * x_2) + x_3 <= 42
+problem += x_2 + (2 * x_3) + x_5 >= 17
+problem += x_2 + (2 * x_3) + x_5 <= 27
+problem += x_4 + x_5 + (2 * x_6) >= 21
+problem += x_4 + x_5 + (2 * x_6) <= 21
+```
+
+Then just solve it calling `problem.solve()` function and print the results.
+
+```python
+problem.solve()
+
+print("problem status: " + pulp.LpStatus[problem.status])
+print("Optimal amount to cut into x_1 = [15,15,15]: "+str(x_1.value()))
+print("Optimal amount to cut into x_2 = [15,15,17.5]: "+str(x_2.value()))
+print("Optimal amount to cut into x_3 = [15,17.5,17.5]: "+str(x_3.value()))
+print("Optimal amount to cut into x_4 = [15,15,20]: "+str(x_4.value()))
+print("Optimal amount to cut into x_5 = [17.5,20]: "+str(x_5.value()))
+print("Optimal amount to cut into x_6 = [20,20]: "+str(x_6.value()))
+print("The total metal loss is: "+str(pulp.value(problem.objective)))
+
+plate15 = (3 * x_1.value()) + (2 * x_2.value()) + x_3.value()
+plate17 = x_2.value() + (2 * x_3.value()) + x_5.value()
+plate20 = x_4.value() + x_5.value() + (2 * x_6.value())
+
+print("Total of 15cm plates "+str(plate15))
+print("Total of 17.5cm plates "+str(plate17))
+print("Total of 20cm plates "+str(plate20))
+
+```
+
+Bellow the whole code:
 
 ```python
 import pulp
@@ -703,11 +769,27 @@ print("Total of 20cm plates "+str(plate20))
 
 ```
 
+It will output the result of the problem:
+
+```shell
+problem status: Optimal
+Optimal amount to cut into x_1 = [15,15,15]: 6.0
+Optimal amount to cut into x_2 = [15,15,17.5]: 1.0
+Optimal amount to cut into x_3 = [15,17.5,17.5]: 13.0
+Optimal amount to cut into x_4 = [15,15,20]: 21.0
+Optimal amount to cut into x_5 = [17.5,20]: 0.0
+Optimal amount to cut into x_6 = [20,20]: 0.0
+The total metal loss is: 32.5
+Total of 15cm plates 33.0
+Total of 17.5cm plates 27.0
+Total of 20cm plates 21.0
+```
+
+
 # Forewords
 
-This is just an introduction to solving these kind of problems using the graphic
-method. If you are interested into getting more info, there are several books
-out there about it.
+This is just an introduction to solving these kind of problems. If you are
+interested into getting more info, there are several books out there about it.
 
 [If you think that you can help make this post better, send me a
 PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.md)
