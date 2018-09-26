@@ -26,8 +26,23 @@ allocation of scarce resources. Some examples:
 - Balance your meals to fit your macro nutrient goals;
 - Sudoku.
 
+This post will be divided into
 
-## <a name=""></a>Example problem
+[Example 1](#example1):
+
+ - [Solving the example 1 by hand using the graphic method](#example1-graphic)
+ - [Solving the example 1 with python](#example1-python)
+
+[Example 2](#example2):
+
+ - [Solving the example 2 by hand using the graphic method](#example2-graphic)
+ - [Solving the example 2 with python](#example2-python)
+ 
+While the first example is focused on explaining the concepts, the second
+example will be solved using a more straight forward solution without giving
+redundant explanations.
+
+# <a name="example1"></a> Example problem 1
 
 To make things more concrete, I will present an example and solve it. Let's
 suppose that a certain farmer wants to know which cereal to cultivate in his
@@ -141,7 +156,7 @@ The same logic applies here, since we are using acres as our base value, we
 multiply the labor needed for each acre of each cereal, it means that *corn*
 needs $3$ hours of labor, and *beans* need $2$ hours.
 
-## Solving by hand
+# <a name="example1-graphic"></a> Solving by hand with graphical method
 
 We will apply the graphical solution here where the limitations are plotted so
 is possible to determine the solution visually. Bellow is the result of the
@@ -393,7 +408,7 @@ $$
 $$
 
 
-## Solving with python
+# <a name="example1-python"></a> Solving with python
 
 For solving this problem with python we are going to use **PuLP**. To setup PuLP
 on Debian is easy, just `pip3 install pulp` and that is it.
@@ -551,37 +566,31 @@ print("Optimal beans amount to grow: "+str(y.value()))
 print("By growing them the profit will be: "+str(pulp.value(problem.objective)))
 ```
 
-# Another example
+# <a name="example2"></a> Example 2
 
-Problem of **minimization**
+Since linear programming advances were due to the war, this example focus on the
+following problem. Imagine that there is a tank production factory, where to
+produce the tanks they need to cut some metal plates. Those plates come in 50cm
+sheets, and can be cut in three ways, a 15cm cut, a 17.5cm cut and a 20cm cut.
+The max allowed for any plates to be stored is 10 units per cut, it means that
+if you can't produce 10 units of any meansure above the required amount.
 
-Metal plate cutting for war tanks building.
+To finish the current tank is needed 32 plates of 15cm, 17 plates of 17.5cm and
+21 plates of 20cm. How to cut the metal plates to minimize the loss and how many
+metal plates will be needed ?
 
-Uncut metal plates have 50cm.
 
-They can be cut in 3 ways, 15cm, 17.5cm and 20cm. 
+## Modeling the problem
 
-The max spare cut plate is 10 units of each size. 
+The current problem is a **minimization** problem. An cncut metal plate have
+50cm and can be cut in 3 ways, 15cm, 17.5cm and 20cm. So the first step is to
+determine the combination of possibilities and their respective losses.
 
-## Determine the possibilities
+### Determine the possibilities
 
-```python
+To determine the possibilities a simple combinatorial algorithm can answer how
+many different combinations and their respective losses.
 
-def combination(available):
-    solutions = []
-    cuts = [15, 17.5, 20]
-    for cut in cuts:
-        if available >= cut:
-            next = combination(available - cut)
-            if len(next) == 0:
-                solutions.append([cut])
-            else:
-                for possibilities in next:
-                    possibilities.append(cut)
-                    solutions.append(possibilities)
-    return solutions
-
-```
 
 ```python
 def combination(available, cuts):
@@ -597,9 +606,44 @@ def combination(available, cuts):
                     solutions.append(possibilities)
     return solutions
 
-combination(50, [15, 17.5, 20])
+combinations=list(set(map(tuple, map(sorted, combination(50, [15, 17.5, 20])))))
+for combination in combinations:
+    print(str(combination) + " with loss of " + str(50-sum(combination)))
 
 ```
+
+It will output the combination of cuts that can be done for each 50cm metal
+plate aswell how much metal will be lost with each combination.
+
+```python
+(15, 15, 17.5) with loss of 2.5
+(20, 20) with loss of 10
+(15, 15, 15) with loss of 5
+(15, 15, 20) with loss of 0
+(17.5, 20) with loss of 12.5
+(15, 17.5, 17.5) with loss of 0.0
+```
+
+That can be translated into the list bellow:
+
+- A) $15, 15, 17.5$ and $Loss = 2.5$
+- B) $20, 20$ and $Loss = 10$
+- C) $15, 15, 15$ and $Loss = 5$
+- D) $15, 15, 20$ and $Loss = 0$
+- E) $17.5, 20$ and $ loss of 12.5$
+- F) $15, 17.5, 17.5$ and $Loss = 0.0$
+
+
+### Restrictions
+
+The max spare cut plate is 10 units of each size. 
+
+32 plates of 15cm
+
+17 plates of 17.5cm
+
+21 plates of 20cm
+
 
 ## Variables
 
