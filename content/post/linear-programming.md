@@ -586,7 +586,12 @@ The current problem is a **minimization** problem. An cncut metal plate have
 50cm and can be cut in 3 ways, 15cm, 17.5cm and 20cm. So the first step is to
 determine the combination of possibilities and their respective losses.
 
-### Determine the possibilities
+### Variables
+
+This problem have onlhy one variable, the amount of metal sheets cut under each
+size. But how to determine the possibilities ?
+
+#### Determine the possible arranges for the variables
 
 To determine the possibilities a simple combinatorial algorithm can answer how
 many different combinations and their respective losses.
@@ -626,46 +631,77 @@ plate aswell how much metal will be lost with each combination.
 
 That can be translated into the list bellow:
 
-- A) $15, 15, 17.5$ and $Loss = 2.5$
-- B) $20, 20$ and $Loss = 10$
-- C) $15, 15, 15$ and $Loss = 5$
-- D) $15, 15, 20$ and $Loss = 0$
-- E) $17.5, 20$ and $ loss of 12.5$
-- F) $15, 17.5, 17.5$ and $Loss = 0.0$
-
+  - $x_1 = 15, 15, 15, Loss = 5$
+  - $x_2 = 15, 15, 17.5, Loss = 2.5$
+  - $x_3 = 15, 17.5, 17.5, Loss = 0.0$
+  - $x_4 = 15, 15, 20, Loss = 0$
+  - $x_5 = 17.5, 20, Loss = 12.5$
+  - $x_6 = 20, 20, Loss = 10$
 
 ### Restrictions
 
-The max spare cut plate is 10 units of each size. 
+  - The max spare cut plate is 10 units of each size. 
+  - minimum of 32 plates of 15cm
+  - minimum of 17 plates of 17.5cm
+  - minimum of 21 plates of 20cm
 
-32 plates of 15cm
+That using the variables above can be translated into:
 
-17 plates of 17.5cm
+  - Min on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \geq 32$
+  - Max on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \leq 42$
+  - Min on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \geq 17$
+  - Max on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \leq 27$
+  - Min on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \geq 21$
+  - Max on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \leq 31$
 
-21 plates of 20cm
-
-
-## Variables
-
-- Amount of metal plates that will be cut according with each specification:
-  $x_i$ with $i$ being a number from 1 to 6.
+And finally the **non negativity** rule: $x_i \geq 0$
 
 ## Objective function
 
+Since the problem is based on the **minimization** of loss, the output value of
+$Z$ function is based on the loss of each cut.
+
 $Z = 5 \times x_1 + 2.5 \times x_2 + 0 \times x_3 + 0 \times x_4 + 12.5 \times x_5 + 10 \times x_6$
 
-## Restrictions
 
-The demands of plates.
+# <a name="example2-python"/> Python
 
-- Min on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \geq 32$
-- Max on 15cm plates: $3 \times x_1 + 2 \times x_2 + 1 \times x_3 \leq 42$
-- Min on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \geq 17$
-- Max on 17.5cm plates: $1 \times x_2 + 2 \times x_3 + 1 \times x_5 \leq 27$
-- Min on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \geq 21$
-- Max on 20cm plates: $1 \times x_4 + 1 \times x_5 + 2 \times x_6 \leq 31$
+```python
+import pulp
+problem = pulp.LpProblem("Tank", pulp.LpMinimize)
+x_1 = pulp.LpVariable('x_1', lowBound=0, cat='Integer')
+x_2 = pulp.LpVariable('x_2', lowBound=0, cat='Integer')
+x_3 = pulp.LpVariable('x_3', lowBound=0, cat='Integer')
+x_4 = pulp.LpVariable('x_4', lowBound=0, cat='Integer')
+x_5 = pulp.LpVariable('x_5', lowBound=0, cat='Integer')
+x_6 = pulp.LpVariable('x_6', lowBound=0, cat='Integer')
+problem += (5 * x_1) + (2.5 * x_2) + (0 * x_3) + (0 * x_4) + (12.5 * x_5) + (10 * x_6), "Z"
+problem += (3 * x_1) + (2 * x_2) + x_3 >= 32
+problem += (3 * x_1) + (2 * x_2) + x_3 <= 42
+problem += x_2 + (2 * x_3) + x_5 >= 17
+problem += x_2 + (2 * x_3) + x_5 <= 27
+problem += x_4 + x_5 + (2 * x_6) >= 21
+problem += x_4 + x_5 + (2 * x_6) <= 21
+problem.solve()
 
-And finally the **non negativity** rule: $x_i \geq 0$
+print("problem status: " + pulp.LpStatus[problem.status])
+print("Optimal amount to cut into x_1 = [15,15,15]: "+str(x_1.value()))
+print("Optimal amount to cut into x_2 = [15,15,17.5]: "+str(x_2.value()))
+print("Optimal amount to cut into x_3 = [15,17.5,17.5]: "+str(x_3.value()))
+print("Optimal amount to cut into x_4 = [15,15,20]: "+str(x_4.value()))
+print("Optimal amount to cut into x_5 = [17.5,20]: "+str(x_5.value()))
+print("Optimal amount to cut into x_6 = [20,20]: "+str(x_6.value()))
+print("The total metal loss is: "+str(pulp.value(problem.objective)))
+
+plate15 = (3 * x_1.value()) + (2 * x_2.value()) + x_3.value()
+plate17 = x_2.value() + (2 * x_3.value()) + x_5.value()
+plate20 = x_4.value() + x_5.value() + (2 * x_6.value())
+
+print("Total of 15cm plates "+str(plate15))
+print("Total of 17.5cm plates "+str(plate17))
+print("Total of 20cm plates "+str(plate20))
+
+```
 
 # Forewords
 
