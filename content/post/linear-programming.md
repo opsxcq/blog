@@ -571,12 +571,106 @@ print("By growing them the profit will be: "+str(pulp.value(problem.objective)))
 
 To make it possible to solve a linear programming problem using the tableau
 simplex method, the first thing to be done is to rearrange the problem into the
-**normal form**.
+**standard form**.
+
+In the standard form **restriction equations** can't be written as inqualities,
+for example $x <= 10$ is an inequality, and shold be written as $x = 10$. To
+make this transformation valid, we have to add another variable to de equation,
+this will be our **slack variable** $fn$, so the equation will be rewritten as
+$x + f1 = 10$.
+
+If it is an $\leq$ restriction, the $fn$ variable is **added** to the equation,
+the opposite is also true, if the restriction is a $\geq$ restriction, the $fn$
+variable is **subtracted** from the equation.
+
+All values presented in the right side of the equal sign must be constant, it
+include the objective function $Z$. So any term in any equation in the right
+side that isn't constant should be transfered to the left side of the equation.
 
 
-- make it into equations
-- add variables `f1` and so on
-- standard form
+## Modeling example 1 in the standard form
+
+The restrictions can be translated into the following equations:
+
+- $x + y + f1 = 100$
+- $3x + 2y + f2 = 240$
+- $y + f4 = 80$
+- $x + f3 = 60$
+- $x,y,f1,f2,f3,f4 \geq 0$
+
+With the objective function being translated into:
+
+$Z - 600x - 800y = 0$
+
+## Table modeling
+
+The tableau simplex method is based on tables, where each table represents a
+possible solution to the problem, it doesn't mean that every table found is an
+optimal solution for the problem, but *is a solution*. This table is called
+**basic feasible solution (BFS)**.
+
+For every table we will have variables with *positive values* called **basic
+variables** and *null* variables denominated **non-basic variables**. **The number
+of basic variables in a problem is equivalent to the number of restrictions**.
+
+For every restriction, there will be a line in the table and after it another
+line for the objective function $Z$. The values of the **non-basic** variables
+will be added accordly with their respective values in the restriction that they
+represent.
+
+For this example, the first table will look like:
+
+
+| Basic Variable |    x |    y | f1 | f2 | f3 | f4 | Right Hand |
+|----------------|------|------|----|----|----|----|------------|
+| $f1$           |    1 |    1 |  1 |  0 |  0 |  0 |        100 |
+| $f2$           |    3 |    2 |  0 |  1 |  0 |  0 |        240 |
+| $f3$           |    1 |    0 |  0 |  0 |  1 |  0 |         60 |
+| $f4$           |    0 |    1 |  0 |  0 |  0 |  1 |         80 |
+| $Z$            | -600 | -800 |  0 |  0 |  0 |  0 |          0 |
+
+## Table solving
+
+The initial table state is the initial problem state, where no action has been
+taken, even solution will result in a new table after the calculations have
+done. To determine if the current table is an optiomal solution there are two
+rules:
+
+- No **right hand** value can be negative.
+- In the case of a **maximization problem**, no value in the objective $Z$ line
+  can be negative.
+
+The very first step to solve the table is to pick a **pivot column**, a column
+which will be the base for the calculation of the next table. So we choose the
+column (variable) that has more impact (has the smallest value) on the $Z$
+function, in this case the $y$ column where the impact is $-800$.
+
+The second step is to choose the **pivot line** which means **which restriction
+will be exausted**. So, for every value in the column, it will be checked
+against every restriction to determine which one will result in more performance
+for the $Z$ function.
+
+Using our example problem:
+
+ - Line 1, $100 / 1 = 100$ 
+ - Line 2, $240 / 2 = 120$
+ - Line 3, will generate a division by zero in the $y$ column, it means that
+   this line and column combination won't affect the current situation.
+ - Line 4, $80 / 1 = 80$
+ 
+Next step is define the **pivotal line**, this line means the best current move
+to explore so we can archive the desired goal for our objective function $Z$.
+The line is chosen based on the smallest value on the list above, in this case,
+the line 4 with the value $80$. Until a restriction is archived, the pivotal
+column value must be incremented.
+
+| Basic Variable |    x |    y | f1 | f2 | f3 | f4 | Right Hand |
+|----------------|------|------|----|----|----|----|------------|
+| $f1$           |    1 |    1 |  1 |  0 |  0 |  0 |        100 |
+| $f2$           |    3 |    2 |  0 |  1 |  0 |  0 |        240 |
+| $f3$           |    1 |    0 |  0 |  0 |  1 |  0 |         60 |
+| $f4$           |    0 |    1 |  0 |  0 |  0 |  1 |         80 |
+| $Z$            | -600 | -800 |  0 |  0 |  0 |  0 |          0 |
 
 
 # <a name="example2"></a> Example 2
@@ -804,6 +898,7 @@ PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.m
  - [PuLP Repository](https://github.com/coin-or/pulp)
  - [Simplex Algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm)
  - [Tableau Simplex](http://math.uww.edu/~mcfarlat/s-prob.htm)
+ - [The Simplex Method:  Step by Step with Tableaus](https://en.proft.me/media/science/sm3_ams_jhu_edu.pdf)
 
 
 ## Books
