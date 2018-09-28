@@ -573,6 +573,9 @@ To make it possible to solve a linear programming problem using the tableau
 simplex method, the first thing to be done is to rearrange the problem into the
 **standard form**.
 
+
+## Modeling example 1 in the standard form
+
 In the standard form **restriction equations** can't be written as inqualities,
 for example $x <= 10$ is an inequality, and shold be written as $x = 10$. To
 make this transformation valid, we have to add another variable to de equation,
@@ -583,12 +586,40 @@ If it is an $\leq$ restriction, the $fn$ variable is **added** to the equation,
 the opposite is also true, if the restriction is a $\geq$ restriction, the $fn$
 variable is **subtracted** from the equation.
 
+For every slack variable that is subtracted, an artificial variable should be
+added $a$ this variable is used to give an initial solution to the problem.
+Also, an artificial objective function $W$ should be added, which initially is
+represented as:
+
+$ W= a_1 + a_2 + a_3 + ... + a_n $
+
+But before writting the $W$ function we have to rewrite it as an expression
+using the problem variables instead of the artificial variables.
+
+For example consider 3 restrictions:
+
+- $3x + 1y - f1 + a1 = 12$
+- $3x + 4y - f2 + a2 = 30$
+- $2x + 7y - f3 + a3 = 28$
+
+We isolate the artificial variable $a$ as:
+
+- $a1 = 12 - 3x - 1y + f1$
+- $a2 = 30 - 3x - 4y + f2$
+- $a3 = 28 - 2x - 7y + f3$
+
+Then the initial $W = a1 + a2 + a3$ that will be rewritten as:
+
+$W = (12 - 3x -1y + f1)+(30 - 3x -4y +f2)+(28 -2x -7y +f3)$
+$W = 70 -8x -12y + f1 + f2 + f3$
+$W + 8x + 12y -f1 -f2 -f3 = 70$
+
+Then the $W$ objective function is used in the first phase of this resolution
+instead of the original objective function $Z$.
+
 All values presented in the right side of the equal sign must be constant, it
 include the objective function $Z$. So any term in any equation in the right
 side that isn't constant should be transfered to the left side of the equation.
-
-
-## Modeling example 1 in the standard form
 
 The restrictions can be translated into the following equations:
 
@@ -633,12 +664,14 @@ For this example, the first table will look like:
 
 The initial table state is the initial problem state, where no action has been
 taken, even solution will result in a new table after the calculations have
-done. To determine if the current table is an optiomal solution there are two
+done. To determine if the current table is an optimal solution there are two
 rules:
 
 - No **right hand** value can be negative.
 - In the case of a **maximization problem**, no value in the objective $Z$ line
-  can be negative.
+  can be negative. In the opposite case, a **minimization problem** the opposite
+  is also true, we have an optimal solution if we only have any $n \leq 0$
+  values.
 
 The very first step to solve the table is to pick a **pivot column**, a column
 which will be the base for the calculation of the next table. So we choose the
@@ -899,6 +932,8 @@ PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.m
  - [Simplex Algorithm](https://en.wikipedia.org/wiki/Simplex_algorithm)
  - [Tableau Simplex](http://math.uww.edu/~mcfarlat/s-prob.htm)
  - [The Simplex Method:  Step by Step with Tableaus](https://en.proft.me/media/science/sm3_ams_jhu_edu.pdf)
+ - [The Simplex Method in Tabular Form](https://www.utdallas.edu/~scniu/OPRE-6201/documents/LP06-Simplex-Tableau.pdf)
+ - [Lecture on Simplex method](http://www.unc.edu/depts/stat-or/courses/provan/STOR614_web/lect03_simplex.pdf)
 
 
 ## Books
