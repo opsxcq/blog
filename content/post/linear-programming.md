@@ -586,6 +586,8 @@ If it is an $\leq$ restriction, the $fn$ variable is **added** to the equation,
 the opposite is also true, if the restriction is a $\geq$ restriction, the $fn$
 variable is **subtracted** from the equation.
 
+### In case of a subtraction
+
 For every slack variable that is subtracted, an artificial variable should be
 added $a$ this variable is used to give an initial solution to the problem.
 Also, an artificial objective function $W$ should be added, which initially is
@@ -617,6 +619,8 @@ $W + 8x + 12y -f1 -f2 -f3 = 70$
 Then the $W$ objective function is used in the first phase of this resolution
 instead of the original objective function $Z$.
 
+### Continuing
+
 All values presented in the right side of the equal sign must be constant, it
 include the objective function $Z$. So any term in any equation in the right
 side that isn't constant should be transfered to the left side of the equation.
@@ -641,8 +645,12 @@ optimal solution for the problem, but *is a solution*. This table is called
 **basic feasible solution (BFS)**.
 
 For every table we will have variables with *positive values* called **basic
-variables** and *null* variables denominated **non-basic variables**. **The number
-of basic variables in a problem is equivalent to the number of restrictions**.
+variables** and *null* variables (with their value being $0$) denominated
+**non-basic variables**. **The number of basic variables in a problem is
+equivalent to the number of restrictions**.
+
+For every equation, the value in the **right side of the equal sign is called
+Right Hand value**.
 
 For every restriction, there will be a line in the table and after it another
 line for the objective function $Z$. The values of the **non-basic** variables
@@ -694,8 +702,7 @@ Using our example problem:
 Next step is define the **pivotal line**, this line means the best current move
 to explore so we can archive the desired goal for our objective function $Z$.
 The line is chosen based on the smallest value on the list above, in this case,
-the line 4 with the value $80$. Until a restriction is archived, the pivotal
-column value must be incremented.
+the line 4 with the value $80$. 
 
 | Basic Variable |    x |    y | f1 | f2 | f3 | f4 | Right Hand |
 |----------------|------|------|----|----|----|----|------------|
@@ -705,6 +712,49 @@ column value must be incremented.
 | $f4$           |    0 |    1 |  0 |  0 |  0 |  1 |         80 |
 | $Z$            | -600 | -800 |  0 |  0 |  0 |  0 |          0 |
 
+
+After that, the next step is to **divide** the whole pivot line by the value on
+the **pivot column**. And calculate the new values for the other lines by
+subtracting the choosen variable, in this case $y$ by the value that we set in
+the pivot line, as following:
+
+The new line 4 will be defined by $NewLine4 = Line4 / y$, since $y$ is 1, no
+changes will happen.
+
+Where $y=1$, meaning the value in the intersection between the **pivot line and
+column**. In the bellow examples, the $y$ value mean the $y$ value on the line
+of the respective line being calculated and $NewLine4$ is the value for that
+column in the pivot line (Line 4).
+
+- Line 1, $NewLine1 = Line1 - y \times NewLine4$
+- Line 2, $NewLine2 = Line2 - y \times NewLine4$
+- Line 3, $NewLine3 = Line3 - y \times NewLine4$
+- Line $Z$, $NewLineZ = LineZ - y \times NewLine4$
+
+Making it more visual
+
+| Basic Variable |                x |                y |               f1 |               f2 |               f3 |               f4 | Right Hand |
+|----------------+------------------+------------------+------------------+------------------+------------------+------------------+------------|
+| $f1$           | $1 - 0 \times 1$ | $1 - 1 \times 1$ | $1 - 0 \times 1$ | $1 - 0 \times 1$ | $1 - 0 \times 1$ | $1 - 0 \times 1$ |        100 |
+| $f2$           |                3 |                2 |                0 |                1 |                0 |                0 |        240 |
+| $f3$           |                1 |                0 |                0 |                0 |                1 |                0 |         60 |
+| $y$            |                0 |                1 |                0 |                0 |                0 |                1 |         80 |
+| $Z$            |             -600 |             -800 |                0 |                0 |                0 |                0 |          0 |
+
+Since the $y=1$ this example isn't that illustrative as the next ones will be it
+can seem a little confusing. Also we set the variable in the column as the
+variable (Basic Variable) in the first column.
+
+| Basic Variable |    x |    y | f1 | f2 | f3 | f4 | Right Hand |
+|----------------|------|------|----|----|----|----|------------|
+| $f1$           |    1 |    1 |  1 |  0 |  0 |  0 |        100 |
+| $f2$           |    3 |    2 |  0 |  1 |  0 |  0 |        240 |
+| $f3$           |    1 |    0 |  0 |  0 |  1 |  0 |         60 |
+| $y$            |    0 |    1 |  0 |  0 |  0 |  1 |         80 |
+| $Z$            | -600 | -800 |  0 |  0 |  0 |  0 |          0 |
+
+- The final result will be the variable noted in the first colum (Basic
+  variable) with the value at the Right Hand.
 
 # <a name="example2"></a> Example 2
 
