@@ -733,13 +733,14 @@ column in the pivot line (Line 4).
 
 Making it more visual
 
-| Basic Variable |                x |                y |               f1 |               f2 |               f3 |               f4 | Right Hand |
-|----------------+------------------+------------------+------------------+------------------+------------------+------------------+------------|
-| $f1$           | $1 - 0 \times 1$ | $1 - 1 \times 1$ | $1 - 0 \times 1$ | $1 - 0 \times 1$ | $1 - 0 \times 1$ | $1 - 0 \times 1$ |        100 |
-| $f2$           |                3 |                2 |                0 |                1 |                0 |                0 |        240 |
-| $f3$           |                1 |                0 |                0 |                0 |                1 |                0 |         60 |
-| $y$            |                0 |                1 |                0 |                0 |                0 |                1 |         80 |
-| $Z$            |             -600 |             -800 |                0 |                0 |                0 |                0 |          0 |
+| Basic Variable | x                        | y                        | f1                 | f2                 | f3                 | f4                 | Right Hand             |
+|----------------+--------------------------+--------------------------+--------------------+--------------------+--------------------+--------------------+------------------------|
+| $f1$           | $1 - 1 \times 0$         | $1 - 1 \times 1$         | $1 - 1 \times 0$   | $0 - 1 \times 0$   | $0 - 1 \times 0$   | $0 - 1 \times 0$   | $100 - 1 \times 80$    |
+| $f2$           | $3 - 2 \times 0$         | $2 - 2 \times 1$         | $0 - 2 \times 0$   | $1 - 2 \times 0$   | $0 - 2 \times 0$   | $0 - 2 \times 0$   | $240 - 2 \times 80$    |
+| $f3$           | $1 - 0 \times 0$         | $0 - 0 \times 1$         | $0 - 0 \times 0$   | $0 - 0 \times 0$   | $1 - 0 \times 0$   | $0 - 0 \times 0$   | $100 - 0 \times 100$   |
+| $y$            | 0                        | 1                        | 0                  | 0                  | 0                  | 1                  | $80 - 80 \times 1$     |
+| $Z$            | $-600 - (-800 \times 0)$ | $-800 - (-800 \times 1)$ | $0 - 800 \times 0$ | $0 - 800 \times 0$ | $0 - 800 \times 0$ | $0 - 800 \times 0$ | $0 - (-800 \times 80)$ |
+|                |                          |                          |                    |                    |                    |                    |                        |
 
 Since the $y=1$ this example isn't that illustrative as the next ones will be it
 can seem a little confusing. Also we set the variable in the column as the
