@@ -733,29 +733,51 @@ column in the pivot line (Line 4).
 
 Making it more visual
 
-| Basic Variable | x                        | y                        | f1                 | f2                 | f3                 | f4                 | Right Hand             |
-|----------------|--------------------------|--------------------------|--------------------|--------------------|--------------------|--------------------|------------------------|
-| $f1$           | $1 - 1 \times 0$         | $1 - 1 \times 1$         | $1 - 1 \times 0$   | $0 - 1 \times 0$   | $0 - 1 \times 0$   | $0 - 1 \times 0$   | $100 - 1 \times 80$    |
-| $f2$           | $3 - 2 \times 0$         | $2 - 2 \times 1$         | $0 - 2 \times 0$   | $1 - 2 \times 0$   | $0 - 2 \times 0$   | $0 - 2 \times 0$   | $240 - 2 \times 80$    |
-| $f3$           | $1 - 0 \times 0$         | $0 - 0 \times 1$         | $0 - 0 \times 0$   | $0 - 0 \times 0$   | $1 - 0 \times 0$   | $0 - 0 \times 0$   | $100 - 0 \times 100$   |
-| $y$            | 0                        | 1                        | 0                  | 0                  | 0                  | 1                  | $80 - 80 \times 1$     |
-| $Z$            | $-600 - (-800 \times 0)$ | $-800 - (-800 \times 1)$ | $0 - 800 \times 0$ | $0 - 800 \times 0$ | $0 - 800 \times 0$ | $0 - 800 \times 0$ | $0 - (-800 \times 80)$ |
-|                |                          |                          |                    |                    |                    |                    |                        |
+| Basic Variable | x                        | y                        | f1                 | f2                    | f3                    | f4                    | Right Hand             |
+|----------------|--------------------------|--------------------------|--------------------|-----------------------|-----------------------|-----------------------|------------------------|
+| $f1$           | $1 - 1 \times 0$         | $1 - 1 \times 1$         | $1 - 1 \times 0$   | $0 - 1 \times 0$      | $0 - 1 \times 0$      | $0 - 1 \times 1$      | $100 - 1 \times 80$    |
+| $f2$           | $3 - 2 \times 0$         | $2 - 2 \times 1$         | $0 - 2 \times 0$   | $1 - 2 \times 0$      | $0 - 2 \times 0$      | $0 - 2 \times 1$      | $240 - 2 \times 80$    |
+| $f3$           | $1 - 0 \times 0$         | $0 - 0 \times 1$         | $0 - 0 \times 0$   | $0 - 0 \times 0$      | $1 - 0 \times 0$      | $0 - 0 \times 1$      | $60 - 0 \times 100$    |
+| $y$            | 0                        | 1                        | 0                  | 0                     | 0                     | 1                     | $80$                   |
+| $Z$            | $-600 - (-800 \times 0)$ | $-800 - (-800 \times 1)$ | $0 - 800 \times 0$ | $0 - (-800 \times 0)$ | $0 - (-800 \times 0)$ | $0 - (-800 \times 1)$ | $0 - (-800 \times 80)$ |
 
 Since the $y=1$ this example isn't that illustrative as the next ones will be it
 can seem a little confusing. Also we set the variable in the column as the
-variable (Basic Variable) in the first column.
+variable (Basic Variable) in the first column. This will be the resulting table:
 
-| Basic Variable |    x |    y | f1 | f2 | f3 | f4 | Right Hand |
-|----------------|------|------|----|----|----|----|------------|
-| $f1$           |    1 |    1 |  1 |  0 |  0 |  0 |        100 |
-| $f2$           |    3 |    2 |  0 |  1 |  0 |  0 |        240 |
-| $f3$           |    1 |    0 |  0 |  0 |  1 |  0 |         60 |
-| $y$            |    0 |    1 |  0 |  0 |  0 |  1 |         80 |
-| $Z$            | -600 | -800 |  0 |  0 |  0 |  0 |          0 |
+| Basic Variable |    x | y | f1 | f2 | f3 |  f4 | Right Hand |
+|----------------|------|---|----|----|----|-----|------------|
+| $f1$           |    1 | 0 |  1 |  0 |  0 |   0 |         20 |
+| $f2$           |    3 | 0 |  0 |  1 |  0 |   0 |         80 |
+| $f3$           |    1 | 0 |  0 |  0 |  1 |   0 |         60 |
+| $y$            |    0 | 1 |  0 |  0 |  0 |   1 |         80 |
+| $Z$            | -600 | 0 |  0 |  0 |  0 | 800 |      64000 |
 
-- The final result will be the variable noted in the first colum (Basic
-  variable) with the value at the Right Hand.
+> If still any negative value in the $Z$ line, it means that we don't have the
+> optimal solution yet.
+
+The next column will be the $x$ column, since is the only one left, and the
+column will be calculated based on:
+
+- Line 1: $20 / 1 = 20$
+- Line 2: $80 / 3 = 26.66...$
+- Line 3: $60 / 1 = 60$
+
+The smallest value belongs to the line 2, so this will be our pivot line. Since
+again the value of $x$ in the pivot line and column is one, the line 2 will be
+kept the same.
+
+| Basic Variable | x | y |  f1 | f2 | f3 |  f4 | Right Hand |
+|----------------|---|---|-----|----|----|-----|------------|
+| $x$            | 1 | 0 |   1 |  0 |  0 |   0 |         20 |
+| $f2$           | 0 | 0 |   0 |  1 |  0 |   0 |         20 |
+| $f3$           | 0 | 0 |   0 |  0 |  1 |   0 |         40 |
+| $y$            | 0 | 1 |   0 |  0 |  0 |   1 |         80 |
+| $Z$            | 0 | 0 | 600 |  0 |  0 | 800 |      64000 |
+
+There are no more negative values in the $Z$ line, so we archived the optimal
+solution. The final result will be the variable noted in the first colum (Basic
+variable) with the value at the Right Hand, it will give $x=20$ and $y=80$.
 
 # <a name="example2"></a> Example 2
 
