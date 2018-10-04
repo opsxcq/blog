@@ -199,3 +199,4 @@ if __name__ == "__main__":
 # References
 
 - [Eliptic curves in cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
+- [Bitcoin Address documentation](https://en.bitcoin.it/wiki/Address)
