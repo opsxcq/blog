@@ -1,7 +1,7 @@
 +++
 date = "2018-09-14T20:19:50Z"
-title = "Bitcoin address generation"
-draft = true
+title = "Bitcoin address generation in pure python"
+tags = ["cryptography", "eliptic curves", "bitcoin", "python"]
 +++
 
 Bitcoin address generation can be split in 4 steps listed bellow:
