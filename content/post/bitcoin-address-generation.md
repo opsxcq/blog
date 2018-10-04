@@ -4,48 +4,92 @@ title = "Bitcoin address generation"
 draft = true
 +++
 
+Bitcoin address generation can be split in 4 steps listed bellow:
 
-## Generate ECDSA Keypair
+- Generating a secure private key.
+- Calculate the public key from the private key.
+- Encode the public key as a bitcoin address.
+- Encode the private key in the WIF format.
 
-### Compression
+## Step 1: Generate ECDSA Keypair
 
-Is possible to compress the public key, which is $x$ and $y$ in the curve
-since we have the equation, and given an $x$ value, there is only two values
-for $y$ possible.
+The very first step is to select a good and secure number, for this example we
+won't use one, instead we will simply get the random from the system. An example
+why is important a good and secure random number is [written in this post about
+cracking some bitcoin private
+keys](https://strm.sh/post/bitcoin-transaction-nonce-reuse/), the bug isn't
+located in the key generation, but in the random used to sign the transactions,
+but the point is the same, weak PRNG (Pseudo-random number generators) can put
+everything in risk.
 
-So to compress a public key, if $y$ is odd, `0x03` is appended to the $x$ value,
-if not, `0x02` is appended.
-
-### Address generation
+Using this PRNG can be done with:
 
 ```python
-hashedKey = ripemd160(sha256(compress([0x04] + publicKey)))
+    randomBytes = os.urandom(32)
 ```
 
-If the target network is the *mainnet*, `0x00` must be prepended to the
-`address`, if the address generated meant to be used in the *testnet* `0x6f`
-must be prepended.
+## Step 2: Calculate the public key
+
+Since bitcoin uses **spec256k1** the only thing that we need to do is multiply
+it by the initial point in the curve by the **private key** to obtain the public
+key.
+
+Next step is to convert the key to a byte array and hash it, first with
+**SHA-256** then with **RIPEMD-160**. Then we prepend the hashed public key with
+`0x00` if the target network is the *mainnet*, if the address generated meant to
+be used in the *testnet* `0x6f` must be prepended.
+
+```python
+SPEC256k1 = Point()
+pk = int.from_bytes(privkey, "big")
+hash160 = ripemd160(sha256((SPEC256k1 * pk).toBytes()))
+address = b"\x00" + hash160
+```
 
 ### Checksum
 
-# Bitcoin address from public key
+Then the only thing left to add in the address it the checksum, it is appended
+to the address and is the last 4 bytes of the double **SHA-256** of the address
+calculated above.
 
-Bitcoin address is the proportional public counterpart representation of the
-public key of the *ECDSA* system in a Bitcoin friendly format. This format is
-far reduced compared with the original curve parameters $x$ and $y$ and have
-some internal features that will be discussed further in this post.
+```python
+address = b58(address + sha256(sha256(address))[:4])
+```
 
+Then just encode the key bytes to **base58** and you have your Bitcoin address !
 
-## How address generation works
+### Public key compression
 
-## Legacy and Segwit
+When representing the public key as a number is possible to compress it
+considering that the key is $x$ and $y$ in the eliptic curve and since we have
+the equation, and given an $x$ value, there is only two values for $y$ possible.
+So to compress a public key, if $y$ is odd, `0x03` is appended to the $x$ value,
+else, `0x02` is appended.
 
-# Private Key
+# Step 4: Encode the private key in the WIF format
 
-- Wif
+To create a WIF () key from the private key bytes is far simples than the
+previous steps, first prepend the byte `0x80` to the wif, then append the
+private key bytes. After, append the checksum, that is the last 4 bytes of the
+double **SHA-256** of the partial wif key that we already have calculated.
 
+```python
+wif = b"\x80" + privkey
+wif = b58(wif + sha256(sha256(wif))[:4])
+return wif
+```
 
-# Full Script
+# Source code
+
+This is a reference script, it depends on **Python 3** to run and is self
+contained, it means no external dependencies are required to run it. One example
+of its output:
+
+```raw
+$ ./bitcoin-address-generator.py 
+Address: 18jJh1kSPJqbXtMB51SyczgcHL1drkDgxV
+Privkey: 5JTEF3GHpDAin1caVqfznHU8T1jscHVVD5SMFALBTC4no2J4DqX
+```
 
 ```python
 import os
@@ -151,3 +195,7 @@ if __name__ == "__main__":
     print("Address: " + getPublicKey(randomBytes))
     print("Privkey: " + getWif(randomBytes))
 ```
+
+# References
+
+- [Eliptic curves in cryptography](https://en.wikipedia.org/wiki/Elliptic-curve_cryptography)
