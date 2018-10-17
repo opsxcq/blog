@@ -235,6 +235,9 @@ can be categorized into five groups:
  - Utility-based agents
  - Learning agents
 
+Autonomous agents can also present characteristics from one or more of these
+categories, like for example, be model-utility agents.
+
 ### Simple Reflex Agents 
 
 ![reactive](/img/ia-agent-reactive.png)
@@ -313,7 +316,25 @@ chances of winning the fight by hitting the opponent.
 
 ![reactive](/img/ia-agent-learning.png)
 
-Learning Agents
+As the name suggests, the learning agents can adapt to the environment where
+they are. Based on perceptions they change their critic of the world and their
+actions. The **critic is the crucial ingredient creating a learning agent**
+because it gives the required feedback to the process.
+
+Imagine a poker game, where initially you don't know the other players, but as
+the game goes, you know that a certain player always bluff. If that player is
+playing against a learning agent, at first the agent will believe in the bluff,
+but after some games it will *learn* who bluff and will change its strategies to
+defeat the other player (goal).
+
+Other scenario are the adaptive adversarial NPCs in games, their objective is
+not defeat the player, but give the desired level of difficulty
+(Easy/Regular/Hard). So, if a given player keep dying, they change their
+strategy to keep the game interesting, while these characters fight the
+protagonist, is not the game goal (in this case) to make the player lose all the
+time, using the *easy* mode as an example, if the player keep dying, the
+internal mechanics change to a point where the enemies become weak in both
+energy level and skills.
 
 # Search methods
 
