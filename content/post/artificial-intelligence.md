@@ -172,6 +172,11 @@ Given the above scenario, some expected actions based on the perceptions would b
 
 We will look further to expand the intelligence of this agent later in this post.
 
+# Environments
+
+ 
+ 
+
 ### Rational Agents
 
 What means being rational ? What makes one person choices good or bad ? What
@@ -336,7 +341,34 @@ time, using the *easy* mode as an example, if the player keep dying, the
 internal mechanics change to a point where the enemies become weak in both
 energy level and skills.
 
+# Modeling agents
+
+When modeling agents to solve real problems the following characteristic must be
+focused:
+
+ - **P**erformance, the fitness function
+ - **E**nvrionment, where it will run ?
+ - **A**ctuators, what inputs are available ?
+ - **S**ensors, what outputs are available ?
+ 
+It is also called **PEAS, it model the problem which the agent will solve**.
+
 # Search methods
+
+**Search is the process to for the best sequence of actions**.
+
+### Problem definition
+
+- Initial State
+- Objective State (End Goal)
+- Possible actions (Successor Function)
+- Possibility State Space ?
+- Path cost (Action cost)
+
+### Problem Solution
+
+- Solution
+- Solution quality
 
 # Search methods based on heuristics
 
