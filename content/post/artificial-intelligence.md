@@ -172,12 +172,7 @@ Given the above scenario, some expected actions based on the perceptions would b
 
 We will look further to expand the intelligence of this agent later in this post.
 
-# Environments
-
- 
- 
-
-### Rational Agents
+## Rational Agents
 
 What means being rational ? What makes one person choices good or bad ? What
 makes one person smart or dumb ? That can be quite relative based on several
@@ -228,7 +223,7 @@ is so complex for real world scenarios.
 The main point of the fitness function is **to reflect the desired result** in
 the agent behavior.
 
-### Types Of Agents
+## Types Of Agents
 
 Even agents sharing the same sensors and actuators can act very differently,
 based on how they were implemented, according to Norvig and Russell these agents
@@ -352,6 +347,49 @@ focused:
  - **S**ensors, what outputs are available ?
  
 It is also called **PEAS, it model the problem which the agent will solve**.
+While we already talked briefly about the fitness function, actuators and
+sensors, nothing has been said about the environment where those agents can run.
+
+# Environment
+
+## Fully observable x Partially observable
+
+If the agent can observe the whole environment at once, it is **fully
+observable**, like for example, in a chess game, where the agent can *see* the
+whole board. Partially observable is when, as the name suggests, you can't
+observe the whole environment at once or at all, the real world is a good
+example of partially observable environment.
+
+## Deterministic x Stochastic
+
+Given an action, what would the environment look like after that ? If the answer
+is precise, it means, that the **next state of the environment is solely
+determined by the current state and the agent action**, then you have a
+**determinitic** environment, if not, you have an **stochastic** environment.
+
+Analysing it by the other point of view, if the environment next state is
+unknown, or you aren't sure of what will happen if your agent execute an action,
+it is **stochastic**.
+
+## Episodic x Sequential
+
+Every experience (event) can be divided into episodes where future episodes
+aren't affected by the current action (or actions). For example, an agent who is
+programmed to find bad apples, once it find one bad apple, it remove from the
+environment, but the fact of removing it won't change how the agent or the
+environment will behave in the furute.
+
+To illustrate the apple example, consider an agent to do this:
+
+![episodic environment](/img/ia-environment-episodic.gif)
+
+In the other hand, a sequential environment means that agent actions will change
+the future state of the environment.
+
+## Discrete x Continuous
+
+
+
 
 # Search methods
 
