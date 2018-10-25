@@ -319,7 +319,17 @@ chances of winning the fight by hitting the opponent.
 As the name suggests, the learning agents can adapt to the environment where
 they are. Based on perceptions they change their critic of the world and their
 actions. The **critic is the crucial ingredient creating a learning agent**
-because it gives the required feedback to the process.
+because it gives the required feedback to the process. Along with the critic
+component, there is the **learning** and the **problem generator** components.
+
+The **problem generator component** element is responsible for, as the name
+suggest, creating problems. It may sound a little bit against the objective of
+an agent that is to complete a task, so why to introduce a *problem* ? The
+reason is, when you try new thing, you discover new things, just like that, the
+problem generator is resonsible for choosing a **safe** alternative from time to
+time so the agent will face different challanges. And as the agent learns, it
+will update the agent **performance element** with new data, instead of choosing
+always the *best known solution* to the problem.
 
 Imagine a poker game, where initially you don't know the other players, but as
 the game goes, you know that a certain player always bluff. If that player is
@@ -388,14 +398,58 @@ the future state of the environment.
 
 ## Discrete x Continuous
 
+Discrete and continuous means directly if the environment changes while the
+agent is processing (*thinking*) or while the agent is executing an action. Even
+if the environment changes, but in a predictable way, like the clock in a chess
+game, it can be also considered discrete, some people may consider this
+environment *semi-discrete*.
 
+The discrete counterpart is the continuous, also called dynamic environment. It
+means that the environment is changing while the agent is processing or
+executing an action, the best example is the real world, consider the idea of
+catching a fly while it is flying, since the environment is always changing,
+there is a big possibility that the fly moves faster and your attempt to catch
+it fails.
 
+## Single agent x Multi agent
+
+How many agents in the environment ? This is basically the question to determine
+which category the environment fell into. Inside this category we can also
+categorize the agents into:
+
+### Communication x "Mute" agents
+
+Agents can communicate with each other ? If so, they can share their current
+state, their current observations about the environment and coordinate their
+actions.
+
+### Colaboration x Competition
+
+Do agents compete against each other ? Do they work together ? For example, a
+chess game, is a multi agent because there are two players, in this case, even a
+game of a machine against a human, still a multi agent environment.
 
 # Search methods
 
 **Search is the process to for the best sequence of actions**.
 
-### Problem definition
+Objective: states of the environment that will satisfy the goal.
+
+Agent task: discover the sequence of actions to archive the goal.
+
+
+An agent can have several ways to archive a goal, seach methods try to find the
+best set of actions to archive the goal based on the *objective funcion*.
+
+To start solving a problem, first of all we need to **define the objective**,
+then **formulate the problem** and finally **solve the problem**.
+
+The best solution is given by the one with the best performance, in other words,
+the one who score better in archiving the objective.
+
+## Problem definition
+
+Analyses the possibility space.
 
 - Initial State
 - Objective State (End Goal)
@@ -403,10 +457,12 @@ the future state of the environment.
 - Possibility State Space ?
 - Path cost (Action cost)
 
-### Problem Solution
+## Problem Solution
 
-- Solution
-- Solution quality
+The search is represented by a tree of states, where the **root represents the
+initial state**.
+
+> The search tree is different from the state space
 
 # Search methods based on heuristics
 
