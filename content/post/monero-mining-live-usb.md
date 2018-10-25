@@ -1,3 +1,4 @@
+
 +++
 date = "2018-09-12T00:00:00Z"
 title = "Mining monero using live a live usb linuxkit build"
@@ -88,3 +89,4 @@ qemu-system-x86_64 -usb -usbdevice disk:/dev/sde
 
 - [Working with kernels on LinuxKit](https://github.com/linuxkit/linuxkit/blob/master/docs/kernels.md)
 - [Using foreign kernels with linux kit](https://github.com/linuxkit/linuxkit/tree/master/contrib/foreign-kernels)
+- [How to compile new Kernels for Linuxkit](https://collabnix.com/building-your-own-customised-kernel-with-linuxkit/)
