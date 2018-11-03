@@ -390,7 +390,7 @@ repository](https://github.com/opsxcq/blog/tree/master/static/src), bellow the
 code regarding the utility base agent:
 
 ```python
-class UtilityBaseCleaner(Cleaner):
+class UtilityCleaner(Cleaner):
 
     def __init__(self, world):
         self.actions = []
@@ -550,7 +550,7 @@ Agents can communicate with each other ? If so, they can share their current
 state, their current observations about the environment and coordinate their
 actions.
 
-### Colaboration x Competition
+### Collaboration x Competition
 
 Do agents compete against each other ? Do they work together ? For example, a
 chess game, is a multi agent because there are two players, in this case, even a
