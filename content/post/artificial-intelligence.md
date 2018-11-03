@@ -265,7 +265,9 @@ the whole environment is clean, the robot will be running from room A to B and
 then from B to A forever.
 
 > Simple reflex agents are suitable for environments where the processing power
-> is really limited and just reacting to simple perceptions is enough
+> is really limited and just reacting to simple perceptions is enough, or
+> environments where is somehow complicated to store complex data, like in a
+> FPGA.
 
 ### Model Based Reflex Agents
 
@@ -274,6 +276,64 @@ then from B to A forever.
 Model based reflex agents can keep track of the past perceptions using an
 internal *model*. So future actions are the result of the current perception and
 all the previous ones.
+
+For example, imagine that you have to keep track where you are in world, since
+you have your initial position, and you know the directions that you walked, you
+can determine your actual position by analysing those steps. Comparing it with a
+*simple reflex agent* is simple, while the version with the internal model will
+store data, the simple reflex would rely on a sensor like a *GPS* to know it's
+position.
+
+The current cleaner environment is too small to properly demonstrate how this
+kind of agent works, so lets imagine a bigger environment, a 50 x 50
+environment.
+
+
+![execution](/img/ia-agent-simple-reflex-model-execution.gif)
+
+It is not very smart as you can see, but since it stores the internal state
+(current position), we can consider this agent having a *model*.
+
+The full implementation can be found in this repo, but here the code of this
+agent:
+
+```python
+class ReactiveCleaner(Cleaner):
+
+    def __init__(self, world):
+        self.down = True
+        super().__init__(world)
+
+    def percept(self, world, x, y):
+        if self.canClean():
+            return self.actionClean
+        if self.down:
+            if world.canGoDown():
+                return self.actionMoveDown
+            self.down = False
+        else:
+            if world.canGoUp():
+                return self.actionMoveUp
+            self.down = True
+        if world.canGoRight():
+            return self.actionMoveRight
+        return self.actionNothing
+
+    def isDone(self):
+        if self.canClean():
+            return False
+        if self.world.canGoRight():
+            return False
+        if self.down:
+            return not self.world.canGoDown()
+        else:
+            return not self.world.canGoUp()
+        return False
+```
+
+Basically it implement a walk through the whole environment, and if it found any
+dirty, it cleans. Not very smart but it get the job done.
+
 
 ### Goal-based agents
 
@@ -285,6 +345,7 @@ action that will be better to archive the goal.
 
 > Goal agents don't distinguish between goal states and non-goal states, there
 > is no between.
+
 
 ### Utility-based agents
 
@@ -309,8 +370,74 @@ This is obviously a simplification of the current scenario, but the idea is,
 given that the end goal (win the fight) can be archived only if you don't lose
 the fight, if your energy bar is low, better to protect yourself than risking
 being hit while attacking the opponent. But the opposite is also true, while
+
 avoiding damage is a goal, it can be sacrificed by risking being hit if you have
 chances of winning the fight by hitting the opponent.
+
+Suppose that we expand our previous implementation to make it a little bit
+smarter.
+
+![execution](/img/ia-agent-goal-execution.gif)
+
+In the example above you can see the agent *chasing* the dirty, if it were an
+goal based agent, it will move to anywhere that has dirty in and clean, as said
+before, those agents don't distinguish between any goal state. In this case,
+there is a distinction, even the goal of cleaning the environment being set, the
+agent chooses to clean the nearest dirty.
+
+As said before, the whole source code is in [this
+repository](https://github.com/opsxcq/blog/tree/master/static/src), bellow the
+code regarding the utility base agent:
+
+```python
+class UtilityBaseCleaner(Cleaner):
+
+    def __init__(self, world):
+        self.actions = []
+        super().__init__(world)
+
+    def percept(self, world, x, y):
+        if len(self.actions) > 0:
+            return self.actions.pop(-1)
+
+        if self.canClean():
+            return self.actionClean
+
+        e = enumerate
+        g = self.world.grid
+        dirty = [self.getMoveActions(self.x, self.y, x, y) for x,l in e(g) for y,c in e(l) if c == 1]
+        if dirty:
+            self.actions.extend(min(dirty, key=len))
+            return self.actions.pop(-1)
+
+        return self.actionNothing
+
+    def getMoveActions(self, cx, cy, x, y):
+        if cx > x:
+            return [self.actionMoveUp] + self.getMoveActions(cx - 1, cy, x, y)
+        if cx < x:
+            return [self.actionMoveDown] + self.getMoveActions(cx + 1, cy, x, y)
+
+        if cy > y:
+            return [self.actionMoveLeft] + self.getMoveActions(cx, cy - 1, x, y)
+        if cy < y:
+            return [self.actionMoveRight] + self.getMoveActions(cx, cy + 1, x, y)
+
+        return []
+
+    def isDone(self):
+        return self.world.isEverythingClean()
+```
+
+This one is a little bit smarter than the previous one, but still not smart
+enough, if you watch the execution you will notice that some of the dirty is
+left behind, then, after walking to the other side of the environment, the agent
+decides to get back there and remove it.
+
+Why ? Because the agent uses the distance, and optimize its execution to focus
+on the nearest dirty, instead of the global approach, which would have to be
+done using the [travelling salesman
+approach](https://en.wikipedia.org/wiki/Travelling_salesman_problem).
 
 ### Learning agents
 
@@ -326,10 +453,10 @@ The **problem generator component** element is responsible for, as the name
 suggest, creating problems. It may sound a little bit against the objective of
 an agent that is to complete a task, so why to introduce a *problem* ? The
 reason is, when you try new thing, you discover new things, just like that, the
-problem generator is resonsible for choosing a **safe** alternative from time to
-time so the agent will face different challanges. And as the agent learns, it
-will update the agent **performance element** with new data, instead of choosing
-always the *best known solution* to the problem.
+problem generator is responsible for choosing a **safe or not** alternative from
+time to time so the agent will face different challenges. And as the agent
+learns, it will update the agent **performance element** with new data, instead
+of choosing always the *best known solution* to the problem.
 
 Imagine a poker game, where initially you don't know the other players, but as
 the game goes, you know that a certain player always bluff. If that player is
