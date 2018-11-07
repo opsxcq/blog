@@ -200,6 +200,18 @@ lives matter most. Rational agents usually don't require some thought decisions
 like those exposed above, but always keep in mind the ethics and
 responsibilities when designing agents.
 
+## Modeling agents
+
+When modeling agents to solve real problems the following characteristic must be
+focused:
+
+ - **P**erformance, the fitness function
+ - **E**nvrionment, where it will run ?
+ - **A**ctuators, what inputs are available ?
+ - **S**ensors, what outputs are available ?
+ 
+It is also called **PEAS, it model the problem which the agent will solve**.
+
 ### Determining the agent performance
 
 Rationally thinking, what makes a choice good, not so good, neutral, bad, or
@@ -472,20 +484,6 @@ protagonist, is not the game goal (in this case) to make the player lose all the
 time, using the *easy* mode as an example, if the player keep dying, the
 internal mechanics change to a point where the enemies become weak in both
 energy level and skills.
-
-# Modeling agents
-
-When modeling agents to solve real problems the following characteristic must be
-focused:
-
- - **P**erformance, the fitness function
- - **E**nvrionment, where it will run ?
- - **A**ctuators, what inputs are available ?
- - **S**ensors, what outputs are available ?
- 
-It is also called **PEAS, it model the problem which the agent will solve**.
-While we already talked briefly about the fitness function, actuators and
-sensors, nothing has been said about the environment where those agents can run.
 
 # Environment
 
