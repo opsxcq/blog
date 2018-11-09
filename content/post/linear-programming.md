@@ -988,6 +988,19 @@ Total of 17.5cm plates 27.0
 Total of 20cm plates 21.0
 ```
 
+# Transportation problems
+
+# Designation problems
+
+# Project evaluation and review technique (PERT)
+
+## Critical path
+
+Activities that can't be late
+
+They determine the time of the project
+The time of the project = sum(criticalActivities)
+
 
 # Forewords
 
@@ -1007,6 +1020,7 @@ PR](https://github.com/opsxcq/blog/blob/master/content/post/linear-programming.m
  - [The Simplex Method:  Step by Step with Tableaus](https://en.proft.me/media/science/sm3_ams_jhu_edu.pdf)
  - [The Simplex Method in Tabular Form](https://www.utdallas.edu/~scniu/OPRE-6201/documents/LP06-Simplex-Tableau.pdf)
  - [Lecture on Simplex method](http://www.unc.edu/depts/stat-or/courses/provan/STOR614_web/lect03_simplex.pdf)
+ - [PERT page wikipedia](https://en.wikipedia.org/wiki/Program_evaluation_and_review_technique)
 
 
 ## Books

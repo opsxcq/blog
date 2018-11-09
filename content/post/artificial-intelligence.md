@@ -487,6 +487,9 @@ energy level and skills.
 
 # Environment
 
+An agent can run on several kinds of environments, and those environments can be
+classified by their features as shown bellow.
+
 ## Fully observable x Partially observable
 
 If the agent can observe the whole environment at once, it is **fully
@@ -592,6 +595,25 @@ initial state**.
 # Search methods based on heuristics
 
 # Machine Learning and Neural Networks
+
+## Regression
+
+### Linear regression
+
+### Polynomial Regression
+
+Start with the linear regression.
+
+- Quadratic regression
+
+#### Problems - Underfit
+#### Problems - Overfit
+
+#### Test
+
+- Average Quadratic Error 
+
+## Classification
 
 # References
 
