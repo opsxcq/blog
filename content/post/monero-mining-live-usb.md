@@ -2,7 +2,7 @@
 date = "2018-09-12T00:00:00Z"
 title = "Mining monero using live a live usb linuxkit build"
 tags = ["cryptography", "monero", "cryptocurrency", "mining", "devops"]
-draft = true
+draft = false
 +++
 
 Linuxkit is a good tool to create immutable Linux systems, so why don't use it
