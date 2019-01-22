@@ -34,10 +34,7 @@ This post will be divided into
  - [Solving the example 1 with python](#example1-python)
  - [Solving the example 1 by hand with tableau simplex method](#example1-tableau)
 
-[Example 2](#example2):
-
- - [Solving the example 2 by hand using the tableau simplex method](#example2-tableau)
- - [Solving the example 2 with python](#example2-python)
+[Example 2](#example2)
  
 While the first example is focused on explaining the concepts, the second
 example will be solved using a more straight forward solution without giving
@@ -987,20 +984,6 @@ Total of 15cm plates 33.0
 Total of 17.5cm plates 27.0
 Total of 20cm plates 21.0
 ```
-
-# Transportation problems
-
-# Designation problems
-
-# Project evaluation and review technique (PERT)
-
-## Critical path
-
-Activities that can't be late
-
-They determine the time of the project
-The time of the project = sum(criticalActivities)
-
 
 # Forewords
 

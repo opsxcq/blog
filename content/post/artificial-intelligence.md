@@ -585,39 +585,7 @@ Analyses the possibility space.
 - Possibility State Space ?
 - Path cost (Action cost)
 
-## Problem Solution
-
-The search is represented by a tree of states, where the **root represents the
-initial state**.
-
-> The search tree is different from the state space
-
-# Search methods based on heuristics
-
-# Machine Learning and Neural Networks
-
-## Regression
-
-### Linear regression
-
-### Polynomial Regression
-
-Start with the linear regression.
-
-- Quadratic regression
-
-#### Problems - Underfit
-#### Problems - Overfit
-
-#### Test
-
-- Average Quadratic Error 
-
-## Classification
-
 # References
-
-Russell Book
 
 - [AI: A Modern Approach](http://aima.cs.berkeley.edu/)
 - [EDX Course](https://www.edx.org/course/artificial-intelligence-ai-columbiax-csmm-101x-0)
