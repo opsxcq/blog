@@ -2,7 +2,7 @@
 date = "2018-09-12T00:00:00Z"
 title = "Artificial Intelligence"
 tags = ["artificial intelligence"]
-draft = true
+draft = false
 +++
 
 # What is Artificial Intelligence ?
