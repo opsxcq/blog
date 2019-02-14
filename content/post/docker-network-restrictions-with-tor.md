@@ -1,6 +1,6 @@
 ---
 title: "Docker network restrictions with Tor"
-date: 02-14-19
+date: "2019-02-14T00:00:00Z"
 draft: false
 tags: ["docker", "devops", "tor", "anonimity"]
 ---
@@ -17,7 +17,7 @@ that you don't trust that you application will keep the proxy configurations or
 properly use it and you want to be sure that nothing wrong happen to your
 privacy.
 
-## Create the networks
+# Create the networks
 
 The very first step is to create the networks used for this example. Let's give
 them some self-explanatory names.
@@ -30,7 +30,7 @@ docker network create --internal restricted
 As you can see, the *restricted* network is created with the `--internal` flag,
 which means that it doesn't have any external access.
 
-## Create the proxy container
+# Create the proxy container
 
 Two containers will be created for this test, the first one is the *proxy*
 server that will run Tor as a proxy.
@@ -51,7 +51,7 @@ And finally attach the proxy container to the restricted network.
 docker network connect restricted proxy
 ```
 
-## Testing
+# Testing
 
 To be sure that the setup is properly working, the image used as the client
 image already has `curl` installed, so is possible to run the following command.
