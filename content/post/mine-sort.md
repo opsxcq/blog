@@ -1,6 +1,6 @@
 ---
 title: "Minesort, a cryptography based sort algorithm"
-date: 06-29-19
+date: 6-29-19
 draft: false
 tags: ["algorithm", "sort", "joke", "cryptography"]
 ---
