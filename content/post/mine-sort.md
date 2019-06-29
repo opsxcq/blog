@@ -35,9 +35,9 @@ input[index1], input[index2] = input[index2], input[index1]
 
 If this `seed` sorts the array, that is it ! You got your solution !
 Congratulations, now you can apply your solution and sort your input in $o(n)$
-time ! But for sure some quick sort fanatics will be butt hurts will complain
-about the cryptography part of the code, this is just people that don't accept
-an algorithm that can sort an input in a $o(n)$ !
+time ! But for sure some quick sort fanatics will be butt hurt about this code
+and will complain about the cryptography part of the code, this is just people
+that don't accept an algorithm that can sort an input in a $o(n)$ !
 
 ## Complete source code
 
