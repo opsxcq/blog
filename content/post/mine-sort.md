@@ -53,11 +53,14 @@ def sha256(data):
 
 def sort(input, key):
     input = input[:]
+    val = key
     for i in range(0, len(input) -1):
         index1 = key % len(input)
         key = key // len(input)
         index2 = key % len(input)
         key = key // len(input)
+        if key == 0:
+            key = val
         input[index1], input[index2] = input[index2], input[index1]
 
     return all(input[i] <= input[i + 1] for i in range(len(input)-1))
