@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.48" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="OPSXCQ Blog">
+<title>Minesort, a cryptography based sort algorithm - OPSXCQ Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://strm.sh/">[OPSXCQ Blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2019-06-29">June 29, 2019</time></span>
+
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/algorithm">algorithm</a>
+
+        <a href="/tags/sort">sort</a>
+
+        <a href="/tags/joke">joke</a>
+
+        <a href="/tags/cryptography">cryptography</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Minesort, a cryptography based sort algorithm</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<p>Mine sort is a cryptography based sorting algorithm that can run in $O(n)$ time
+if you are lucky. It consists in two stages, the first one is to create a
+cryptographic seed, and the second one is to check if the seed sorts the array.</p>
+
+<p>Digging further into the first stage, this seed consists of the double hash of a
+static content which previously is concatenated with a <code>seed</code> . This <code>seed</code> can
+be anything, a random or sequential number or some string. The main goal of the
+algorithm is to find the correct <code>seed</code> value which will sort the input. This is
+better expressed via code, so here it is:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">key=sha256(<span style="color:#24909d">str</span>(sha256(<span style="color:#ed9d13">&#34;Mine sort is the best &#34;</span>+<span style="color:#24909d">str</span>(seed))))</code></pre></div>
+<p>The second step is to try to sort the input based on the generated <code>key</code>. Given
+that the generated hash can be expressed as a number, the algorithm generate
+pairs of elements that will be swapped by applying the <em>mod</em> operator to the
+content, and then dividing it by the size of the input, so the same value won&rsquo;t
+be repeated. The following code express what was said on this paragraph:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">index1 = key % <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+key = key // <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+index2 = key % <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+key = key // <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+<span style="color:#24909d">input</span>[index1], <span style="color:#24909d">input</span>[index2] = <span style="color:#24909d">input</span>[index2], <span style="color:#24909d">input</span>[index1]</code></pre></div>
+<p>If this <code>seed</code> sorts the array, that is it ! You got your solution !
+Congratulations, now you can apply your solution and sort your input in $o(n)$
+time ! But for sure some quick sort fanatics will be butt hurt about this code
+and will complain about the cryptography part of the code, this is just people
+that don&rsquo;t accept an algorithm that can sort an input in a $o(n)$ !</p>
+
+<h2 id="complete-source-code">Complete source code</h2>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#999;font-style:italic">#!/usr/bin/env python3</span>
+<span style="color:#6ab825;font-weight:bold">import</span> <span style="color:#447fcf;text-decoration:underline">hashlib</span>
+
+<span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">sha256</span>(data):
+    digest = hashlib.new(<span style="color:#ed9d13">&#34;sha256&#34;</span>)
+    digest.update(data)
+    <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#24909d">int</span>(digest.hexdigest(), <span style="color:#3677a9">16</span>)
+
+
+<span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">sort</span>(<span style="color:#24909d">input</span>, key):
+    <span style="color:#24909d">input</span> = <span style="color:#24909d">input</span>[:]
+    val = key
+    <span style="color:#6ab825;font-weight:bold">for</span> i <span style="color:#6ab825;font-weight:bold">in</span> <span style="color:#24909d">range</span>(<span style="color:#3677a9">0</span>, <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>) -<span style="color:#3677a9">1</span>):
+        index1 = key % <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+        key = key // <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+        index2 = key % <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+        key = key // <span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)
+        <span style="color:#6ab825;font-weight:bold">if</span> key == <span style="color:#3677a9">0</span>:
+            key = val
+        <span style="color:#24909d">input</span>[index1], <span style="color:#24909d">input</span>[index2] = <span style="color:#24909d">input</span>[index2], <span style="color:#24909d">input</span>[index1]
+
+    <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#24909d">all</span>(<span style="color:#24909d">input</span>[i] &lt;= <span style="color:#24909d">input</span>[i + <span style="color:#3677a9">1</span>] <span style="color:#6ab825;font-weight:bold">for</span> i <span style="color:#6ab825;font-weight:bold">in</span> <span style="color:#24909d">range</span>(<span style="color:#24909d">len</span>(<span style="color:#24909d">input</span>)-<span style="color:#3677a9">1</span>))
+
+
+<span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">minesort</span>(<span style="color:#24909d">input</span>):
+    <span style="color:#6ab825;font-weight:bold">for</span> seed <span style="color:#6ab825;font-weight:bold">in</span> <span style="color:#24909d">xrange</span>(<span style="color:#3677a9">1</span>,<span style="color:#3677a9">200000</span>):
+        key=sha256(<span style="color:#24909d">str</span>(sha256(<span style="color:#ed9d13">&#34;Mine sort is the best &#34;</span>+<span style="color:#24909d">str</span>(seed))))
+        <span style="color:#6ab825;font-weight:bold">if</span> sort(<span style="color:#24909d">input</span>, key):
+            <span style="color:#6ab825;font-weight:bold">return</span> seed
+
+    <span style="color:#6ab825;font-weight:bold">return</span> None
+
+
+<span style="color:#6ab825;font-weight:bold">print</span>(<span style="color:#ed9d13">&#34;Seed &#34;</span>+<span style="color:#24909d">str</span>(minesort([<span style="color:#3677a9">1</span>,<span style="color:#3677a9">4</span>,<span style="color:#3677a9">2</span>,<span style="color:#3677a9">3</span>,<span style="color:#3677a9">5</span>,<span style="color:#3677a9">7</span>,<span style="color:#3677a9">8</span>,<span style="color:#3677a9">12</span>,<span style="color:#3677a9">2</span>])))</code></pre></div>
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+      <span class="copyright">&copy; 2019 OPSXCQ Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("End Jax",function () {
+  var BROWSER = MathJax.Hub.Browser;
+  var jax = "HTML-CSS";
+  if (BROWSER.isMSIE && BROWSER.hasMathPlayer) jax = "NativeMML";
+  if (BROWSER.isFirefox) jax = "SVG";
+  if (BROWSER.isSafari && BROWSER.versionAtLeast("5.0")) jax = "NativeMML";
+  return MathJax.Hub.setRenderer(jax);
+});
+</script>
+
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+    });
+    MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-43399052-10"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-43399052-10');
+</script>
+
+
+</body>
+</html>
+

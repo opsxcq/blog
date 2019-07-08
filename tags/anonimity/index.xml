@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Anonimity on OPSXCQ Blog</title>
+    <link>https://strm.sh/tags/anonimity/</link>
+    <description>Recent content in Anonimity on OPSXCQ Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Feb 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://strm.sh/tags/anonimity/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker network restrictions with Tor</title>
+      <link>https://strm.sh/post/docker-network-restrictions-with-tor/</link>
+      <pubDate>Thu, 14 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://strm.sh/post/docker-network-restrictions-with-tor/</guid>
+      <description>Image the following usecase, you have an application and want to for its traffict through Tor, exclusively. If if is running on your computer like a normal application, it is simple, just add some iptables rules. But in the container world things are different, specially if you want to escalate it through several machines.
+Here will be explored an usecase of an isolated container that can only communicate with a proxy container that has access to the Tor network.</description>
+    </item>
+    
+  </channel>
+</rss>

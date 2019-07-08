@@ -1,0 +1,67 @@
+==================================================================
+https://keybase.io/terminator
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://strm.sh
+  * I am terminator (https://keybase.io/terminator) on keybase.
+  * I have a public key with fingerprint 66ED 4A9A 4D70 D36F E481  9641 9AD7 30FE 9CDE 5661
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101b65ab2613bd07aa92064d2c069ccf04f26f88f25d0c699903c5bc21ec48593420a",
+      "fingerprint": "66ed4a9a4d70d36fe48196419ad730fe9cde5661",
+      "host": "keybase.io",
+      "key_id": "9ad730fe9cde5661",
+      "kid": "0101b65ab2613bd07aa92064d2c069ccf04f26f88f25d0c699903c5bc21ec48593420a",
+      "uid": "aa802f654e3ae7aaa1b73f8724056a19",
+      "username": "terminator"
+    },
+    "service": {
+      "hostname": "strm.sh",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1535747368,
+  "expire_in": 157680000,
+  "prev": "029c8b43b61f06709719406ee099750354fd22d795ee09eeb33e4a615d411285",
+  "seqno": 27,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtUllIFVEYvlrhAlHQ6s22IYjI7Jw5y8y50EYF0UZBBhF1PTNz5jqZd24z41W5
+VESrLXCxtLKEfAjsIYisMIoK1FYkoZW0iChIKNsfCtNmJN967Lwczsf3fef7fv70
+yGGh7Iz6Z6D/9Kv1PONBjxbaWH0WpiTNNqqkSEoqFYOX2GoI14uWWoYUkQAEUKOE
+azKFSDOAwjmTAcWGrAPKdN0E2JSpqaqmTAygU8YYQDrRdBkKHauEISwDLhVIphWP
+CSfhWHHPt6VUGJgzjg0FGIiaAquQUQwZNxQETMF0QxBKoS8ssd1A4YfTuCsKLdvH
+/Ed0MN4/+P85d/mgHecqkE1KsEBc+F4cagoyVUXGgFAOWUB0hRPnZcJne8Ips+Lc
+sx1pe4Hk40lLF8Fogy5/Oa7nlBW6Jb4w4dierdtbfbDE8xJuJBB5VYmAVSG06F99
+VLPihj9EX5EUjmvZcSkCfabuWYEhJIgoWEFULZBEZcJyRNQKGEShKvBP8I9IBpOR
+ma5qGGl0PTQBVQBTIMOACgEYUwhABJuGLBsKIwEkhIaQwJxCYmAIZZVIQaVtcVuK
+yIoflMeCNlbM71vuCGl7bnUGGh7KyA5NHj99uPlxef2qxCP77a66RUObNyIzWLtQ
+bs7oIUS7ndU/retO+PjsVDH/OnHxxUkD/VXX8nbWjbl8ovbHm85PybtLayo790ff
+V7zcfMCa+yOxr63op9b72ctrWXohvXIg1bCf5LbmNB+6sGdteF/p9MNqDM1/t2kc
+P9l4Ne/0rDbOOzI/PH5/sDkr/3579ur0F7TkxaXVOe0PP7XWnm/4uuzk0WH295mz
+6ye2FoXPXXk+YlrD3qZUcjc6enDOpZtj2m88Li6emtOR/yCrd+rummPhxQuehn85
+6Xv4uk1qupe5xxLwyL0yWDtyxpPMdYe+VXexxltrdjnzWpJ9U7YtD12esKOpxY59
+u90R61yx5dSonjULF5SWN5/5+bq7cUPf73TdRm9s0x8=
+=eBTv
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/terminator
+
+==================================================================
+

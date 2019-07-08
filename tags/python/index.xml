@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Python on OPSXCQ Blog</title>
+    <link>https://strm.sh/tags/python/</link>
+    <description>Recent content in Python on OPSXCQ Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 14 Sep 2018 20:19:50 +0000</lastBuildDate>
+    
+	<atom:link href="https://strm.sh/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Bitcoin address generation in pure python</title>
+      <link>https://strm.sh/post/bitcoin-address-generation/</link>
+      <pubDate>Fri, 14 Sep 2018 20:19:50 +0000</pubDate>
+      
+      <guid>https://strm.sh/post/bitcoin-address-generation/</guid>
+      <description>Bitcoin address generation can be split in 4 steps listed bellow:
+ Generating a secure private key. Calculate the public key from the private key. Encode the public key as a bitcoin address. Encode the private key in the WIF format.  Step 1: Generate ECDSA Keypair The very first step is to select a good and secure number, for this example we won&amp;rsquo;t use one, instead we will simply get the random from the system.</description>
+    </item>
+    
+    <item>
+      <title>Linear Programming</title>
+      <link>https://strm.sh/post/linear-programming/</link>
+      <pubDate>Sun, 29 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://strm.sh/post/linear-programming/</guid>
+      <description>Linear programming is a mathematical method to achieve the best result for a given problem. This problem is expressed through a mathematical model which represents the real world problem. Also called linear optimization because of it&amp;rsquo;s essence to optimize a linear objective function.
+In other words, linear programming aim to find the optimal input value for the function, value which will also be the optimal solution for the problem. Usually linear optimization is a good method to solve assignment problems which are a fundamental kind of combinatorial optimization problems.</description>
+    </item>
+    
+  </channel>
+</rss>

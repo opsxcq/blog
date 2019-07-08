@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.48" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="OPSXCQ Blog">
+<title>Artificial Intelligence - OPSXCQ Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://strm.sh/">[OPSXCQ Blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2018-09-12">September 12, 2018</time></span>
+
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/artificial%20intelligence">artificial intelligence</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Artificial Intelligence</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<h1 id="what-is-artificial-intelligence">What is Artificial Intelligence ?</h1>
+
+<p>This is a hard question to ask, because not even among the experts there is a
+complete agreement about what defines something as a real <strong>artificial
+intelligence.</strong></p>
+
+<p>So it can be split between <em>acting</em> and <em>&ldquo;thinking&rdquo;</em>, and again between
+<em>humanly</em> and <em>rationally</em>. Before you state that humans are rational, please
+look carefully to this GIF</p>
+
+<p><img src="/img/ia-people-not-smart-01.gif" alt="humans" /></p>
+
+<p>So the combination of those aspects generate this four approaches generates:</p>
+
+<ul>
+<li>Acting humanly</li>
+<li>Thinking humanly</li>
+<li>Thinking rationally</li>
+<li>Acting rationally</li>
+</ul>
+
+<h2 id="acting-humanly">Acting humanly</h2>
+
+<p>By Kurzweil (1990)</p>
+
+<blockquote>
+<p>The art of creating machines that perform functions that require intelligence
+when performed by people.</p>
+</blockquote>
+
+<p>By Rich and Knight (1991)</p>
+
+<blockquote>
+<p>The study of how to make computers do things at which, at the moment, people
+are better.</p>
+</blockquote>
+
+<p>Can be considered the characteristic of a computer being able to act and pass as
+a human being among others. The concept that a machine can fool a human into
+thinking that it is really a human. As proposed by <strong>Turing</strong> in 1950, the
+<a href="https://en.wikipedia.org/wiki/Turing_test"><strong>Turing test</strong></a> is a way to perform
+this kind of assertion, if a machine can fool a group of humans into thinking
+that they are talking with a human, so this machine can be considered to act in
+a similar way to humans.</p>
+
+<p>For the purpose of <em>intelligence</em> only, no physical interaction is needed, but
+for the <strong>total Turing test</strong> it is, so it can include a video or a physical
+construction (a robot basically) to interact with a group of humans. The actual
+technology is too primitive to such test be necessary, but when it happens, you
+can imagine a scene just like this from the <strong>Blade Runner</strong> movie:</p>
+
+<p><img src="/img/ia-turing-test-01.gif" alt="turing" /></p>
+
+<p>The whole movie is good mental exercise of what a real IA would look like and
+all its dilemmas, they just renamed the Turing test to <strong>Voigt-Kampff</strong> test,
+but the essence of the test stills the same.</p>
+
+<h2 id="thinking-humanly">Thinking humanly</h2>
+
+<p>By Haugeland (1985)</p>
+
+<blockquote>
+<p>The exciting new effort to make computers think&hellip; machines with minds, in
+the full and literal sense.</p>
+</blockquote>
+
+<p>By Hellman (1978)</p>
+
+<blockquote>
+<p>[The automation of] activities that we associate with human thinking,
+activities such as decision-making, problem solving, learning &hellip;</p>
+</blockquote>
+
+<h2 id="thinking-rationally">Thinking rationally</h2>
+
+<p>By Charniak and McDermott (1985)</p>
+
+<blockquote>
+<p>The study of mental faculties through the use of computational models.</p>
+</blockquote>
+
+<p>By Winston (1992)</p>
+
+<blockquote>
+<p>The study of the computations that make it possible to perceive, reason, and
+act.</p>
+</blockquote>
+
+<h2 id="acting-rationally">Acting rationally</h2>
+
+<p>By Poole (1998)</p>
+
+<blockquote>
+<p>Computational Intelligence is the study of the design of intelligent agents.</p>
+</blockquote>
+
+<p>By Nilsson (1998)</p>
+
+<blockquote>
+<p>AI&hellip; is concerned with intelligent behavior in artifacts.</p>
+</blockquote>
+
+<h1 id="artificial-intelligent-concepts-and-foundation">Artificial intelligent concepts and foundation</h1>
+
+<h2 id="intelligent-agents">Intelligent Agents</h2>
+
+<p>An agent is an autonomous entity which observes the <strong>environment</strong> and act
+according with it. The perception of the environment comes from their
+<strong>sensors</strong> and their interactions over the environment is made using
+<strong>actuators</strong>. So basically <strong>sensors are the agent sources of input</strong> and
+<strong>actuators are their output</strong>. Sometimes autonomous agents are called
+<strong>abstract intelligent agents (AIA)</strong>.</p>
+
+<p>Example of sensors:</p>
+
+<ul>
+<li>Camera</li>
+<li>Microphone</li>
+<li>Files</li>
+<li><code>stdin</code></li>
+</ul>
+
+<p>Example of actuators:</p>
+
+<ul>
+<li>Speakers</li>
+<li>Engines</li>
+<li><code>stdout</code></li>
+</ul>
+
+<p>It is really similar to the concept of input and output in any software, if you
+consider that stdin and stdout can be used as a sensor and actuator respectively
+you may notice that it is far different from something like the replicants in
+the Blade Runner movie, but if you take chat bots like
+<a href="https://en.wikipedia.org/wiki/ELIZA">ELIZA</a> as example, it make sense.</p>
+
+<p>In between of the <em>input</em> and <em>output</em> of any computer program there is the
+<em>processing</em> stage, so as you can expect, the same stage exists in the
+implementation of autonomous agents. But one aspect differs them from the normal
+computer programs, the agents must <strong>adapt to environment changes</strong>, it can be
+interpreted as the machine learning to handle these changes, or just in a
+reactive way change its behavior to fir the current situation (like the
+difficulty level in a game).</p>
+
+<p>The classic way to express the agent behavior is:</p>
+
+<p>$f = P^{\star} \mapsto A$</p>
+
+<p>Which means, given a sequence of perceptions that an agent can perceive
+$P\raise0.5ex\hbox{*}$ , it is mapped to an action $A$.</p>
+
+<p>By sequence of perceptions is meant the whole history of perceptions of that
+agent. Which means the actual action may or may not depend on the whole sequence
+of perceptions that this agent have perceived.</p>
+
+<p>To illustrate this scenario we will study the classic example of the vacuum cleaner.</p>
+
+<h3 id="vacuum-cleaner-example">Vacuum Cleaner example</h3>
+
+<p>Imagine a very limited world, composed only by two rooms and one agent, the
+*vacuum cleaner**.</p>
+
+<p><img src="/img/ia-vacuum-cleaner-01.png" alt="vacuum01" /></p>
+
+<p>Inside this very limited environment we have the following actions that can be
+executed by the agent:</p>
+
+<ul>
+<li>Move left</li>
+<li>Move right</li>
+<li>Clean</li>
+<li>Do nothing</li>
+</ul>
+
+<p>And we have the perceptions:</p>
+
+<ul>
+<li>Current room (A or B)</li>
+<li>Room state (Clean or Dirty)</li>
+</ul>
+
+<p>Given the above scenario, some expected actions based on the perceptions would be:</p>
+
+<ul>
+<li>Perception (<strong>Room=B</strong> and <strong>State=Dirty</strong>), expected action <strong>Clean</strong>.</li>
+<li>Perception (<strong>Room=B</strong> and <strong>State=Clean</strong>), expected action <strong>Move to Room A</strong>.</li>
+<li>Perception (<strong>Room=A</strong> and <strong>State=Dirty</strong>), expected action <strong>Clean</strong>.</li>
+<li>Perception (<strong>Room=A</strong> and <strong>State=Clean</strong>), expected action <strong>Move to Room B</strong>.</li>
+</ul>
+
+<p>We will look further to expand the intelligence of this agent later in this post.</p>
+
+<h2 id="rational-agents">Rational Agents</h2>
+
+<p>What means being rational ? What makes one person choices good or bad ? What
+makes one person smart or dumb ? That can be quite relative based on several
+aspects if we consider a complex scenario, like for example, autonomous cars.</p>
+
+<p>Taking autonomous cars as example, not only the choices made have to be
+considered, but the ethics of it, check <a href="http://moralmachine.mit.edu/">the Moral
+Machines</a> website to be exposed to some moral
+dilemmas that AI can bring to people who create them. Like when the paramedics
+choose which emergency they will respond first, there is no such thing as
+respond everyone, the resources are limited and priorities must take place to
+think rationally on emergency situations, to illustrate this example consider
+the <a href="https://en.wikipedia.org/wiki/Emergency_service_response_codes">Emergency Service response
+codes</a>. Back
+again about autonomous cars, consider the image bellow, which one would you
+rather to kill ?</p>
+
+<p><img src="/img/ia-ethics-01.png" alt="ethics" /></p>
+
+<p>In the picture, if you choose to change the car direction, all passengers will
+die, if you don&rsquo;t, it will kill 3 homeless men and a woman.</p>
+
+<p>This kind of dilemma start a whole debate about how much a life worth, and which
+lives matter most. Rational agents usually don&rsquo;t require some thought decisions
+like those exposed above, but always keep in mind the ethics and
+responsibilities when designing agents.</p>
+
+<h2 id="modeling-agents">Modeling agents</h2>
+
+<p>When modeling agents to solve real problems the following characteristic must be
+focused:</p>
+
+<ul>
+<li><strong>P</strong>erformance, the fitness function</li>
+<li><strong>E</strong>nvrionment, where it will run ?</li>
+<li><strong>A</strong>ctuators, what inputs are available ?</li>
+<li><strong>S</strong>ensors, what outputs are available ?</li>
+</ul>
+
+<p>It is also called <strong>PEAS, it model the problem which the agent will solve</strong>.</p>
+
+<h3 id="determining-the-agent-performance">Determining the agent performance</h3>
+
+<p>Rationally thinking, what makes a choice good, not so good, neutral, bad, or
+terrible is called <code>fitness function</code>. The fitness function will determine
+whether or not your agent is doing a good job.</p>
+
+<p>This function simplifies the real world to a simple score, that shows the
+performance of your agent based on the problem that it is intended to solve. In
+a small scenario like the vacuum cleaner robot is easy to create such function,
+we can summarize it in a statement like <em>keep it clean with the least effort</em>.</p>
+
+<p>For an artificial intelligence like those presented in the movies, it can be far
+more complex, we can talk about happiness as being a fitness function, others
+can use a more collectivist point of view and consider how much someone benefits
+those around it as the fitness function. So the selfish robot would kill for an
+ice cream, while the collectivist one would throw itself in the front of a bus
+to stop so a random kid won&rsquo;t be late for school. Both approaches sound really
+stupid if you look at them in this naive way, this is why the fitness function
+is so complex for real world scenarios.</p>
+
+<p>The main point of the fitness function is <strong>to reflect the desired result</strong> in
+the agent behavior.</p>
+
+<h2 id="types-of-agents">Types Of Agents</h2>
+
+<p>Even agents sharing the same sensors and actuators can act very differently,
+based on how they were implemented, according to Norvig and Russell these agents
+can be categorized into five groups:</p>
+
+<ul>
+<li>Simple Reflex Agents</li>
+<li>Model Based Reflex Agents</li>
+<li>Goal-based agents</li>
+<li>Utility-based agents</li>
+<li>Learning agents</li>
+</ul>
+
+<p>Autonomous agents can also present characteristics from one or more of these
+categories, like for example, be model-utility agents.</p>
+
+<h3 id="simple-reflex-agents">Simple Reflex Agents</h3>
+
+<p><img src="/img/ia-agent-reactive.png" alt="reactive" /></p>
+
+<p>The most basic type of agent that can be implemented, it simply reacts to its
+perceptions. Also called reactive agents because of the way that they operate,
+just reacting to external events. Simple reflex agents acts only based on the
+current perception, ignoring the whole perception history.</p>
+
+<p>If the vacuum cleaner robot were implemented using this agent model a
+pseudo-code will look like:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">agent</span>(world):
+  <span style="color:#6ab825;font-weight:bold">if</span> world.isDirty():
+    clean()
+  <span style="color:#6ab825;font-weight:bold">if</span> world.currentRoom == <span style="color:#ed9d13">&#39;A&#39;</span>:
+    moveToRoomB()
+  <span style="color:#6ab825;font-weight:bold">else</span>:
+    moveToRoomA()</code></pre></div>
+<p>The problem with this approach is that don&rsquo;t take a lot to figure out that if
+the whole environment is clean, the robot will be running from room A to B and
+then from B to A forever.</p>
+
+<blockquote>
+<p>Simple reflex agents are suitable for environments where the processing power
+is really limited and just reacting to simple perceptions is enough, or
+environments where is somehow complicated to store complex data, like in a
+FPGA.</p>
+</blockquote>
+
+<h3 id="model-based-reflex-agents">Model Based Reflex Agents</h3>
+
+<p><img src="/img/ia-agent-reactive-model.png" alt="reactive" /></p>
+
+<p>Model based reflex agents can keep track of the past perceptions using an
+internal <em>model</em>. So future actions are the result of the current perception and
+all the previous ones.</p>
+
+<p>For example, imagine that you have to keep track where you are in world, since
+you have your initial position, and you know the directions that you walked, you
+can determine your actual position by analysing those steps. Comparing it with a
+<em>simple reflex agent</em> is simple, while the version with the internal model will
+store data, the simple reflex would rely on a sensor like a <em>GPS</em> to know it&rsquo;s
+position.</p>
+
+<p>The current cleaner environment is too small to properly demonstrate how this
+kind of agent works, so lets imagine a bigger environment, a 50 x 50
+environment.</p>
+
+<p><img src="/img/ia-agent-simple-reflex-model-execution.gif" alt="execution" /></p>
+
+<p>It is not very smart as you can see, but since it stores the internal state
+(current position), we can consider this agent having a <em>model</em>.</p>
+
+<p>The full implementation can be found in this repo, but here the code of this
+agent:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">class</span> <span style="color:#447fcf;text-decoration:underline">ReactiveCleaner</span>(Cleaner):
+
+    <span style="color:#6ab825;font-weight:bold">def</span> __init__(self, world):
+        self.down = True
+        <span style="color:#24909d">super</span>().__init__(world)
+
+    <span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">percept</span>(self, world, x, y):
+        <span style="color:#6ab825;font-weight:bold">if</span> self.canClean():
+            <span style="color:#6ab825;font-weight:bold">return</span> self.actionClean
+        <span style="color:#6ab825;font-weight:bold">if</span> self.down:
+            <span style="color:#6ab825;font-weight:bold">if</span> world.canGoDown():
+                <span style="color:#6ab825;font-weight:bold">return</span> self.actionMoveDown
+            self.down = False
+        <span style="color:#6ab825;font-weight:bold">else</span>:
+            <span style="color:#6ab825;font-weight:bold">if</span> world.canGoUp():
+                <span style="color:#6ab825;font-weight:bold">return</span> self.actionMoveUp
+            self.down = True
+        <span style="color:#6ab825;font-weight:bold">if</span> world.canGoRight():
+            <span style="color:#6ab825;font-weight:bold">return</span> self.actionMoveRight
+        <span style="color:#6ab825;font-weight:bold">return</span> self.actionNothing
+
+    <span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">isDone</span>(self):
+        <span style="color:#6ab825;font-weight:bold">if</span> self.canClean():
+            <span style="color:#6ab825;font-weight:bold">return</span> False
+        <span style="color:#6ab825;font-weight:bold">if</span> self.world.canGoRight():
+            <span style="color:#6ab825;font-weight:bold">return</span> False
+        <span style="color:#6ab825;font-weight:bold">if</span> self.down:
+            <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#6ab825;font-weight:bold">not</span> self.world.canGoDown()
+        <span style="color:#6ab825;font-weight:bold">else</span>:
+            <span style="color:#6ab825;font-weight:bold">return</span> <span style="color:#6ab825;font-weight:bold">not</span> self.world.canGoUp()
+        <span style="color:#6ab825;font-weight:bold">return</span> False</code></pre></div>
+<p>Basically it implement a walk through the whole environment, and if it found any
+dirty, it cleans. Not very smart but it get the job done.</p>
+
+<h3 id="goal-based-agents">Goal-based agents</h3>
+
+<p><img src="/img/ia-agent-goal.png" alt="reactive" /></p>
+
+<p>Goal based agents, as the name suggests, are based on goals. These goals are the
+target for their actions, it means, given a set of perceptions, choose the
+action that will be better to archive the goal.</p>
+
+<blockquote>
+<p>Goal agents don&rsquo;t distinguish between goal states and non-goal states, there
+is no between.</p>
+</blockquote>
+
+<h3 id="utility-based-agents">Utility-based agents</h3>
+
+<p><img src="/img/ia-agent-utility.png" alt="reactive" /></p>
+
+<p>These agents are more complex and elaborated, can be described as an advanced
+goal based agent. In utility based agents is possible to define how much you
+want some desired goal, so the agent can choose the best action for that
+situation. An utility based agent chooses the action that maximizes the expected
+utility of their action.</p>
+
+<p>Example, imagine a game like Mortal Kombat, where you want to create an agent to
+fight against other players. While not being hit by the opponent is good, kill
+the opponent is better and make you winner of the fight (objective state). Given
+this scenario, considering that the opponent is near you, what is the optimal
+move ? An utility based agent would calculate it based on several aspects.</p>
+
+<ul>
+<li>If your energy level is low, and the opponent is higher, <strong>Block</strong></li>
+<li>If your energy level is high, and the opponent is low, <strong>Attack</strong></li>
+</ul>
+
+<p>This is obviously a simplification of the current scenario, but the idea is,
+given that the end goal (win the fight) can be archived only if you don&rsquo;t lose
+the fight, if your energy bar is low, better to protect yourself than risking
+being hit while attacking the opponent. But the opposite is also true, while</p>
+
+<p>avoiding damage is a goal, it can be sacrificed by risking being hit if you have
+chances of winning the fight by hitting the opponent.</p>
+
+<p>Suppose that we expand our previous implementation to make it a little bit
+smarter.</p>
+
+<p><img src="/img/ia-agent-goal-execution.gif" alt="execution" /></p>
+
+<p>In the example above you can see the agent <em>chasing</em> the dirty, if it were an
+goal based agent, it will move to anywhere that has dirty in and clean, as said
+before, those agents don&rsquo;t distinguish between any goal state. In this case,
+there is a distinction, even the goal of cleaning the environment being set, the
+agent chooses to clean the nearest dirty.</p>
+
+<p>As said before, the whole source code is in <a href="https://github.com/opsxcq/blog/tree/master/static/src">this
+repository</a>, bellow the
+code regarding the utility base agent:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#6ab825;font-weight:bold">class</span> <span style="color:#447fcf;text-decoration:underline">UtilityCleaner</span>(Cleaner):
+
+    <span style="color:#6ab825;font-weight:bold">def</span> __init__(self, world):
+        self.actions = []
+        <span style="color:#24909d">super</span>().__init__(world)
+
+    <span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">percept</span>(self, world, x, y):
+        <span style="color:#6ab825;font-weight:bold">if</span> <span style="color:#24909d">len</span>(self.actions) &gt; <span style="color:#3677a9">0</span>:
+            <span style="color:#6ab825;font-weight:bold">return</span> self.actions.pop(-<span style="color:#3677a9">1</span>)
+
+        <span style="color:#6ab825;font-weight:bold">if</span> self.canClean():
+            <span style="color:#6ab825;font-weight:bold">return</span> self.actionClean
+
+        e = <span style="color:#24909d">enumerate</span>
+        g = self.world.grid
+        dirty = [self.getMoveActions(self.x, self.y, x, y) <span style="color:#6ab825;font-weight:bold">for</span> x,l <span style="color:#6ab825;font-weight:bold">in</span> e(g) <span style="color:#6ab825;font-weight:bold">for</span> y,c <span style="color:#6ab825;font-weight:bold">in</span> e(l) <span style="color:#6ab825;font-weight:bold">if</span> c == <span style="color:#3677a9">1</span>]
+        <span style="color:#6ab825;font-weight:bold">if</span> dirty:
+            self.actions.extend(<span style="color:#24909d">min</span>(dirty, key=<span style="color:#24909d">len</span>))
+            <span style="color:#6ab825;font-weight:bold">return</span> self.actions.pop(-<span style="color:#3677a9">1</span>)
+
+        <span style="color:#6ab825;font-weight:bold">return</span> self.actionNothing
+
+    <span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">getMoveActions</span>(self, cx, cy, x, y):
+        <span style="color:#6ab825;font-weight:bold">if</span> cx &gt; x:
+            <span style="color:#6ab825;font-weight:bold">return</span> [self.actionMoveUp] + self.getMoveActions(cx - <span style="color:#3677a9">1</span>, cy, x, y)
+        <span style="color:#6ab825;font-weight:bold">if</span> cx &lt; x:
+            <span style="color:#6ab825;font-weight:bold">return</span> [self.actionMoveDown] + self.getMoveActions(cx + <span style="color:#3677a9">1</span>, cy, x, y)
+
+        <span style="color:#6ab825;font-weight:bold">if</span> cy &gt; y:
+            <span style="color:#6ab825;font-weight:bold">return</span> [self.actionMoveLeft] + self.getMoveActions(cx, cy - <span style="color:#3677a9">1</span>, x, y)
+        <span style="color:#6ab825;font-weight:bold">if</span> cy &lt; y:
+            <span style="color:#6ab825;font-weight:bold">return</span> [self.actionMoveRight] + self.getMoveActions(cx, cy + <span style="color:#3677a9">1</span>, x, y)
+
+        <span style="color:#6ab825;font-weight:bold">return</span> []
+
+    <span style="color:#6ab825;font-weight:bold">def</span> <span style="color:#447fcf">isDone</span>(self):
+        <span style="color:#6ab825;font-weight:bold">return</span> self.world.isEverythingClean()</code></pre></div>
+<p>This one is a little bit smarter than the previous one, but still not smart
+enough, if you watch the execution you will notice that some of the dirty is
+left behind, then, after walking to the other side of the environment, the agent
+decides to get back there and remove it.</p>
+
+<p>Why ? Because the agent uses the distance, and optimize its execution to focus
+on the nearest dirty, instead of the global approach, which would have to be
+done using the <a href="https://en.wikipedia.org/wiki/Travelling_salesman_problem">travelling salesman
+approach</a>.</p>
+
+<h3 id="learning-agents">Learning agents</h3>
+
+<p><img src="/img/ia-agent-learning.png" alt="reactive" /></p>
+
+<p>As the name suggests, the learning agents can adapt to the environment where
+they are. Based on perceptions they change their critic of the world and their
+actions. The <strong>critic is the crucial ingredient creating a learning agent</strong>
+because it gives the required feedback to the process. Along with the critic
+component, there is the <strong>learning</strong> and the <strong>problem generator</strong> components.</p>
+
+<p>The <strong>problem generator component</strong> element is responsible for, as the name
+suggest, creating problems. It may sound a little bit against the objective of
+an agent that is to complete a task, so why to introduce a <em>problem</em> ? The
+reason is, when you try new thing, you discover new things, just like that, the
+problem generator is responsible for choosing a <strong>safe or not</strong> alternative from
+time to time so the agent will face different challenges. And as the agent
+learns, it will update the agent <strong>performance element</strong> with new data, instead
+of choosing always the <em>best known solution</em> to the problem.</p>
+
+<p>Imagine a poker game, where initially you don&rsquo;t know the other players, but as
+the game goes, you know that a certain player always bluff. If that player is
+playing against a learning agent, at first the agent will believe in the bluff,
+but after some games it will <em>learn</em> who bluff and will change its strategies to
+defeat the other player (goal).</p>
+
+<p>Other scenario are the adaptive adversarial NPCs in games, their objective is
+not defeat the player, but give the desired level of difficulty
+(Easy/Regular/Hard). So, if a given player keep dying, they change their
+strategy to keep the game interesting, while these characters fight the
+protagonist, is not the game goal (in this case) to make the player lose all the
+time, using the <em>easy</em> mode as an example, if the player keep dying, the
+internal mechanics change to a point where the enemies become weak in both
+energy level and skills.</p>
+
+<h1 id="environment">Environment</h1>
+
+<p>An agent can run on several kinds of environments, and those environments can be
+classified by their features as shown bellow.</p>
+
+<h2 id="fully-observable-x-partially-observable">Fully observable x Partially observable</h2>
+
+<p>If the agent can observe the whole environment at once, it is <strong>fully
+observable</strong>, like for example, in a chess game, where the agent can <em>see</em> the
+whole board. Partially observable is when, as the name suggests, you can&rsquo;t
+observe the whole environment at once or at all, the real world is a good
+example of partially observable environment.</p>
+
+<h2 id="deterministic-x-stochastic">Deterministic x Stochastic</h2>
+
+<p>Given an action, what would the environment look like after that ? If the answer
+is precise, it means, that the <strong>next state of the environment is solely
+determined by the current state and the agent action</strong>, then you have a
+<strong>determinitic</strong> environment, if not, you have an <strong>stochastic</strong> environment.</p>
+
+<p>Analysing it by the other point of view, if the environment next state is
+unknown, or you aren&rsquo;t sure of what will happen if your agent execute an action,
+it is <strong>stochastic</strong>.</p>
+
+<h2 id="episodic-x-sequential">Episodic x Sequential</h2>
+
+<p>Every experience (event) can be divided into episodes where future episodes
+aren&rsquo;t affected by the current action (or actions). For example, an agent who is
+programmed to find bad apples, once it find one bad apple, it remove from the
+environment, but the fact of removing it won&rsquo;t change how the agent or the
+environment will behave in the furute.</p>
+
+<p>To illustrate the apple example, consider an agent to do this:</p>
+
+<p><img src="/img/ia-environment-episodic.gif" alt="episodic environment" /></p>
+
+<p>In the other hand, a sequential environment means that agent actions will change
+the future state of the environment.</p>
+
+<h2 id="discrete-x-continuous">Discrete x Continuous</h2>
+
+<p>Discrete and continuous means directly if the environment changes while the
+agent is processing (<em>thinking</em>) or while the agent is executing an action. Even
+if the environment changes, but in a predictable way, like the clock in a chess
+game, it can be also considered discrete, some people may consider this
+environment <em>semi-discrete</em>.</p>
+
+<p>The discrete counterpart is the continuous, also called dynamic environment. It
+means that the environment is changing while the agent is processing or
+executing an action, the best example is the real world, consider the idea of
+catching a fly while it is flying, since the environment is always changing,
+there is a big possibility that the fly moves faster and your attempt to catch
+it fails.</p>
+
+<h2 id="single-agent-x-multi-agent">Single agent x Multi agent</h2>
+
+<p>How many agents in the environment ? This is basically the question to determine
+which category the environment fell into. Inside this category we can also
+categorize the agents into:</p>
+
+<h3 id="communication-x-mute-agents">Communication x &ldquo;Mute&rdquo; agents</h3>
+
+<p>Agents can communicate with each other ? If so, they can share their current
+state, their current observations about the environment and coordinate their
+actions.</p>
+
+<h3 id="collaboration-x-competition">Collaboration x Competition</h3>
+
+<p>Do agents compete against each other ? Do they work together ? For example, a
+chess game, is a multi agent because there are two players, in this case, even a
+game of a machine against a human, still a multi agent environment.</p>
+
+<h1 id="search-methods">Search methods</h1>
+
+<p><strong>Search is the process to for the best sequence of actions</strong>.</p>
+
+<p>Objective: states of the environment that will satisfy the goal.</p>
+
+<p>Agent task: discover the sequence of actions to archive the goal.</p>
+
+<p>An agent can have several ways to archive a goal, seach methods try to find the
+best set of actions to archive the goal based on the <em>objective funcion</em>.</p>
+
+<p>To start solving a problem, first of all we need to <strong>define the objective</strong>,
+then <strong>formulate the problem</strong> and finally <strong>solve the problem</strong>.</p>
+
+<p>The best solution is given by the one with the best performance, in other words,
+the one who score better in archiving the objective.</p>
+
+<h2 id="problem-definition">Problem definition</h2>
+
+<p>Analyses the possibility space.</p>
+
+<ul>
+<li>Initial State</li>
+<li>Objective State (End Goal)</li>
+<li>Possible actions (Successor Function)</li>
+<li>Possibility State Space ?</li>
+<li>Path cost (Action cost)</li>
+</ul>
+
+<h1 id="references">References</h1>
+
+<ul>
+<li><a href="http://aima.cs.berkeley.edu/">AI: A Modern Approach</a></li>
+<li><a href="https://www.edx.org/course/artificial-intelligence-ai-columbiax-csmm-101x-0">EDX Course</a></li>
+</ul>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+      <span class="copyright">&copy; 2019 OPSXCQ Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("End Jax",function () {
+  var BROWSER = MathJax.Hub.Browser;
+  var jax = "HTML-CSS";
+  if (BROWSER.isMSIE && BROWSER.hasMathPlayer) jax = "NativeMML";
+  if (BROWSER.isFirefox) jax = "SVG";
+  if (BROWSER.isSafari && BROWSER.versionAtLeast("5.0")) jax = "NativeMML";
+  return MathJax.Hub.setRenderer(jax);
+});
+</script>
+
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+    });
+    MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-43399052-10"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-43399052-10');
+</script>
+
+
+</body>
+</html>
+

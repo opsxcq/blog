@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="generator" content="Hugo 0.48" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700" type="text/css">
+<link rel="alternate" href="/index.xml" type="application/rss+xml" title="OPSXCQ Blog">
+<title>Running Cron tasks on docker - The correct way - OPSXCQ Blog</title>
+</head>
+<body>
+
+<header>
+  <div class="container clearfix">
+    <a class="path" href="https://strm.sh/">[OPSXCQ Blog]</a>
+    <span class="caret"># _</span>
+    <div class="right">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+
+<main role="main" class="article">
+  
+<article class="single" itemscope itemtype="http://schema.org/BlogPosting">
+  <div class="meta">
+
+    <span class="key">published on</span>
+    <span class="val"><time itemprop="datePublished" datetime="2018-09-06">September 06, 2018</time></span>
+
+
+
+    <br>
+    <span class="key">tags:</span>
+    <span class="val">
+
+        <a href="/tags/docker">docker</a>
+
+        <a href="/tags/devops">devops</a>
+
+    </span>
+
+  </div>
+  <h1 class="headline" itemprop="headline">Running Cron tasks on docker - The correct way</h1>
+  <section class="body" itemprop="articleBody">
+    
+
+<p>While is perfectly possible to use <em>cron</em> inside a container, I strongly advise
+you to don&rsquo;t do it. Some of the most important points on why is a <strong>bad
+practice to run cron inside a container</strong>:</p>
+
+<h2 id="your-tasks-need-to-be-ephemeral-as-your-containers">Your tasks need to be ephemeral as your containers</h2>
+
+<p>We live in the immutable infrastructure era, there is no need to worry about
+cleaning up everything before or after your tasks run. Make your scheduled tasks
+ephemeral as your containers, if something goes wrong, you can inspect the
+precise state that the container was left. Even with Tasker supporting reusing
+the container(<code>reuse: true</code>) this is not recommended.</p>
+
+<p>Let your tasks be ephemeral as possible, you can always count on a clean
+environment for every execution.</p>
+
+<h2 id="maintain-custom-images-is-time-consuming">Maintain custom images is time consuming</h2>
+
+<p>This is the main point of using Tasker, imagine that you have 3 tasks to run,
+one in Python, one in Javascript (nodejs) and the other is a backup tasks that
+need the MongoDB command line tools. Using <em>cron</em> would be needed to build 3
+images, one for each task, adding the cron daemon to the base image, then
+configuring your task and adding your scripts. After it is done, you need to
+publish it, because your servers will need to pull this image to be able to run
+it, so another step is giving access to it.</p>
+
+<p>With Tasker, you simply use the images that are already available, no more extra
+work required.</p>
+
+<h2 id="no-alerts-when-tasks-fail">No alerts when tasks fail</h2>
+
+<p>Cron doesn&rsquo;t provide anything out of the box to alert about your tasks execution
+status. Tasker in the other hand come with batteries included and ships alerting
+out of the box, <a href="https://github.com/opsxcq/tasker#notifications">here the official
+docs</a>.</p>
+
+<h2 id="is-hard-to-keep-everything-as-code">Is hard to keep everything <em>as code</em></h2>
+
+<p>Considering the first scenario, with 3 tasks each one with a image for each. If
+you keep the good practices, you will create a git repository for each one, with
+their own build. It means that you have 3 additional repositories to keep track
+of.</p>
+
+<p>With Tasker you can simply have one configuration file and replace all those
+repositories with one repository.</p>
+
+<h1 id="introduction-to-tasker">Introduction to Tasker</h1>
+
+<p>Tasker is a task scheduler and runner, it works by creating containers on demand
+to run your task.</p>
+
+<p>Let&rsquo;s use a practical example, considering the <code>docker-compose.yml</code> file bellow:</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">version:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;3&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>services:<span style="color:#666">
+</span><span style="color:#666">    </span>tasker:<span style="color:#666">
+</span><span style="color:#666">        </span>image:<span style="color:#666"> </span>strm/tasker<span style="color:#666">
+</span><span style="color:#666">        </span>volumes:<span style="color:#666">
+</span><span style="color:#666">            </span>-<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span><span style="color:#666">
+</span><span style="color:#666">        </span>environment:<span style="color:#666">
+</span><span style="color:#666">             </span>configuration:<span style="color:#666"> </span><span style="color:#ed9d13">|
+</span><span style="color:#ed9d13">                 schedule:
+</span><span style="color:#ed9d13">                     - every: minute
+</span><span style="color:#ed9d13">                       task: hello
+</span><span style="color:#ed9d13">                 tasks:
+</span><span style="color:#ed9d13">                     docker:
+</span><span style="color:#ed9d13">                         - name: hello
+</span><span style="color:#ed9d13">                           image: debian:jessie
+</span><span style="color:#ed9d13">                           script:
+</span><span style="color:#ed9d13">                               - echo Hello world from Tasker</span></code></pre></div>
+<p>Tasker can be configured in several ways, one way is setting the environment
+variable <code>configuration</code> and set it to your yml configuration. As you can
+notice, it goes really well with the docker-compose file.</p>
+
+<p>Let&rsquo;s break down the configuration to explain what is going on. We can break it
+in two main sections, <code>schedule</code> and `tasks**.</p>
+
+<p><strong>Schedules</strong> are the triggers to our tasks, they are defined as an array of
+<code>schedule</code>. These schedules are defined by two main properties, when they will
+trigger the task, and what tasks they will trigger.</p>
+
+<p>Another good point of Tasker is that you don&rsquo;t have to memorize some abstract
+<em>cron</em> syntax, it uses a more human language, like in this example <code>every:
+minute</code>, it means every 1 minute this task will run. Test it, change to <code>every:
+10 minutes</code> and observe the results. You can also set it as a default <em>cron</em>
+syntax.</p>
+
+<p>More about scheduling can be found on the <a href="https://github.com/opsxcq/tasker#scheduler">official docs</a></p>
+
+<p>The second element of the configuration (and the most important) are the
+<strong>tasks</strong>, tasks defined under the <code>docker</code> property represent a <strong>docker
+container definitions</strong>, they reflect the container that will be created when
+triggered and will execute your commands. You can use any docker image to run
+your commands into.</p>
+
+<p>Here a more elaborate example to illustrate how you can use several images on the same configuration</p>
+<div class="highlight"><pre style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yml" data-lang="yml">version:<span style="color:#666"> </span><span style="color:#ed9d13">&#34;3&#34;</span><span style="color:#666">
+</span><span style="color:#666">
+</span><span style="color:#666"></span>services:<span style="color:#666">
+</span><span style="color:#666">    </span>tasker:<span style="color:#666">
+</span><span style="color:#666">        </span>image:<span style="color:#666"> </span>strm/tasker<span style="color:#666">
+</span><span style="color:#666">        </span>volumes:<span style="color:#666">
+</span><span style="color:#666">            </span>-<span style="color:#666"> </span><span style="color:#ed9d13">&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span><span style="color:#666">
+</span><span style="color:#666">        </span>environment:<span style="color:#666">
+</span><span style="color:#666">            </span>configuration:<span style="color:#666"> </span><span style="color:#ed9d13">|
+</span><span style="color:#ed9d13">                logging:
+</span><span style="color:#ed9d13">                    level:
+</span><span style="color:#ed9d13">                        ROOT: WARN
+</span><span style="color:#ed9d13">                        org.springframework.web: WARN
+</span><span style="color:#ed9d13">                        sh.strm: DEBUG
+</span><span style="color:#ed9d13">                schedule:
+</span><span style="color:#ed9d13">                    - every: minute
+</span><span style="color:#ed9d13">                      task: hello
+</span><span style="color:#ed9d13">                    - every: minute
+</span><span style="color:#ed9d13">                      task: helloFromPython
+</span><span style="color:#ed9d13">                    - every: minute
+</span><span style="color:#ed9d13">                      task: helloFromNode
+</span><span style="color:#ed9d13">                tasks:
+</span><span style="color:#ed9d13">                    docker:
+</span><span style="color:#ed9d13">                        - name: hello
+</span><span style="color:#ed9d13">                          image: debian:jessie
+</span><span style="color:#ed9d13">                          script:
+</span><span style="color:#ed9d13">                              - echo Hello world from Tasker
+</span><span style="color:#ed9d13">                        - name: helloFromPython
+</span><span style="color:#ed9d13">                          image: python:3-slim
+</span><span style="color:#ed9d13">                          script:
+</span><span style="color:#ed9d13">                              - python -c &#39;print(&#34;Hello world from python&#34;)&#39;
+</span><span style="color:#ed9d13">                        - name: helloFromNode
+</span><span style="color:#ed9d13">                          image: node:8
+</span><span style="color:#ed9d13">                          script:
+</span><span style="color:#ed9d13">                              - node -e &#39;console.log(&#34;Hello from node&#34;)&#39;</span></code></pre></div>
+<p>Note that in this example, we have only one source file, but if you had to
+replicate it using <em>cron</em> you would had to create 3 images, one for each base
+image + the cron daemon, and, or map your scripts to it, or copy it on the
+build. After a while the maintenance required to keep everything updated will
+consume a significant amount of time. This is one of the main scenarios where
+Tasker simplifies a lot the work required.</p>
+
+<p>Basically everything that you need to configure in a container, from
+<strong>networking</strong>, <strong>volumes</strong>, and everything else can be done using this
+configuration section, for more info <a href="https://github.com/opsxcq/tasker#docker-tasks">see the official
+docs</a>.</p>
+
+<h1 id="references">References</h1>
+
+<ul>
+<li><a href="https://github.com/opsxcq/tasker">Tasker repository</a></li>
+</ul>
+
+  </section>
+</article>
+
+</main>
+
+</div>
+
+<footer>
+  <div class="container">
+      <span class="copyright">&copy; 2019 OPSXCQ Blog - <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></span>
+  </div>
+</footer>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Register.StartupHook("End Jax",function () {
+  var BROWSER = MathJax.Hub.Browser;
+  var jax = "HTML-CSS";
+  if (BROWSER.isMSIE && BROWSER.hasMathPlayer) jax = "NativeMML";
+  if (BROWSER.isFirefox) jax = "SVG";
+  if (BROWSER.isSafari && BROWSER.versionAtLeast("5.0")) jax = "NativeMML";
+  return MathJax.Hub.setRenderer(jax);
+});
+</script>
+
+<script type="text/javascript" async
+        src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    MathJax.Hub.Config({
+    tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+    extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+    });
+    MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+    all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-43399052-10"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-43399052-10');
+</script>
+
+
+</body>
+</html>
+
