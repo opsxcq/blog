@@ -32,11 +32,17 @@ esxcli system settings advanced set -o /Net/GuestIPHack -i 1
 To make it compatible with ESXi just run
 
 ```
-qemu-img convert -f qcow2 -O vmdk -o adapter_type=lsilogic,subformat=streamOptimized,compat6 debian10-template output.vmdk
+qemu-img convert -f qcow2 -O vmdk -o subformat=streamOptimized,compat6 debian10-template disk.vmdk
 ```
 
 > Important note, the generated disk uses IDE as controller, remember this when
 > importing to ESXi
+
+# Debian tips
+
+## Dumping current install as preseed
+
+Install `debconf-utils` then run `debconf-get-selections --installer`
 
 # References
 
