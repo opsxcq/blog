@@ -1,0 +1,26 @@
+#+Title: STRM.sh blog
+
+This repository contains the source code of the website https://strm.sh
+
+Feel free to contribute, this is open source and an open community. Check out
+discussions on this project for a place to exchange ideas about the topics
+discussed.
+
+* Stack
+
+ - Hugo
+ - Emacs
+ - Org-Mode, ox-hugo
+ - Python, Poetry
+ - Theme based on risotto theme.
+
+* How to contribute ?
+
+The written content is stored inside =content-org=, is written in =Org-Mode= and can
+be easily extended. For working on this project is recommended the usage of
+=Spacemacs= or =Doom Emacs=.
+
+For contributing with bibliography, the =bib= files are on the root of this project.
+
+For contributions related to files, malware samples or others, check the =static=
+folder where they should be properly added.

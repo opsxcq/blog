@@ -1,0 +1,78 @@
+#+title: Restricting Docker container networking to Tor only
+#+author: OPSXCQ
+#+date: 2019-02-14
+#+hugo_base_dir: ../../
+#+hugo_section: posts
+#+hugo_category: posts
+#+hugo_tags[]: docker, devops, tor, anonimity
+
+Image the following use case, you have an application running which you strictly
+want to force its traffic to go through the *TOR* network. In normal case
+scenarios, you can implement at your network firewall level a restriction to
+such traffic, a more simplistic approach would be locally to add an =iptables=
+rule, but in the container world everything is different.
+
+#+hugo: more
+
+Here will be explored an use case of an isolated container that can only
+communicate with a /proxy/ container that has access to the Tor network. Suppose
+that you don't trust that you application will keep the proxy configurations or
+properly use it and you want to be sure that nothing wrong happen to your
+privacy.
+
+* Create the networks
+
+The very first step is to create the networks used for this example. Let's give
+them some self-explanatory names.
+
+#+begin_src bash
+docker network create internet
+docker network create --internal restricted
+#+end_src
+
+As you can see, the /restricted/ network is created with the =--internal= flag,
+which means that it doesn't have any external access.
+
+* Create the proxy container
+
+Two containers will be created for this test, the first one is the /proxy/ server
+that will run Tor as a proxy.
+
+#+begin_src bash
+docker run --rm -it --name proxy --network internet -e PROXY_PORT=9050 strm/tor
+#+end_src
+
+In another terminal run
+
+#+begin_src bash
+docker run --rm -it --name client --network restricted strm/task-base
+#+end_src
+
+And finally attach the proxy container to the restricted network.
+
+#+begin_src bash
+docker network connect restricted proxy
+#+end_src
+
+* Testing
+
+To be sure that the setup is properly working, the image used as the client
+image already has =curl= installed, so is possible to run the following command.
+
+#+begin_src bash
+root@a7534de5d6be:/data# curl -x socks5h://proxy:9050 google.com
+<HTML><HEAD><meta http-equiv="content-type" content="text/html;charset=utf-8">
+<TITLE>301 Moved</TITLE></HEAD><BODY>
+<H1>301 Moved</H1>
+The document has moved
+<A HREF="http://www.google.com/">here</A>.
+</BODY></HTML>
+#+end_src
+
+The next step is to be sure that the opposite also happens, that the /client/
+container can't access the internet without the proxy. So you can use /ping/, /curl/
+and other tools to test it.
+
+* References
+
+- [[https://github.com/opsxcq/docker-tor][Tor image]]

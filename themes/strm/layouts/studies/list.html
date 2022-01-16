@@ -1,0 +1,22 @@
+{{ define "main" }}
+    <header class="content__header">
+        <h1>{{ .Title | markdownify }}</h1>
+        {{ .Content }}
+    </header>
+
+    {{ range .Pages }}
+    <article class="study">
+        <header class="study__header">
+            <h1><a href="{{ .Permalink }}">{{ .Title | markdownify }}</a></h1>
+            <p class="study__meta">
+                {{ .Params.author }},
+                <span class="date">{{ .Date.Format "2 January 2006" }}</span>
+            </p>
+        </header>
+
+        <section class="study__summary">
+            {{ .Summary }}
+        </section>
+    </article>
+    {{ end }}
+{{ end }}

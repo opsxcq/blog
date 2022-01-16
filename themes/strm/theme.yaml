@@ -1,0 +1,15 @@
+name: strm
+license: GPLv3
+licenselink: 'https://github.com/opsxcq/blog/LICENSE'
+description: A simplistic theme for strm.sh
+homepage: 'https://strm.sh'
+demosite: 'https://strm.sh'
+tags:
+  - strm
+  - minimal
+  - tech
+features: []
+min_version: 0.92.0
+author:
+  name: OPSXCQ
+  homepage: 'https://strm.sh'

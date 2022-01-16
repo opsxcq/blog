@@ -1,0 +1,3 @@
+#+Title: Legacy Posts
+
+Those are posts from the previous version of the blog which weren't yet, or will not be migrated to the new version

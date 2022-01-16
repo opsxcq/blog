@@ -1,0 +1,10 @@
+{{ $dir := .Get "dir" }}
+{{ $regexp := .Get "regexp" }}
+
+{{ range sort (readDir (delimit (slice "static" $dir) "/")) "Name" }}
+  {{ if (findRE $regexp .Name) }}
+    <div class="download-item">
+    <a href="{{ $dir }}/{{ .Name }}">{{ .Name }}</a>
+    </div>
+  {{ end }}
+{{ end }}

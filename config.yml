@@ -1,0 +1,99 @@
+baseURL: 'https://strm.sh'
+theme: strm
+title: STRM
+author: OPSXCQ
+copyright: STRM
+paginate: 3
+languageCode: en
+DefaultContentLanguage: en
+enableInlineShortcodes: true
+ignoreErrors:
+  - error-remote-getjson
+sectionPagesMenu: main
+params:
+  math: true
+  theme:
+    palette: strm-dark
+    mode: dark-mode
+  about:
+    title: '## STRM ##'
+    description: |
+      A pro-freedom hacktivist thinktank.
+
+  socialLinks:
+    - icon: fab fa-github
+      title: GitHub
+      url: 'https://github.com/opsxcq/blog'
+    - icon: fas fa-envelope
+      title: Email
+      url: 'mailto:trash-can@strm.sh'
+    - icon: fab fa-keybase
+      title: Keybase OPSXCQ
+      url: 'https://keybase.io/terminator'
+    - icon: fas fa-users
+      title: Keybase Crypto
+      url: 'https://keybase.io/team/cryptoanarquismo'
+    - icon: fas fa-users
+      title: Keybase Deep Web
+      url: 'https://keybase.io/team/deepweb'
+    - icon: fas fa-users
+      title: Forum
+      url: 'https://github.com/opsxcq/blog/discussions/3'
+  comments:
+    utterances:
+      repo: opsxcq/blog
+      issue_term: title
+      label: comment
+      theme: dark-blue
+
+menu:
+  external:
+    - name: Forum
+      url: "https://github.com/opsxcq/blog/discussions/3"
+  main:
+    - identifier: studies
+      name: Studies
+      url: /studies/
+      weight: 100
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: projects
+      name: Projects
+      url: /projects/
+      weight: 20
+    - identifier: malware-samples
+      name: Malware
+      url: /malware-samples/
+      weight: 40
+taxonomies:
+  studies: studies
+  projects: projects
+  post: posts
+  category: categories
+  tag: tags
+  series: series
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+privacy:
+  vimeo:
+    disabled: false
+    simple: true
+  twitter:
+    disabled: false
+    enableDNT: true
+    simple: true
+  instagram:
+    disabled: false
+    simple: true
+  youtube:
+    disabled: false
+    privacyEnhanced: true
+services:
+  instagram:
+    disableInlineCSS: true
+  twitter:
+    disableInlineCSS: true

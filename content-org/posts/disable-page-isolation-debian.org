@@ -1,0 +1,63 @@
+#+title: How to disable page table isolation on Debian
+#+author: OPSXCQ
+#+date: 2018-08-09
+#+hugo_base_dir: ../../
+#+hugo_section: posts
+#+hugo_category: posts
+#+hugo_category: debian, linux, performance
+
+After meltdown, spectre and other similar bugs were discoreved and patched the
+overall performance on Linux decreased. [[https://gist.github.com/bobrik/c67189e88efcc2a1491c54c15f5fe006][Here a detailed benchmark]] about the
+impact of these fixes on Redis performance. Something between *15%* and *6%* slower
+than the same machine without the fixes.
+
+#+hugo: more
+
+* Check your linux
+
+To check if the fixes are enabled run the command bellow:
+
+#+begin_src bash
+grep CONFIG_PAGE_TABLE_ISOLATION=y /boot/config-`uname -r` && echo "enabled" || echo "disabled"
+grep -q "cpu_insecure\|cpu_meltdown\|kaiser" /proc/cpuinfo && echo "enabled" || echo "disabled"
+sudo dmesg | grep -q "Kernel/User page tables isolation: enabled" && echo "enabled" || echo "disabled"
+#+end_src
+
+You can also check your system using this [[https://github.com/opsxcq/exploit-cve-2017-5715][exploit]]. If your system is vulnerable
+and has no fixes enabled, the output will be:
+
+#+BEGIN_EXAMPLE
+taskset -c 1 ./exploit 
+
+[+] Testing for Spectre
+[+] Dumping memory from 0xffffffffffdfeea8 to 0xffffffffffdfeec2
+[+] Dumped bytes match the expected value
+[+] System vulnerable to spectre
+#+END_EXAMPLE
+
+* Test before applying
+
+Before testing the fixes permanently you *should test them*, reboot your system
+and edit your /grub/ configuration by pressing *E* and add these parameters to your
+kernel.
+
+#+BEGIN_EXAMPLE
+spectre_v2=off pti=off kpti=off
+#+END_EXAMPLE
+
+* Applying the fix
+
+To apply these configurations permanently edit your =/etc/default/grub= file and
+append the parameters above to the =GRUB_CMDLINE_LINUX_DEFAULT= line. After that
+just update your grub configuration with =sudo update-grub=.
+
+* Conclusion
+
+It is not a good idea to disable these protections on your servers, not even on
+your desktop, because this bug can be exploited via Firefox for example but
+sometimes you need some extra performance and are willing to accept the risk.
+
+* References
+
+- [[https://spectreattack.com/][Spectre website]]
+- [[https://blog.mozilla.org/security/2018/01/03/mitigations-landing-new-class-timing-attack/][Firefox mitigations for Spectre]]

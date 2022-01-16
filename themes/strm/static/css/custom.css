@@ -1,0 +1,108 @@
+/* Override this file to customise the theme's CSS for your site */
+
+@import url('https://fonts.googleapis.com/css2?family=Arvo&family=Share+Tech+Mono&display=swap');
+
+@import 'syntax.css';
+
+
+p {
+    line-height: normal;
+    letter-spacing: 0.02rem;
+}
+
+:root {
+    --font-monospace: "Share Tech Mono", monospace;
+}
+
+.content__body h1,h2,h3,h4,h5,h6{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.content__body li::marker{
+    content: " - ";
+    padding-right: 10px;
+}
+
+.content__body ol li::marker{
+    content: none;
+}
+
+.footnote-ref a{
+    font-family: var(--font-monospace);
+    color: var(--bright-yellow);
+}
+
+sup {
+    top: 0;
+}
+
+sup a.footnote-ref {
+    color: var(--bright-yellow);
+    font-size: 0.8rem;
+}
+
+sup.footnote-ref {
+    top: -0.5rem;
+}
+
+.highlight{
+    border-style: solid;
+    margin: 20px;
+}
+
+.highlight > pre{
+    margin: 5px;
+    padding: 0.5rem;
+}
+
+.content__header h1{
+    font-size: 2rem;
+    padding-bottom: 30px;
+    line-height: 2rem;
+}
+
+#TableOfContents li::marker{
+    content: none;
+}
+
+#TableOfContents li{
+}
+
+#TableOfContents>ul>li:last-child{
+    display: none;
+}
+
+#TableOfContents>ul{
+    padding: 0px;
+    margin: 0px;
+}
+
+#TableOfContents>ul>li{
+    list-style-type: none;
+}
+
+blockquote{
+    left: 1rem;
+}
+blockquote p{
+    font-style: italic;
+}
+
+blockquote:before{
+    content: '\201C';
+    //content: '\2771';
+    font-size: 2rem;
+    left: -2rem;
+}
+
+table{
+    border-style: solid;
+    border-width: 5px;
+    margin: 10px;
+    padding: 10px;
+}
+
+td {
+    border-top: 1px solid;
+}

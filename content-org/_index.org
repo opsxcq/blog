@@ -1,0 +1,12 @@
+#+title: Main Page
+#+author: OPSXCQ
+#+date: 2017-07-20
+#+hugo_base_dir: ../
+#+hugo_front_matter_format: yaml
+#+hugo_section: 
+#+hugo_categories: 
+#+HUGO_CODE_FENCE: nil
+#+HUGO_PAIRED_SHORTCODES: tweet
+
+
+ACTUAL MAIN
