@@ -28,7 +28,7 @@ While the first example is focused on explaining the concepts, the second
 example will be solved using a more straight forward solution without giving
 redundant explanations.
 
-*  Example problem 1
+* Example problem 1
 
 To make things more concrete, I will present an example and solve it. Let's
 suppose that a certain farmer wants to know which cereal to cultivate in his
@@ -138,7 +138,7 @@ The same logic applies here, since we are using acres as our base value, we
 multiply the labor needed for each acre of each cereal, it means that /corn/ needs
 $3$ hours of labor, and /beans/ need $2$ hours.
 
-*  Solving by hand with graphical method
+* Solving by hand with graphical method
 
 We will apply the graphical solution here where the limitations are plotted so
 is possible to determine the solution visually. Bellow is the result of the
@@ -690,13 +690,13 @@ Since the $y=1$ this example isn't that illustrative as the next ones will be it
 can seem a little confusing. Also we set the variable in the column as the
 variable (Basic Variable) in the first column. This will be the resulting table:
 
-| Basic Variable | x    | y | f1 | f2 | f3 | f4  | Right Hand |
+| Basic Variable |    x | y | f1 | f2 | f3 |  f4 | Right Hand |
 |----------------+------+---+----+----+----+-----+------------|
-| $f1$           | 1    | 0 | 1  | 0  | 0  | 0   | 20         |
-| $f2$           | 3    | 0 | 0  | 1  | 0  | 0   | 80         |
-| $f3$           | 1    | 0 | 0  | 0  | 1  | 0   | 60         |
-| $y$            | 0    | 1 | 0  | 0  | 0  | 1   | 80         |
-| $Z$            | -600 | 0 | 0  | 0  | 0  | 800 | 64000      |
+| $f1$           |    1 | 0 |  1 |  0 |  0 |   0 |         20 |
+| $f2$           |    3 | 0 |  0 |  1 |  0 |   0 |         80 |
+| $f3$           |    1 | 0 |  0 |  0 |  1 |   0 |         60 |
+| $y$            |    0 | 1 |  0 |  0 |  0 |   1 |         80 |
+| $Z$            | -600 | 0 |  0 |  0 |  0 | 800 |      64000 |
 
 #+BEGIN_QUOTE
 If still any negative value in the $Z$ line, it means that we don't
