@@ -54,7 +54,7 @@ just update your grub configuration with =sudo update-grub=.
 * Conclusion
 
 It is not a good idea to disable these protections on your servers, not even on
-your desktop, because this bug can be exploited via Firefox for example but
+your desktop. Remember that this bug can be exploited even via Firefox. But
 sometimes you need some extra performance and are willing to accept the risk.
 
 * References
