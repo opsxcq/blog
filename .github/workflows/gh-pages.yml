@@ -22,10 +22,10 @@ jobs:
           # extended: true
 
       - name: Build
-        run:
-          - hugo --minify
-          - echo 'strm.sh' > public/CNAME
-          - mv keybase.txt public/
+        run: |
+           hugo --minify
+           echo 'strm.sh' > public/CNAME
+           mv keybase.txt public/
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
