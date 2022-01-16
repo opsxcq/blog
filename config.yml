@@ -68,9 +68,6 @@ menu:
       url: /malware-samples/
       weight: 40
 taxonomies:
-  studies: studies
-  projects: projects
-  post: posts
   category: categories
   tag: tags
   series: series
