@@ -39,7 +39,7 @@ params:
     - icon: fas fa-users
       title: Forum
       url: 'https://github.com/opsxcq/blog/discussions/3'
-    - icon: fas fa-users
+    - icon: fab fa-gitter
       title: Gitter
       url: 'https://gitter.im/strm-blog/community'
     
