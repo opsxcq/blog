@@ -31,6 +31,151 @@
 <header class=content__header>
 <h1>Posts</h1>
 </header>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/org-mode-blogging/>How to use Org Mode and Hugo for a better scientific blogging</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>15 January 2022</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Small overview on the usage of <code>Org-Mode</code> for blogging leveraging all features
+that <code>Emacs</code> can give, as an interactive and literate code development environment
+where you have access to bibliographic tools for easy reference and a
+comfortable editor.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/mine-sort/>Minesort, a cryptography based sorting algorithm</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>29 June 2019</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Mine sort is a cryptography based sorting algorithm that can run in \(O(n)\) time
+if you are lucky. It consists in two stages, the first one is to create a
+cryptographic seed, and the second one is to check if the seed sorts the array.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/restricting-container-networking-to-tor-only/>Restricting Docker container networking to Tor only</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>14 February 2019</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Image the following use case, you have an application running which you strictly
+want to force its traffic to go through the <strong>TOR</strong> network. In normal case
+scenarios, you can implement at your network firewall level a restriction to
+such traffic, a more simplistic approach would be locally to add an <code>iptables</code>
+rule, but in the container world everything is different.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/linear-regression-python/>Linear Regression</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>12 February 2019</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Machine learning by itself sometimes isn&rsquo;t the best answer, but it can be
+combined with specialist agents to expand it&rsquo;s capabilities and reduce the
+training time. In the other hand, for simple problems, and specially for linear
+problems, usually machine learning can be replaced with more simple and precise
+approaches like <a href=https://strm.sh/post/linear-programming/>linear programming</a>.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/abusing-insecure-docker-deployments/>Abusing insecure docker deployments</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>10 November 2018</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Is possible to abuse misconfigurations and bugs and escape from containers in
+several scenarios, in this post I will explore the most basic one: abusing the
+docker socket to escape the container and run code as <strong>root</strong> in the host machine.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/bitcoin-address-generation-in-pure-python/>Bitcoin address generation in pure python</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>14 September 2018</span>
+</p>
+</header>
+<section class=post__summary>
+<p>This post is dedicated to explore the generation of <code>Bitcoin</code> key pairs using pure
+python with no external libraries.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/mining-monero-using-a-live-linuxkit-build/>Mining monero using live a live usb linuxkit build</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>12 September 2018</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Linuxkit is a good tool to create immutable Linux systems, so why don&rsquo;t use it
+to build a Monero mining live distro ? The only thing needed to build an Linux
+with Linuxkit is a <code>yml</code> file containing the system information.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/docker-cron-right-way/>Running Cron tasks on docker - The correct way</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>6 September 2018</span>
+</p>
+</header>
+<section class=post__summary>
+<p>While is perfectly possible to use <em>cron</em> inside a container, I strongly
+advise you to don&rsquo;t do it. Some of the most important points on why is a
+<strong>bad practice to run cron inside a container</strong>:</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/disable-page-isolation-debian/>How to disable page table isolation on Debian</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>9 August 2018</span>
+</p>
+</header>
+<section class=post__summary>
+<p>After meltdown, spectre and other similar bugs were discoreved and patched the
+overall performance on Linux decreased. <a href=https://gist.github.com/bobrik/c67189e88efcc2a1491c54c15f5fe006>Here a detailed benchmark</a> about the
+impact of these fixes on Redis performance. Something between <strong>15%</strong> and <strong>6%</strong> slower
+than the same machine without the fixes.</p>
+</section>
+</article>
+<article class=post>
+<header class=post__header>
+<h1><a href=https://strm.sh/posts/tj-kaczynski-manifesto/>Theodore J. Kaczynski Manifesto</a></h1>
+<p class=post__meta>
+[OPSXCQ],
+<span class=date>14 September 2016</span>
+</p>
+</header>
+<section class=post__summary>
+<p>Theodore John Kaczynski, also known as the Unabomber, is an American domestic
+terrorist and former mathematics professor. He was a mathematics prodigy, but
+abandoned his academic career in 1969 to pursue a primitive life.</p>
+</section>
+</article>
 </section>
 <section class=page__aside>
 <div class=aside__about>
