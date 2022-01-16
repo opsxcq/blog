@@ -571,7 +571,7 @@ added \\(a\\) this variable is used to give an initial solution to the problem.
 Also, an artificial objective function \\(W\\) should be added, which initially is
 represented as:
 
-$ W= a_1 + a_2 + a_3 + ... + a_n $
+\\(W= a\_1 + a\_2 + a\_3 + ... + a\_n\\)
 
 But before writing the \\(W\\) function we have to rewrite it as an expression using
 the problem variables instead of the artificial variables.
