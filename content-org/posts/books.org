@@ -1,0 +1,24 @@
+#+title: Books
+#+author: OPSXCQ
+#+date: 2020-01-01
+#+hugo_base_dir: ../../
+#+hugo_section: posts
+#+hugo_tags[]: study, books, machine learning
+
+Bellow a curated list of books which I consumed in the recent past years, which
+my thoughts on them.
+
+* Machine Learning and Data Science books
+
+** TensorFlow for deep learning : from linear regression to reinforcement learning ([[cite:&BharathRamsundar600]])
+Overall is a subpar /hello world/ kind of book for =Tensorflow=, nothing but the
+basics. Chapter 8 on /Reinforcement Learning/ has some nice examples which are
+easy to be understood.
+
+** Hands-On Neural Networks with TensorFlow 2.0: Understand TensorFlow, from static graph to eager execution, and design neural networks ([[cite:&PaoloGaleone674]])
+Is a book from /Packt/ but besides the bad reputation from this publisher, the
+books is quite good, it touches some more practical subjects, as how to convert
+a model to =Tensorflow.js= and some practical examples of using /Generative
+Adversarial Networks/. Besides other /Packt/ books where chapters usually don't
+maintain a context or narrative in between them, this book focus solely on image
+related problems.

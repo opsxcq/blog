@@ -1,6 +1,7 @@
 #+title: How to use Org Mode and Hugo for a better scientific blogging
 #+author: OPSXCQ
 #+date: 2022-01-15
+#+PROPERTY: header-args :eval never-export
 #+hugo_base_dir: ../../
 #+hugo_section: posts
 #+hugo_tags[]: emacs, org-mode, science, literate programming
@@ -23,7 +24,7 @@ The whole stack for being able to archive this:
  - Hugo
  - Travis and GitHub
 
-* Hugo Structured
+* Hugo Structure
 
 ** Summary
 
@@ -168,7 +169,7 @@ development and for a local user which can leverage even further of =Bibtex=,
 
 The given code bellow is a demonstration of the usage of Python.
 
-#+BEGIN_SRC python :results output file :exports both
+#+BEGIN_SRC python :results output file :eval never-export :exports both
 import seaborn as sns
 sns.set_theme(style="ticks")
 
@@ -191,6 +192,15 @@ sns.relplot(
 
 If the image above is not displayed in your =Emacs= use =org-toggle-inline-images=
 with the shortcut ~, T i~.
+
+** Org Mode tweaks
+To avoid re-evaluating the code every time that it is exported, add the
+following property at the beginning of the document.
+
+#+begin_example
+#+PROPERTY: header-args :eval never-export
+#+end_example
+
 
 * Org Mode examples
 

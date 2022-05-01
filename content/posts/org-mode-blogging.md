@@ -24,13 +24,20 @@ The whole stack for being able to archive this:
 -   Travis and GitHub
 
 
-## Hugo Structured {#hugo-structured}
+## Hugo Structure {#hugo-structure}
 
 
 ### Summary {#summary}
 
 Any text at the beginning of the document is considered a summary until it
 reaches the max allowed characters or the tag `#+hugo: more` is found.
+
+
+### Generating color schemes for syntax highlight {#generating-color-schemes-for-syntax-highlight}
+
+```bash
+hugo gen chromastyles --style=monokoi > themes/strm/static/css/syntax.css
+```
 
 
 ## Spacemacs configuration {#spacemacs-configuration}
@@ -96,6 +103,8 @@ except the current sub-tree, there are a few alternatives:
 -   `, '` : open a source code block to be edited on the specialized editor.
 -   `SPC S l` : Enable and use `langtool`
 
+You can use [this site](https://alldocs.app/convert-markdown-to-emacs-org-mode) to easily convert from `markdown` to `Org-Mode`.
+
 
 ### Auto Export on save {#auto-export-on-save}
 
@@ -117,8 +126,8 @@ bibliography:../../library.bib,../../references.bib
 Remember that this is a relative path from your document to the project's root.
 After this is done, references can be added with the key combination `SPC m i c`.
 
-A paper reference will look like this (<sup id="4faa0df047eda4bc8802a5f17ecc6c26"><a href="#diffie_new_1976" title="Diffie \&amp; Hellman, New directions in cryptography, {IEEE transactions on Information Theory}, v(6), 644--654 (1976).">diffie_new_1976</a></sup>) while a book
-reference will be rendered like this (<sup id="c1769b2a9223a45bb2a531d4eef4fd64"><a href="#StuartScott745" title="Stuart Scott, AWS Certified Security &#8211; Specialty Exam Guide: Build Your Cloud Security Knowledge and Expertise as an AWS Certified Security Specialist (SCS-C01), Packt Publishing Ltd (2020).">StuartScott745</a></sup>).
+A paper reference will look like this (<diffie_new_1976>) while a book
+reference will be rendered like this (<StuartScott745>).
 
 
 ### footnotes {#footnotes}
@@ -194,12 +203,20 @@ sns.relplot(
 ).savefig('./demo-plot.png')
 ```
 
-<>
-
 {{< figure src="/ox-hugo/demo-plot.png" >}}
 
 If the image above is not displayed in your `Emacs` use `org-toggle-inline-images`
 with the shortcut `, T i`.
+
+
+### Org Mode tweaks {#org-mode-tweaks}
+
+To avoid re-evaluating the code every time that it is exported, add the
+following property at the beginning of the document.
+
+```text
+#+PROPERTY: header-args :eval never-export
+```
 
 
 ## Org Mode examples {#org-mode-examples}
@@ -278,9 +295,6 @@ The inclusion of external videos is also possible
 
 ### Malware {#malware}
 
-# Bibliography
-<a id="diffie_new_1976"></a>[diffie_new_1976] Diffie & Hellman, New directions in cryptography, <i>IEEE transactions on Information Theory</i>, <b>22(6)</b>, 644-654 (1976). [↩](#4faa0df047eda4bc8802a5f17ecc6c26)
-
-<a id="StuartScott745"></a>[StuartScott745] "Stuart Scott", AWS Certified Security – Specialty Exam Guide: Build Your Cloud Security Knowledge and Expertise as an AWS Certified Security Specialist (SCS-C01), Packt Publishing Ltd (2020). [↩](#c1769b2a9223a45bb2a531d4eef4fd64)
+<../../library.bib,../../references.bib>
 
 [^fn:1]: Not everyone is equal

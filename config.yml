@@ -12,6 +12,7 @@ ignoreErrors:
 sectionPagesMenu: main
 params:
   math: true
+  tag: "G-MP6DVP84T7"
   theme:
     palette: strm-dark
     mode: dark-mode
