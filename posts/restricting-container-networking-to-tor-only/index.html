@@ -1,132 +1,31 @@
-<!doctype html><html lang=en>
-<head><title>Restricting Docker container networking to Tor only &ndash; STRM</title>
-<meta name=description content="A pro-freedom hacktivist thinktank.
-">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta charset=utf-8>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous>
-<link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css>
-<link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css>
-<link rel=stylesheet href=https://strm.sh/css/main.css>
-<link rel=stylesheet href=https://strm.sh/css/custom.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script>
-</head>
-<body>
-<div class=page>
-<header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1>
-<nav class="page__nav main-nav">
-<ul>
-<li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li>
-<li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li>
-</ul>
-</nav>
-</header>
-<section class=page__body>
-<header class=content__header>
-<h1>Restricting Docker container networking to Tor only</h1>
-</header>
-<div class=content__body>
-<p>Image the following use case, you have an application running which you strictly
+<!doctype html><html lang=en><head><title>Restricting Docker container networking to Tor only &ndash; STRM</title><meta name=description content="A pro-freedom hacktivist thinktank.
+"><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous><link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css><link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css><link rel=stylesheet href=https://strm.sh/css/main.css><link rel=stylesheet href=https://strm.sh/css/custom.css><script async src="https://www.googletagmanager.com/gtag/js?id=G-MP6DVP84T7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MP6DVP84T7")</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script></head><body><div class=page><header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1><nav class="page__nav main-nav"><ul><li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li><li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li><li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li><li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li><li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li></ul></nav></header><section class=page__body><header class=content__header><h1>Restricting Docker container networking to Tor only</h1></header><div class=content__body><p>Image the following use case, you have an application running which you strictly
 want to force its traffic to go through the <strong>TOR</strong> network. In normal case
 scenarios, you can implement at your network firewall level a restriction to
 such traffic, a more simplistic approach would be locally to add an <code>iptables</code>
-rule, but in the container world everything is different.</p>
-<p>Here will be explored an use case of an isolated container that can only
+rule, but in the container world everything is different.</p><p>Here will be explored an use case of an isolated container that can only
 communicate with a <em>proxy</em> container that has access to the Tor network. Suppose
 that you don&rsquo;t trust that you application will keep the proxy configurations or
 properly use it and you want to be sure that nothing wrong happen to your
-privacy.</p>
-<h2 id=create-the-networks>Create the networks</h2>
-<p>The very first step is to create the networks used for this example. Let&rsquo;s give
-them some self-explanatory names.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>docker network create internet
-docker network create --internal restricted
-</code></pre></div><p>As you can see, the <em>restricted</em> network is created with the <code>--internal</code> flag,
-which means that it doesn&rsquo;t have any external access.</p>
-<h2 id=create-the-proxy-container>Create the proxy container</h2>
-<p>Two containers will be created for this test, the first one is the <em>proxy</em> server
-that will run Tor as a proxy.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>docker run --rm -it --name proxy --network internet -e PROXY_PORT<span style=color:#f92672>=</span><span style=color:#ae81ff>9050</span> strm/tor
-</code></pre></div><p>In another terminal run</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>docker run --rm -it --name client --network restricted strm/task-base
-</code></pre></div><p>And finally attach the proxy container to the restricted network.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>docker network connect restricted proxy
-</code></pre></div><h2 id=testing>Testing</h2>
-<p>To be sure that the setup is properly working, the image used as the client
-image already has <code>curl</code> installed, so is possible to run the following command.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>root@a7534de5d6be:/data# curl -x socks5h://proxy:9050 google.com
-&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;content-type&#34;</span> content<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/html;charset=utf-8&#34;</span>&gt;
-&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
-&lt;H1&gt;301 Moved&lt;/H1&gt;
-The document has moved
-&lt;A HREF<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://www.google.com/&#34;</span>&gt;here&lt;/A&gt;.
-&lt;/BODY&gt;&lt;/HTML&gt;
-</code></pre></div><p>The next step is to be sure that the opposite also happens, that the <em>client</em>
+privacy.</p><h2 id=create-the-networks>Create the networks</h2><p>The very first step is to create the networks used for this example. Let&rsquo;s give
+them some self-explanatory names.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker network create internet
+</span></span><span style=display:flex><span>docker network create --internal restricted
+</span></span></code></pre></div><p>As you can see, the <em>restricted</em> network is created with the <code>--internal</code> flag,
+which means that it doesn&rsquo;t have any external access.</p><h2 id=create-the-proxy-container>Create the proxy container</h2><p>Two containers will be created for this test, the first one is the <em>proxy</em> server
+that will run Tor as a proxy.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run --rm -it --name proxy --network internet -e PROXY_PORT<span style=color:#f92672>=</span><span style=color:#ae81ff>9050</span> strm/tor
+</span></span></code></pre></div><p>In another terminal run</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker run --rm -it --name client --network restricted strm/task-base
+</span></span></code></pre></div><p>And finally attach the proxy container to the restricted network.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>docker network connect restricted proxy
+</span></span></code></pre></div><h2 id=testing>Testing</h2><p>To be sure that the setup is properly working, the image used as the client
+image already has <code>curl</code> installed, so is possible to run the following command.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>root@a7534de5d6be:/data# curl -x socks5h://proxy:9050 google.com
+</span></span><span style=display:flex><span>&lt;HTML&gt;&lt;HEAD&gt;&lt;meta http-equiv<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;content-type&#34;</span> content<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;text/html;charset=utf-8&#34;</span>&gt;
+</span></span><span style=display:flex><span>&lt;TITLE&gt;301 Moved&lt;/TITLE&gt;&lt;/HEAD&gt;&lt;BODY&gt;
+</span></span><span style=display:flex><span>&lt;H1&gt;301 Moved&lt;/H1&gt;
+</span></span><span style=display:flex><span>The document has moved
+</span></span><span style=display:flex><span>&lt;A HREF<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;http://www.google.com/&#34;</span>&gt;here&lt;/A&gt;.
+</span></span><span style=display:flex><span>&lt;/BODY&gt;&lt;/HTML&gt;
+</span></span></code></pre></div><p>The next step is to be sure that the opposite also happens, that the <em>client</em>
 container can&rsquo;t access the internet without the proxy. So you can use <em>ping</em>, <em>curl</em>
-and other tools to test it.</p>
-<h2 id=references>References</h2>
-<ul>
-<li><a href=https://github.com/opsxcq/docker-tor>Tor image</a></li>
-</ul>
-</div>
-<footer class=content__footer></footer>
-<script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script>
-</section>
-<section class=page__aside>
-<div class=aside__about>
-<div class=aside__about>
-<h1 class=about__title>## STRM ##</h1>
-<p class=about__description>A pro-freedom hacktivist thinktank.</p>
-</div>
-<ul class=aside__social-links>
-<li>
-<a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;
-</li>
-</ul>
-</div>
-<hr>
-<div class=aside__content>
-<p>
-By [OPSXCQ],
-2019-02-14
-</p>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#create-the-networks>Create the networks</a></li>
-<li><a href=#create-the-proxy-container>Create the proxy container</a></li>
-<li><a href=#testing>Testing</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<footer class=page__footer><p class=copyright>STRM</p>
-<p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p>
-</footer>
-</div>
-</body>
-</html>
+and other tools to test it.</p><h2 id=references>References</h2><ul><li><a href=https://github.com/opsxcq/docker-tor>Tor image</a></li></ul></div><footer class=content__footer></footer><script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script></section><section class=page__aside><div class=aside__about><div class=aside__about><h1 class=about__title>## STRM ##</h1><p class=about__description>A pro-freedom hacktivist thinktank.</p></div><ul class=aside__social-links><li><a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;</li><li><a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;</li></ul></div><hr><div class=aside__content><p>By [OPSXCQ],
+2019-02-14</p><nav id=TableOfContents><ul><li><a href=#create-the-networks>Create the networks</a></li><li><a href=#create-the-proxy-container>Create the proxy container</a></li><li><a href=#testing>Testing</a></li><li><a href=#references>References</a></li></ul></nav></div></section><footer class=page__footer><p class=copyright>STRM</p><p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p></footer></div></body></html>

@@ -1,211 +1,77 @@
-<!doctype html><html lang=en>
-<head><title>Linear Regression &ndash; STRM</title>
-<meta name=description content="A pro-freedom hacktivist thinktank.
-">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta charset=utf-8>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous>
-<link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css>
-<link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css>
-<link rel=stylesheet href=https://strm.sh/css/main.css>
-<link rel=stylesheet href=https://strm.sh/css/custom.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script>
-</head>
-<body>
-<div class=page>
-<header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1>
-<nav class="page__nav main-nav">
-<ul>
-<li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li>
-<li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li>
-</ul>
-</nav>
-</header>
-<section class=page__body>
-<header class=content__header>
-<h1>Linear Regression</h1>
-</header>
-<div class=content__body>
-<p>Machine learning by itself sometimes isn&rsquo;t the best answer, but it can be
+<!doctype html><html lang=en><head><title>Linear Regression &ndash; STRM</title><meta name=description content="A pro-freedom hacktivist thinktank.
+"><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous><link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css><link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css><link rel=stylesheet href=https://strm.sh/css/main.css><link rel=stylesheet href=https://strm.sh/css/custom.css><script async src="https://www.googletagmanager.com/gtag/js?id=G-MP6DVP84T7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MP6DVP84T7")</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script></head><body><div class=page><header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1><nav class="page__nav main-nav"><ul><li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li><li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li><li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li><li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li><li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li></ul></nav></header><section class=page__body><header class=content__header><h1>Linear Regression</h1></header><div class=content__body><p>Machine learning by itself sometimes isn&rsquo;t the best answer, but it can be
 combined with specialist agents to expand it&rsquo;s capabilities and reduce the
 training time. In the other hand, for simple problems, and specially for linear
 problems, usually machine learning can be replaced with more simple and precise
-approaches like <a href=https://strm.sh/post/linear-programming/>linear programming</a>.</p>
-<p>Machine learning is the field of study that explores the construction of
+approaches like <a href=https://strm.sh/post/linear-programming/>linear programming</a>.</p><p>Machine learning is the field of study that explores the construction of
 algorithms that learn from data and can make predictions about it. It is a field
 of artificial intelligence that uses statistical methods to give those
 predictions. And it&rsquo;s name comes from the ability that it gives to computer
-systems to <strong>learn</strong> from data, without being explicitly programmed.</p>
-<p>Since machine learning is strongly related to how you analyse your data, is the
+systems to <strong>learn</strong> from data, without being explicitly programmed.</p><p>Since machine learning is strongly related to how you analyse your data, is the
 natural flow to learn first how to analyse your data, and then how to create
-your prediction models.</p>
-<p>In statistics, regression analysis is the set of processes to estimate the
-relationship among variables.</p>
-<h2 id=linear-regression>Linear regression</h2>
-<p>In statistics, linear regression is a linear approach to modelling the
+your prediction models.</p><p>In statistics, regression analysis is the set of processes to estimate the
+relationship among variables.</p><h2 id=linear-regression>Linear regression</h2><p>In statistics, linear regression is a linear approach to modelling the
 relationship between a <strong>dependent variable</strong> and one or more <strong>independent variables</strong>.
 The dependent variable sometimes is referred as a <strong>scalar</strong> and the independent
-variables referred as <strong>explanatory variables</strong>.</p>
-<p>Let&rsquo;s use an example and explore it to make things easier to understand:</p>
-<p>Given this set of variables</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python>x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>10</span>,<span style=color:#ae81ff>8</span>,<span style=color:#ae81ff>13</span>,<span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>11</span>,<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>6</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>12</span>,<span style=color:#ae81ff>7</span>,<span style=color:#ae81ff>5</span>]
-y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>8.04</span>,<span style=color:#ae81ff>6.95</span>,<span style=color:#ae81ff>7.58</span>,<span style=color:#ae81ff>8.81</span>,<span style=color:#ae81ff>8.33</span>,<span style=color:#ae81ff>9.96</span>,<span style=color:#ae81ff>7.24</span>,<span style=color:#ae81ff>4.26</span>,<span style=color:#ae81ff>10.84</span>,<span style=color:#ae81ff>4.82</span>,<span style=color:#ae81ff>5.68</span>]
-</code></pre></div><p>As raw data is hard to read and understand it, and if you count, the array has
+variables referred as <strong>explanatory variables</strong>.</p><p>Let&rsquo;s use an example and explore it to make things easier to understand:</p><p>Given this set of variables</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span>x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>10</span>,<span style=color:#ae81ff>8</span>,<span style=color:#ae81ff>13</span>,<span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>11</span>,<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>6</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>12</span>,<span style=color:#ae81ff>7</span>,<span style=color:#ae81ff>5</span>]
+</span></span><span style=display:flex><span>y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>8.04</span>,<span style=color:#ae81ff>6.95</span>,<span style=color:#ae81ff>7.58</span>,<span style=color:#ae81ff>8.81</span>,<span style=color:#ae81ff>8.33</span>,<span style=color:#ae81ff>9.96</span>,<span style=color:#ae81ff>7.24</span>,<span style=color:#ae81ff>4.26</span>,<span style=color:#ae81ff>10.84</span>,<span style=color:#ae81ff>4.82</span>,<span style=color:#ae81ff>5.68</span>]
+</span></span></code></pre></div><p>As raw data is hard to read and understand it, and if you count, the array has
 only 11 elements. In the real world your data will easily be far bigger than
-that.</p>
-<p>We start our analysis by plotting our data to analyse its dispersion.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#f92672>import</span> numpy <span style=color:#66d9ef>as</span> np
-<span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#66d9ef>as</span> plt
-
-x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>10</span>,<span style=color:#ae81ff>8</span>,<span style=color:#ae81ff>13</span>,<span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>11</span>,<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>6</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>12</span>,<span style=color:#ae81ff>7</span>,<span style=color:#ae81ff>5</span>]
-y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>8.04</span>,<span style=color:#ae81ff>6.95</span>,<span style=color:#ae81ff>7.58</span>,<span style=color:#ae81ff>8.81</span>,<span style=color:#ae81ff>8.33</span>,<span style=color:#ae81ff>9.96</span>,<span style=color:#ae81ff>7.24</span>,<span style=color:#ae81ff>4.26</span>,<span style=color:#ae81ff>10.84</span>,<span style=color:#ae81ff>4.82</span>,<span style=color:#ae81ff>5.68</span>]
-
-plt<span style=color:#f92672>.</span>scatter(x, y)
-plt<span style=color:#f92672>.</span>show()
-</code></pre></div><p>You should receive a image just like this</p>
-<figure><img src=/ox-hugo/ia-machine-learning-scatter-01.png>
-</figure>
-<p>A simple look at it and you can determine that the \(Y\) value increases when the
+that.</p><p>We start our analysis by plotting our data to analyse its dispersion.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#f92672>import</span> numpy <span style=color:#66d9ef>as</span> np
+</span></span><span style=display:flex><span><span style=color:#f92672>import</span> matplotlib.pyplot <span style=color:#66d9ef>as</span> plt
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>x <span style=color:#f92672>=</span> [<span style=color:#ae81ff>10</span>,<span style=color:#ae81ff>8</span>,<span style=color:#ae81ff>13</span>,<span style=color:#ae81ff>9</span>,<span style=color:#ae81ff>11</span>,<span style=color:#ae81ff>14</span>,<span style=color:#ae81ff>6</span>,<span style=color:#ae81ff>4</span>,<span style=color:#ae81ff>12</span>,<span style=color:#ae81ff>7</span>,<span style=color:#ae81ff>5</span>]
+</span></span><span style=display:flex><span>y <span style=color:#f92672>=</span> [<span style=color:#ae81ff>8.04</span>,<span style=color:#ae81ff>6.95</span>,<span style=color:#ae81ff>7.58</span>,<span style=color:#ae81ff>8.81</span>,<span style=color:#ae81ff>8.33</span>,<span style=color:#ae81ff>9.96</span>,<span style=color:#ae81ff>7.24</span>,<span style=color:#ae81ff>4.26</span>,<span style=color:#ae81ff>10.84</span>,<span style=color:#ae81ff>4.82</span>,<span style=color:#ae81ff>5.68</span>]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>plt<span style=color:#f92672>.</span>scatter(x, y)
+</span></span><span style=display:flex><span>plt<span style=color:#f92672>.</span>show()
+</span></span></code></pre></div><p>You should receive a image just like this</p><figure><img src=/ox-hugo/ia-machine-learning-scatter-01.png></figure><p>A simple look at it and you can determine that the \(Y\) value increases when the
 \(X\) value increases, there is a <a href=https://en.wikipedia.org/wiki/Correlation_and_dependence>correlation</a>, which we determined empirically,
 but for calculating our linear regression we have to formalize it, so this is
-when <strong>Pearson correlation</strong> comes into the equation.</p>
-<h2 id=measuring-the-correlation>Measuring the correlation</h2>
-<p>Pearson correlation measures the direction and the intensity of a linear
-relation, the correlation factor \(r\) can be determined by:</p>
-<p>\[ a = \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y}) \]</p>
-<p>\[ b = \sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2 \]</p>
-<p>Then \(r\) can be determined by:</p>
-<p>\[ r = \frac{a}{\sqrt{b}} \]</p>
-<p>The \(r\) value will be between \(-1\) and \(1\).</p>
-<ul>
-<li>\(1\) - Perfect direct (increasing) linear relationship between the variables.</li>
-<li>\(-1\) - Perfect decreasing (inverse) linear relationship between the variables.</li>
-<li>\(0\) - If the variables are independent the function will result in \(0\).</li>
-</ul>
-<p>If you are using python you can use the <a href=https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.pearsonr.html>scipy.stats.pearsonr</a> function, or the
+when <strong>Pearson correlation</strong> comes into the equation.</p><h2 id=measuring-the-correlation>Measuring the correlation</h2><p>Pearson correlation measures the direction and the intensity of a linear
+relation, the correlation factor \(r\) can be determined by:</p><p>\[ a = \sum_{i=1}^{n} (x_i - \overline{x})(y_i - \overline{y}) \]</p><p>\[ b = \sum_{i=1}^{n} (x_i - \overline{x})^2(y_i - \overline{y})^2 \]</p><p>Then \(r\) can be determined by:</p><p>\[ r = \frac{a}{\sqrt{b}} \]</p><p>The \(r\) value will be between \(-1\) and \(1\).</p><ul><li>\(1\) - Perfect direct (increasing) linear relationship between the variables.</li><li>\(-1\) - Perfect decreasing (inverse) linear relationship between the variables.</li><li>\(0\) - If the variables are independent the function will result in \(0\).</li></ul><p>If you are using python you can use the <a href=https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.stats.pearsonr.html>scipy.stats.pearsonr</a> function, or the
 <code>numpy.corrcoef</code> function if you prefer to use <code>numpy</code>, but lets ignore it and
-implement it bellow.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>cov</span>(x, y):
-    <span style=color:#66d9ef>return</span> ((x <span style=color:#f92672>-</span> x<span style=color:#f92672>.</span>mean()) <span style=color:#f92672>*</span> (y <span style=color:#f92672>-</span> y<span style=color:#f92672>.</span>mean()))<span style=color:#f92672>.</span>sum() <span style=color:#f92672>/</span> len(x)
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>stddev</span>(x):
-    <span style=color:#66d9ef>return</span> np<span style=color:#f92672>.</span>sqrt(((x <span style=color:#f92672>-</span> x<span style=color:#f92672>.</span>mean())<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span>)<span style=color:#f92672>.</span>sum() <span style=color:#f92672>/</span> (len(x) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>))
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>pearson</span>(x, y):
-    <span style=color:#66d9ef>return</span> cov(x, y) <span style=color:#f92672>/</span> (stddev(x) <span style=color:#f92672>*</span> stddev(y))
-</code></pre></div><p>If you execute the function above with our data, you should expect an output of
+implement it bellow.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>cov</span>(x, y):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> ((x <span style=color:#f92672>-</span> x<span style=color:#f92672>.</span>mean()) <span style=color:#f92672>*</span> (y <span style=color:#f92672>-</span> y<span style=color:#f92672>.</span>mean()))<span style=color:#f92672>.</span>sum() <span style=color:#f92672>/</span> len(x)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>stddev</span>(x):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> np<span style=color:#f92672>.</span>sqrt(((x <span style=color:#f92672>-</span> x<span style=color:#f92672>.</span>mean())<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span>)<span style=color:#f92672>.</span>sum() <span style=color:#f92672>/</span> (len(x) <span style=color:#f92672>-</span> <span style=color:#ae81ff>1</span>))
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>pearson</span>(x, y):
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> cov(x, y) <span style=color:#f92672>/</span> (stddev(x) <span style=color:#f92672>*</span> stddev(y))
+</span></span></code></pre></div><p>If you execute the function above with our data, you should expect an output of
 \(\approx0.81642\). So, what that means ? We have some sort of correlation between our
 \(x\) and \(y\) variables, if you observe the plotted data you can analyse that
-there is a growth in \(x\) according to \(y\), this is exactly what \(r\) means.</p>
-<h2 id=applying-the-linear-regression>Applying the linear regression</h2>
-<p>The linear regression function can be defined by:</p>
-<p>\[ y = \beta0 + \beta1x \]</p>
-<p>Where \(y\) is our dependent variable, \(\beta0\) is the slope of the curve determined
-by:</p>
-<p>\[ \beta1 = r \frac{Sy}{Sx} \]</p>
-<p>Where \(r\) is the Pearson correlation coefficient, and \(Sy\) is the standard
+there is a growth in \(x\) according to \(y\), this is exactly what \(r\) means.</p><h2 id=applying-the-linear-regression>Applying the linear regression</h2><p>The linear regression function can be defined by:</p><p>\[ y = \beta0 + \beta1x \]</p><p>Where \(y\) is our dependent variable, \(\beta0\) is the slope of the curve determined
+by:</p><p>\[ \beta1 = r \frac{Sy}{Sx} \]</p><p>Where \(r\) is the Pearson correlation coefficient, and \(Sy\) is the standard
 deviation of \(y\), and \(Sx\) is the standard deviation of \(x\). And the standard
-deviation function being described by:</p>
-<p>\[ S = \sqrt{\frac{\sum (y - \bar{y})^2}{n-1}} \]</p>
-<p>And \(\beta0\) which is our intercept of \(y\), which means, the value of the regression
-line when \(y = 0\), which is defined by:</p>
-<p>\[ \beta0 = \bar{y} - \beta1\bar{x} \]</p>
-<p>If we translate these functions to python, it will result in:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>deviation</span>(x):
-    mean <span style=color:#f92672>=</span> sum(x) <span style=color:#f92672>/</span> len(x)
-    <span style=color:#66d9ef>return</span> (sum([(e <span style=color:#f92672>-</span> mean)<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span> <span style=color:#66d9ef>for</span> e <span style=color:#f92672>in</span> x]) <span style=color:#f92672>/</span> len(x)<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) <span style=color:#f92672>**</span> <span style=color:#ae81ff>0.5</span>
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>linearRegression</span>(x ,y):
-    pearsonCorrelation <span style=color:#f92672>=</span> pearson(x, y)
-    meanX <span style=color:#f92672>=</span> sum(x) <span style=color:#f92672>/</span> len(x)
-    meanY <span style=color:#f92672>=</span> sum(y) <span style=color:#f92672>/</span> len(y)
-
-    beta1 <span style=color:#f92672>=</span> pearsonCorrelation <span style=color:#f92672>*</span> (deviation(y) <span style=color:#f92672>/</span> deviation(x))
-    beta0 <span style=color:#f92672>=</span> meanY <span style=color:#f92672>-</span> beta1 <span style=color:#f92672>*</span> meanX
-    <span style=color:#66d9ef>return</span> (beta0, beta1)
-
-<span style=color:#66d9ef>def</span> <span style=color:#a6e22e>predictWithLinearRegression</span>(x, y, v):
-    beta0, beta1 <span style=color:#f92672>=</span> linearRegression(x, y)
-    <span style=color:#66d9ef>return</span> beta0 <span style=color:#f92672>+</span> beta1 <span style=color:#f92672>*</span> v
-</code></pre></div><p>This code is not optimized in any way, keep that in mind. So for a given \(x\)
+deviation function being described by:</p><p>\[ S = \sqrt{\frac{\sum (y - \bar{y})^2}{n-1}} \]</p><p>And \(\beta0\) which is our intercept of \(y\), which means, the value of the regression
+line when \(y = 0\), which is defined by:</p><p>\[ \beta0 = \bar{y} - \beta1\bar{x} \]</p><p>If we translate these functions to python, it will result in:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>deviation</span>(x):
+</span></span><span style=display:flex><span>    mean <span style=color:#f92672>=</span> sum(x) <span style=color:#f92672>/</span> len(x)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> (sum([(e <span style=color:#f92672>-</span> mean)<span style=color:#f92672>**</span><span style=color:#ae81ff>2</span> <span style=color:#66d9ef>for</span> e <span style=color:#f92672>in</span> x]) <span style=color:#f92672>/</span> len(x)<span style=color:#f92672>-</span><span style=color:#ae81ff>1</span>) <span style=color:#f92672>**</span> <span style=color:#ae81ff>0.5</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>linearRegression</span>(x ,y):
+</span></span><span style=display:flex><span>    pearsonCorrelation <span style=color:#f92672>=</span> pearson(x, y)
+</span></span><span style=display:flex><span>    meanX <span style=color:#f92672>=</span> sum(x) <span style=color:#f92672>/</span> len(x)
+</span></span><span style=display:flex><span>    meanY <span style=color:#f92672>=</span> sum(y) <span style=color:#f92672>/</span> len(y)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    beta1 <span style=color:#f92672>=</span> pearsonCorrelation <span style=color:#f92672>*</span> (deviation(y) <span style=color:#f92672>/</span> deviation(x))
+</span></span><span style=display:flex><span>    beta0 <span style=color:#f92672>=</span> meanY <span style=color:#f92672>-</span> beta1 <span style=color:#f92672>*</span> meanX
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> (beta0, beta1)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>predictWithLinearRegression</span>(x, y, v):
+</span></span><span style=display:flex><span>    beta0, beta1 <span style=color:#f92672>=</span> linearRegression(x, y)
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> beta0 <span style=color:#f92672>+</span> beta1 <span style=color:#f92672>*</span> v
+</span></span></code></pre></div><p>This code is not optimized in any way, keep that in mind. So for a given \(x\)
 value, we can predict the \(y\) value with the <code>predictWithLinearRegression</code>
 function. To plot our regression with this we simply get the <code>min</code> and <code>max</code> value
-of \(x\) and create a line from those coordinates.</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>plotLinearRegression</span>(x, y):
-    beginY <span style=color:#f92672>=</span> predictWithLinearRegression(x, y, min(x))
-    endY <span style=color:#f92672>=</span> predictWithLinearRegression(x, y, endX)
-
-    x1, y1 <span style=color:#f92672>=</span> [min(x), max(x)], [beginY, endY]
-    plt<span style=color:#f92672>.</span>plot(x1, y1, color<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;green&#34;</span>, linestyle<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;dashed&#34;</span>, marker <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;o&#39;</span>)
-</code></pre></div><p>Invoking this function will add the following line:</p>
-<figure><img src=/ox-hugo/ia-machine-learning-linear-regression-01.png>
-</figure>
-<h2 id=references>References</h2>
-<ul>
-<li><a href=https://www.statsdirect.com/help/regression_and_correlation/simple_linear.htm>Linear regression</a></li>
-<li><a href="https://www.youtube.com/watch?v=GhrxgbQnEEU">Linear regression video</a></li>
-<li><a href=http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm>Multiple linear regression</a></li>
-<li><a href=https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf>OLS in matrix form</a></li>
-</ul>
-</div>
-<footer class=content__footer></footer>
-<script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script>
-</section>
-<section class=page__aside>
-<div class=aside__about>
-<div class=aside__about>
-<h1 class=about__title>## STRM ##</h1>
-<p class=about__description>A pro-freedom hacktivist thinktank.</p>
-</div>
-<ul class=aside__social-links>
-<li>
-<a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;
-</li>
-</ul>
-</div>
-<hr>
-<div class=aside__content>
-<p>
-By [OPSXCQ],
-2019-02-12
-</p>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#linear-regression>Linear regression</a></li>
-<li><a href=#measuring-the-correlation>Measuring the correlation</a></li>
-<li><a href=#applying-the-linear-regression>Applying the linear regression</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<footer class=page__footer><p class=copyright>STRM</p>
-<p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p>
-</footer>
-</div>
-</body>
-</html>
+of \(x\) and create a line from those coordinates.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-python data-lang=python><span style=display:flex><span><span style=color:#66d9ef>def</span> <span style=color:#a6e22e>plotLinearRegression</span>(x, y):
+</span></span><span style=display:flex><span>    beginY <span style=color:#f92672>=</span> predictWithLinearRegression(x, y, min(x))
+</span></span><span style=display:flex><span>    endY <span style=color:#f92672>=</span> predictWithLinearRegression(x, y, endX)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    x1, y1 <span style=color:#f92672>=</span> [min(x), max(x)], [beginY, endY]
+</span></span><span style=display:flex><span>    plt<span style=color:#f92672>.</span>plot(x1, y1, color<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;green&#34;</span>, linestyle<span style=color:#f92672>=</span><span style=color:#e6db74>&#34;dashed&#34;</span>, marker <span style=color:#f92672>=</span> <span style=color:#e6db74>&#39;o&#39;</span>)
+</span></span></code></pre></div><p>Invoking this function will add the following line:</p><figure><img src=/ox-hugo/ia-machine-learning-linear-regression-01.png></figure><h2 id=references>References</h2><ul><li><a href=https://www.statsdirect.com/help/regression_and_correlation/simple_linear.htm>Linear regression</a></li><li><a href="https://www.youtube.com/watch?v=GhrxgbQnEEU">Linear regression video</a></li><li><a href=http://www.stat.yale.edu/Courses/1997-98/101/linmult.htm>Multiple linear regression</a></li><li><a href=https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf>OLS in matrix form</a></li></ul></div><footer class=content__footer></footer><script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script></section><section class=page__aside><div class=aside__about><div class=aside__about><h1 class=about__title>## STRM ##</h1><p class=about__description>A pro-freedom hacktivist thinktank.</p></div><ul class=aside__social-links><li><a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;</li><li><a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;</li></ul></div><hr><div class=aside__content><p>By [OPSXCQ],
+2019-02-12</p><nav id=TableOfContents><ul><li><a href=#linear-regression>Linear regression</a></li><li><a href=#measuring-the-correlation>Measuring the correlation</a></li><li><a href=#applying-the-linear-regression>Applying the linear regression</a></li><li><a href=#references>References</a></li></ul></nav></div></section><footer class=page__footer><p class=copyright>STRM</p><p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p></footer></div></body></html>

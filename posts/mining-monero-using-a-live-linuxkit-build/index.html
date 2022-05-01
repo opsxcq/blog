@@ -1,166 +1,57 @@
-<!doctype html><html lang=en>
-<head><title>Mining monero using live a live usb linuxkit build &ndash; STRM</title>
-<meta name=description content="A pro-freedom hacktivist thinktank.
-">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta charset=utf-8>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous>
-<link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css>
-<link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css>
-<link rel=stylesheet href=https://strm.sh/css/main.css>
-<link rel=stylesheet href=https://strm.sh/css/custom.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script>
-</head>
-<body>
-<div class=page>
-<header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1>
-<nav class="page__nav main-nav">
-<ul>
-<li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li>
-<li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li>
-</ul>
-</nav>
-</header>
-<section class=page__body>
-<header class=content__header>
-<h1>Mining monero using live a live usb linuxkit build</h1>
-</header>
-<div class=content__body>
-<p>Linuxkit is a good tool to create immutable Linux systems, so why don&rsquo;t use it
+<!doctype html><html lang=en><head><title>Mining monero using live a live usb linuxkit build &ndash; STRM</title><meta name=description content="A pro-freedom hacktivist thinktank.
+"><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous><link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css><link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css><link rel=stylesheet href=https://strm.sh/css/main.css><link rel=stylesheet href=https://strm.sh/css/custom.css><script async src="https://www.googletagmanager.com/gtag/js?id=G-MP6DVP84T7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MP6DVP84T7")</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script></head><body><div class=page><header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1><nav class="page__nav main-nav"><ul><li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li><li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li><li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li><li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li><li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li></ul></nav></header><section class=page__body><header class=content__header><h1>Mining monero using live a live usb linuxkit build</h1></header><div class=content__body><p>Linuxkit is a good tool to create immutable Linux systems, so why don&rsquo;t use it
 to build a Monero mining live distro ? The only thing needed to build an Linux
-with Linuxkit is a <code>yml</code> file containing the system information.</p>
-<p>It can be divided in 5 main sections:</p>
-<ul>
-<li>kernel</li>
-<li>init</li>
-<li>onboot - applications that will run when the Linux boot (after init)</li>
-<li>services - services that will run on this system</li>
-<li>files - any extra files that you need to copy into your iso (like keys or configs)</li>
-</ul>
-<p>Based on these principles, bellow is the configuration of a miner that will boot
+with Linuxkit is a <code>yml</code> file containing the system information.</p><p>It can be divided in 5 main sections:</p><ul><li>kernel</li><li>init</li><li>onboot - applications that will run when the Linux boot (after init)</li><li>services - services that will run on this system</li><li>files - any extra files that you need to copy into your iso (like keys or configs)</li></ul><p>Based on these principles, bellow is the configuration of a miner that will boot
 and start mining rigth away. Considering that the USB disk will be at <code>/dev/sdb1</code>
-(it will work if the target machine has only one disk).</p>
-<h2 id=source>Source</h2>
-<p>The source code is just a simple <code>Yaml</code> file</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>kernel</span>:
-  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nuald/kernel:4.12.14-extra</span>
-  <span style=color:#f92672>cmdline</span>: <span style=color:#e6db74>&#34;console=tty0 root=/dev/sdb1 rootwait vga=791&#34;</span>
-<span style=color:#f92672>init</span>:
-  - <span style=color:#ae81ff>linuxkit/init:6eb0158059b056a1567236280880cb87f03ff008</span>
-  - <span style=color:#ae81ff>linuxkit/runc:6cf26a0403376de3b5396cb676b88eea4f37aff8</span>
-  - <span style=color:#ae81ff>linuxkit/containerd:d955db7cd28dbd7be8a17d7063cc6b7f1bf91f0a</span>
-  - <span style=color:#ae81ff>linuxkit/ca-certificates:v0.6</span>
-<span style=color:#f92672>onboot</span>:
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sysctl</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/sysctl:v0.6</span>
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rngd1</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/rngd:v0.6</span>
-    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;/sbin/rngd&#34;</span>, <span style=color:#e6db74>&#34;-1&#34;</span>]
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ram-disk</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/mount:v0.6-amd64</span>
-    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;mount&#34;</span>, ]
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>usb-storage</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/modprobe:v0.6-amd64</span>
-    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;modprobe&#34;</span>, <span style=color:#e6db74>&#34;usb_storage&#34;</span>]
-<span style=color:#f92672>services</span>:
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>getty</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/getty:v0.6</span>
-    <span style=color:#f92672>env</span>:
-     - <span style=color:#ae81ff>INSECURE=true</span>
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rngd</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/rngd:v0.6</span>
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>dhcpcd</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/dhcpcd:v0.6</span>
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sshd</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/sshd:v0.6</span>
-  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>monero-miner</span>
-    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>strm/xmrig</span>
-    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;/bin/xmrig&#34;</span>, <span style=color:#e6db74>&#34;-a&#34;</span>, <span style=color:#e6db74>&#34;cryptonight&#34;</span>, <span style=color:#e6db74>&#34;-o&#34;</span>, <span style=color:#e6db74>&#34;stratum+tcp://104.140.201.42:5555&#34;</span>, <span style=color:#e6db74>&#34;-p&#34;</span>, <span style=color:#e6db74>&#34;Miner01-Kit&#34;</span>, <span style=color:#e6db74>&#34;-k&#34;</span>, <span style=color:#e6db74>&#34;--donate-level=1&#34;</span>, <span style=color:#e6db74>&#34;--cpu-priority&#34;</span>, <span style=color:#e6db74>&#34;0&#34;</span>, <span style=color:#e6db74>&#34;-u&#34;</span>, <span style=color:#e6db74>&#34;YOUR_ADDRESS_HERE&#34;</span>]
-<span style=color:#f92672>files</span>:
-  - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>root/.ssh/authorized_keys</span>
-    <span style=color:#f92672>source</span>: <span style=color:#ae81ff>~/.ssh/id_rsa.pub</span>
-    <span style=color:#f92672>mode</span>: <span style=color:#e6db74>&#34;0600&#34;</span>
-    <span style=color:#f92672>optional</span>: <span style=color:#66d9ef>true</span>
-<span style=color:#f92672>trust</span>:
-  <span style=color:#f92672>org</span>:
-    - <span style=color:#ae81ff>linuxkit</span>
-</code></pre></div><h2 id=build>Build</h2>
-<p>To build the image above just run:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>linuxkit build -format iso-bios monero-miner-live-usb.yml
-</code></pre></div><p>And it will create a <code>.iso</code> file that can be copied (<code>dd</code>) to a USB disk and boot on
-bare metal.</p>
-<h2 id=boot-to-test-inside-qemu>Boot to test inside qemu</h2>
-<p>You can test your image with <strong>qemu</strong> if you want to be sure that everything is
-working, just run:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>linuxkit run qemu --publish 5555:22 -iso monero-miner-live-usb.iso
-</code></pre></div><p>Then ssh to your localhost at port 5555. If you want to test if your USB disk is
-working properly, run:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>qemu-system-x86_64 -usb -usbdevice disk:/dev/sde
-</code></pre></div><h2 id=references>References</h2>
-<ul>
-<li><a href=https://github.com/linuxkit/linuxkit/blob/master/docs/kernels.md>Working with kernels on LinuxKit</a></li>
-<li><a href=https://github.com/linuxkit/linuxkit/tree/master/contrib/foreign-kernels>Using foreign kernels with linux kit</a></li>
-<li><a href=https://collabnix.com/building-your-own-customised-kernel-with-linuxkit/>How to compile new Kernels for Linuxkit</a></li>
-</ul>
-</div>
-<footer class=content__footer></footer>
-<script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script>
-</section>
-<section class=page__aside>
-<div class=aside__about>
-<div class=aside__about>
-<h1 class=about__title>## STRM ##</h1>
-<p class=about__description>A pro-freedom hacktivist thinktank.</p>
-</div>
-<ul class=aside__social-links>
-<li>
-<a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;
-</li>
-</ul>
-</div>
-<hr>
-<div class=aside__content>
-<p>
-By [OPSXCQ],
-2018-09-12
-</p>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#source>Source</a></li>
-<li><a href=#build>Build</a></li>
-<li><a href=#boot-to-test-inside-qemu>Boot to test inside qemu</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<footer class=page__footer><p class=copyright>STRM</p>
-<p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p>
-</footer>
-</div>
-</body>
-</html>
+(it will work if the target machine has only one disk).</p><h2 id=source>Source</h2><p>The source code is just a simple <code>Yaml</code> file</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>kernel</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>image</span>: <span style=color:#ae81ff>nuald/kernel:4.12.14-extra</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>cmdline</span>: <span style=color:#e6db74>&#34;console=tty0 root=/dev/sdb1 rootwait vga=791&#34;</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>init</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>linuxkit/init:6eb0158059b056a1567236280880cb87f03ff008</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>linuxkit/runc:6cf26a0403376de3b5396cb676b88eea4f37aff8</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>linuxkit/containerd:d955db7cd28dbd7be8a17d7063cc6b7f1bf91f0a</span>
+</span></span><span style=display:flex><span>  - <span style=color:#ae81ff>linuxkit/ca-certificates:v0.6</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>onboot</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sysctl</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/sysctl:v0.6</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rngd1</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/rngd:v0.6</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;/sbin/rngd&#34;</span>, <span style=color:#e6db74>&#34;-1&#34;</span>]
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>ram-disk</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/mount:v0.6-amd64</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;mount&#34;</span>, ]
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>usb-storage</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/modprobe:v0.6-amd64</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;modprobe&#34;</span>, <span style=color:#e6db74>&#34;usb_storage&#34;</span>]
+</span></span><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>getty</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/getty:v0.6</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>env</span>:
+</span></span><span style=display:flex><span>     - <span style=color:#ae81ff>INSECURE=true</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>rngd</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/rngd:v0.6</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>dhcpcd</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/dhcpcd:v0.6</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>sshd</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>linuxkit/sshd:v0.6</span>
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>name</span>: <span style=color:#ae81ff>monero-miner</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>image</span>: <span style=color:#ae81ff>strm/xmrig</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>command</span>: [<span style=color:#e6db74>&#34;/bin/xmrig&#34;</span>, <span style=color:#e6db74>&#34;-a&#34;</span>, <span style=color:#e6db74>&#34;cryptonight&#34;</span>, <span style=color:#e6db74>&#34;-o&#34;</span>, <span style=color:#e6db74>&#34;stratum+tcp://104.140.201.42:5555&#34;</span>, <span style=color:#e6db74>&#34;-p&#34;</span>, <span style=color:#e6db74>&#34;Miner01-Kit&#34;</span>, <span style=color:#e6db74>&#34;-k&#34;</span>, <span style=color:#e6db74>&#34;--donate-level=1&#34;</span>, <span style=color:#e6db74>&#34;--cpu-priority&#34;</span>, <span style=color:#e6db74>&#34;0&#34;</span>, <span style=color:#e6db74>&#34;-u&#34;</span>, <span style=color:#e6db74>&#34;YOUR_ADDRESS_HERE&#34;</span>]
+</span></span><span style=display:flex><span><span style=color:#f92672>files</span>:
+</span></span><span style=display:flex><span>  - <span style=color:#f92672>path</span>: <span style=color:#ae81ff>root/.ssh/authorized_keys</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>source</span>: <span style=color:#ae81ff>~/.ssh/id_rsa.pub</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>mode</span>: <span style=color:#e6db74>&#34;0600&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>optional</span>: <span style=color:#66d9ef>true</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>trust</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>org</span>:
+</span></span><span style=display:flex><span>    - <span style=color:#ae81ff>linuxkit</span>
+</span></span></code></pre></div><h2 id=build>Build</h2><p>To build the image above just run:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>linuxkit build -format iso-bios monero-miner-live-usb.yml
+</span></span></code></pre></div><p>And it will create a <code>.iso</code> file that can be copied (<code>dd</code>) to a USB disk and boot on
+bare metal.</p><h2 id=boot-to-test-inside-qemu>Boot to test inside qemu</h2><p>You can test your image with <strong>qemu</strong> if you want to be sure that everything is
+working, just run:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>linuxkit run qemu --publish 5555:22 -iso monero-miner-live-usb.iso
+</span></span></code></pre></div><p>Then ssh to your localhost at port 5555. If you want to test if your USB disk is
+working properly, run:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>qemu-system-x86_64 -usb -usbdevice disk:/dev/sde
+</span></span></code></pre></div><h2 id=references>References</h2><ul><li><a href=https://github.com/linuxkit/linuxkit/blob/master/docs/kernels.md>Working with kernels on LinuxKit</a></li><li><a href=https://github.com/linuxkit/linuxkit/tree/master/contrib/foreign-kernels>Using foreign kernels with linux kit</a></li><li><a href=https://collabnix.com/building-your-own-customised-kernel-with-linuxkit/>How to compile new Kernels for Linuxkit</a></li></ul></div><footer class=content__footer></footer><script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script></section><section class=page__aside><div class=aside__about><div class=aside__about><h1 class=about__title>## STRM ##</h1><p class=about__description>A pro-freedom hacktivist thinktank.</p></div><ul class=aside__social-links><li><a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;</li><li><a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;</li></ul></div><hr><div class=aside__content><p>By [OPSXCQ],
+2018-09-12</p><nav id=TableOfContents><ul><li><a href=#source>Source</a></li><li><a href=#build>Build</a></li><li><a href=#boot-to-test-inside-qemu>Boot to test inside qemu</a></li><li><a href=#references>References</a></li></ul></nav></div></section><footer class=page__footer><p class=copyright>STRM</p><p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p></footer></div></body></html>

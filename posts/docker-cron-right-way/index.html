@@ -1,214 +1,99 @@
-<!doctype html><html lang=en>
-<head><title>Running Cron tasks on docker - The correct way &ndash; STRM</title>
-<meta name=description content="A pro-freedom hacktivist thinktank.
-">
-<meta name=viewport content="width=device-width,initial-scale=1">
-<meta charset=utf-8>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous>
-<link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous>
-<link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css>
-<link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css>
-<link rel=stylesheet href=https://strm.sh/css/main.css>
-<link rel=stylesheet href=https://strm.sh/css/custom.css>
-<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
-<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script>
-</head>
-<body>
-<div class=page>
-<header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1>
-<nav class="page__nav main-nav">
-<ul>
-<li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li>
-<li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li>
-<li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li>
-</ul>
-</nav>
-</header>
-<section class=page__body>
-<header class=content__header>
-<h1>Running Cron tasks on docker - The correct way</h1>
-</header>
-<div class=content__body>
-<p>While is perfectly possible to use <em>cron</em> inside a container, I strongly
+<!doctype html><html lang=en><head><title>Running Cron tasks on docker - The correct way &ndash; STRM</title><meta name=description content="A pro-freedom hacktivist thinktank.
+"><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous><link rel=stylesheet href=https://strm.sh/css/colour/strm-dark.css><link rel=stylesheet href=https://strm.sh/css/colour/dark-mode.css><link rel=stylesheet href=https://strm.sh/css/main.css><link rel=stylesheet href=https://strm.sh/css/custom.css><script async src="https://www.googletagmanager.com/gtag/js?id=G-MP6DVP84T7"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-MP6DVP84T7")</script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css integrity=sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq crossorigin=anonymous><script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js integrity=sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js integrity=sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI crossorigin=anonymous onload=renderMathInElement(document.body)></script></head><body><div class=page><header class=page__header><h1 class=page__logo><a href=https://strm.sh class=page__logo-inner>STRM</a></h1><nav class="page__nav main-nav"><ul><li class=main-nav__item><a class=nav-main-item href=/posts/ title>Posts</a></li><li class=main-nav__item><a class=nav-main-item href=/projects/ title>Projects</a></li><li class=main-nav__item><a class=nav-main-item href=/malware-samples/ title>Malware</a></li><li class=main-nav__item><a class=nav-main-item href=/studies/ title>Studies</a></li><li class=main-nav__item><a class=nav-main-item href=https://github.com/opsxcq/blog/discussions/3>Forum</a></li></ul></nav></header><section class=page__body><header class=content__header><h1>Running Cron tasks on docker - The correct way</h1></header><div class=content__body><p>While is perfectly possible to use <em>cron</em> inside a container, I strongly
 advise you to don&rsquo;t do it. Some of the most important points on why is a
-<strong>bad practice to run cron inside a container</strong>:</p>
-<h2 id=your-tasks-need-to-be-ephemeral-as-your-containers>Your tasks need to be ephemeral as your containers</h2>
-<p>We live in the immutable infrastructure era, there is no need to worry about
+<strong>bad practice to run cron inside a container</strong>:</p><h2 id=your-tasks-need-to-be-ephemeral-as-your-containers>Your tasks need to be ephemeral as your containers</h2><p>We live in the immutable infrastructure era, there is no need to worry about
 cleaning up everything before or after your tasks run. Make your scheduled tasks
 ephemeral as your containers, if something goes wrong, you can inspect the
 precise state that the container was left. Even with Tasker supporting reusing
-the container(<code>reuse: true</code>) this is not recommended.</p>
-<p>Let your tasks be ephemeral as possible, you can always count on a clean
-environment for every execution.</p>
-<h2 id=maintain-custom-images-is-time-consuming>Maintain custom images is time consuming</h2>
-<p>This is the main point of using Tasker, imagine that you have 3 tasks to run,
+the container(<code>reuse: true</code>) this is not recommended.</p><p>Let your tasks be ephemeral as possible, you can always count on a clean
+environment for every execution.</p><h2 id=maintain-custom-images-is-time-consuming>Maintain custom images is time consuming</h2><p>This is the main point of using Tasker, imagine that you have 3 tasks to run,
 one in Python, one in Javascript (nodejs) and the other is a backup tasks that
 need the MongoDB command line tools. Using <em>cron</em> would be needed to build 3
 images, one for each task, adding the cron daemon to the base image, then
 configuring your task and adding your scripts. After it is done, you need to
 publish it, because your servers will need to pull this image to be able to run
-it, so another step is giving access to it.</p>
-<p>With Tasker, you simply use the images that are already available, no more extra
-work required.</p>
-<h2 id=no-alerts-when-tasks-fail>No alerts when tasks fail</h2>
-<p>Cron doesn&rsquo;t provide anything out of the box to alert about your tasks execution
+it, so another step is giving access to it.</p><p>With Tasker, you simply use the images that are already available, no more extra
+work required.</p><h2 id=no-alerts-when-tasks-fail>No alerts when tasks fail</h2><p>Cron doesn&rsquo;t provide anything out of the box to alert about your tasks execution
 status. Tasker in the other hand come with batteries included and ships alerting
-out of the box, <a href=https://github.com/opsxcq/tasker#notifications>here the official docs</a>.</p>
-<h2 id=is-hard-to-keep-everything-as-code>Is hard to keep everything <em>as code</em></h2>
-<p>Considering the first scenario, with 3 tasks each one with a image for each. If
+out of the box, <a href=https://github.com/opsxcq/tasker#notifications>here the official docs</a>.</p><h2 id=is-hard-to-keep-everything-as-code>Is hard to keep everything <em>as code</em></h2><p>Considering the first scenario, with 3 tasks each one with a image for each. If
 you keep the good practices, you will create a git repository for each one, with
 their own build. It means that you have 3 additional repositories to keep track
-of.</p>
-<p>With Tasker you can simply have one configuration file and replace all those
-repositories with one repository.</p>
-<h2 id=introduction-to-tasker>Introduction to Tasker</h2>
-<p><code>Tasker</code> is a task scheduler and runner, it works by creating containers on demand
-to run your task.</p>
-<p>Let&rsquo;s use a practical example, considering the <code>docker-compose.yml</code> file bellow:</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;3&#34;</span>
-
-<span style=color:#f92672>services</span>:
-    <span style=color:#f92672>tasker</span>:
-        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>strm/tasker</span>
-        <span style=color:#f92672>volumes</span>:
-            - <span style=color:#e6db74>&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
-        <span style=color:#f92672>environment</span>:
-              <span style=color:#f92672>configuration</span>: |<span style=color:#e6db74>
-</span><span style=color:#e6db74>                  schedule:
-</span><span style=color:#e6db74>                      - every: minute
-</span><span style=color:#e6db74>                        task: hello
-</span><span style=color:#e6db74>                  tasks:
-</span><span style=color:#e6db74>                      docker:
-</span><span style=color:#e6db74>                          - name: hello
-</span><span style=color:#e6db74>                            image: debian:jessie
-</span><span style=color:#e6db74>                            script:
-</span><span style=color:#e6db74>                                - echo Hello world from Tasker</span>                  
-</code></pre></div><p><code>Tasker</code> can be configured in several ways, one way is setting the environment
+of.</p><p>With Tasker you can simply have one configuration file and replace all those
+repositories with one repository.</p><h2 id=introduction-to-tasker>Introduction to Tasker</h2><p><code>Tasker</code> is a task scheduler and runner, it works by creating containers on demand
+to run your task.</p><p>Let&rsquo;s use a practical example, considering the <code>docker-compose.yml</code> file bellow:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;3&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>tasker</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>strm/tasker</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#e6db74>&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>              <span style=color:#f92672>configuration</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                  schedule:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                      - every: minute
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        task: hello
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                  tasks:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                      docker:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          - name: hello
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                            image: debian:jessie
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                            script:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                                - echo Hello world from Tasker</span>                  
+</span></span></code></pre></div><p><code>Tasker</code> can be configured in several ways, one way is setting the environment
 variable <code>configuration</code> and set it to your yml configuration. As you can notice,
-it goes really well with the docker-compose file.</p>
-<p>Let&rsquo;s break down the configuration to explain what is going on. We can break it
-in two main sections, <code>schedule</code> and `tasks**.</p>
-<p><strong>Schedules</strong> are the triggers to our tasks, they are defined as an array of
+it goes really well with the docker-compose file.</p><p>Let&rsquo;s break down the configuration to explain what is going on. We can break it
+in two main sections, <code>schedule</code> and `tasks**.</p><p><strong>Schedules</strong> are the triggers to our tasks, they are defined as an array of
 <code>schedule</code>. These schedules are defined by two main properties, when they will
-trigger the task, and what tasks they will trigger.</p>
-<p>Another good point of Tasker is that you don&rsquo;t have to memorize some abstract
+trigger the task, and what tasks they will trigger.</p><p>Another good point of Tasker is that you don&rsquo;t have to memorize some abstract
 <em>cron</em> syntax, it uses a more human language, like in this example <code>every: minute</code>,
 it means every 1 minute this task will run. Test it, change to <code>every: 10 minutes</code>
-and observe the results. You can also set it as a default <em>cron</em> syntax.</p>
-<p>More about scheduling can be found on the <a href=https://github.com/opsxcq/tasker#scheduler>official docs</a></p>
-<p>The second element of the configuration (and the most important) are the <strong>tasks</strong>,
+and observe the results. You can also set it as a default <em>cron</em> syntax.</p><p>More about scheduling can be found on the <a href=https://github.com/opsxcq/tasker#scheduler>official docs</a></p><p>The second element of the configuration (and the most important) are the <strong>tasks</strong>,
 tasks defined under the <code>docker</code> property represent a <strong>docker container
 definitions</strong>, they reflect the container that will be created when triggered and
 will execute your commands. You can use any docker image to run your commands
-into.</p>
-<p>Here a more elaborate example to illustrate how you can use several images on
-the same configuration</p>
-<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;3&#34;</span>
-
-<span style=color:#f92672>services</span>:
-    <span style=color:#f92672>tasker</span>:
-        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>strm/tasker</span>
-        <span style=color:#f92672>volumes</span>:
-            - <span style=color:#e6db74>&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
-        <span style=color:#f92672>environment</span>:
-            <span style=color:#f92672>configuration</span>: |<span style=color:#e6db74>
-</span><span style=color:#e6db74>                logging:
-</span><span style=color:#e6db74>                    level:
-</span><span style=color:#e6db74>                        ROOT: WARN
-</span><span style=color:#e6db74>                        org.springframework.web: WARN
-</span><span style=color:#e6db74>                        sh.strm: DEBUG
-</span><span style=color:#e6db74>                schedule:
-</span><span style=color:#e6db74>                    - every: minute
-</span><span style=color:#e6db74>                      task: hello
-</span><span style=color:#e6db74>                    - every: minute
-</span><span style=color:#e6db74>                      task: helloFromPython
-</span><span style=color:#e6db74>                    - every: minute
-</span><span style=color:#e6db74>                      task: helloFromNode
-</span><span style=color:#e6db74>                tasks:
-</span><span style=color:#e6db74>                    docker:
-</span><span style=color:#e6db74>                        - name: hello
-</span><span style=color:#e6db74>                          image: debian:jessie
-</span><span style=color:#e6db74>                          script:
-</span><span style=color:#e6db74>                              - echo Hello world from Tasker
-</span><span style=color:#e6db74>                        - name: helloFromPython
-</span><span style=color:#e6db74>                          image: python:3-slim
-</span><span style=color:#e6db74>                          script:
-</span><span style=color:#e6db74>                              - python -c &#39;print(&#34;Hello world from python&#34;)&#39;
-</span><span style=color:#e6db74>                        - name: helloFromNode
-</span><span style=color:#e6db74>                          image: node:8
-</span><span style=color:#e6db74>                          script:
-</span><span style=color:#e6db74>                              - node -e &#39;console.log(&#34;Hello from node&#34;)&#39;</span>                
-</code></pre></div><p>Note that in this example, we have only one source file, but if you had to
+into.</p><p>Here a more elaborate example to illustrate how you can use several images on
+the same configuration</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#f92672>version</span>: <span style=color:#e6db74>&#34;3&#34;</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>services</span>:
+</span></span><span style=display:flex><span>    <span style=color:#f92672>tasker</span>:
+</span></span><span style=display:flex><span>        <span style=color:#f92672>image</span>: <span style=color:#ae81ff>strm/tasker</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>volumes</span>:
+</span></span><span style=display:flex><span>            - <span style=color:#e6db74>&#34;/var/run/docker.sock:/var/run/docker.sock&#34;</span>
+</span></span><span style=display:flex><span>        <span style=color:#f92672>environment</span>:
+</span></span><span style=display:flex><span>            <span style=color:#f92672>configuration</span>: |<span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                logging:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    level:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        ROOT: WARN
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        org.springframework.web: WARN
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        sh.strm: DEBUG
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                schedule:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    - every: minute
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                      task: hello
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    - every: minute
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                      task: helloFromPython
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    - every: minute
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                      task: helloFromNode
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                tasks:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                    docker:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        - name: hello
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          image: debian:jessie
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          script:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                              - echo Hello world from Tasker
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        - name: helloFromPython
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          image: python:3-slim
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          script:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                              - python -c &#39;print(&#34;Hello world from python&#34;)&#39;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                        - name: helloFromNode
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          image: node:8
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                          script:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>                              - node -e &#39;console.log(&#34;Hello from node&#34;)&#39;</span>                
+</span></span></code></pre></div><p>Note that in this example, we have only one source file, but if you had to
 replicate it using <em>cron</em> you would had to create 3 images, one for each base
 image + the cron daemon, and, or map your scripts to it, or copy it on the
 build. After a while the maintenance required to keep everything updated will
 consume a significant amount of time. This is one of the main scenarios where
-Tasker simplifies a lot the work required.</p>
-<p>Basically everything that you need to configure in a container, from <strong>networking</strong>,
+Tasker simplifies a lot the work required.</p><p>Basically everything that you need to configure in a container, from <strong>networking</strong>,
 <strong>volumes</strong>, and everything else can be done using this configuration section, for
-more info <a href=https://github.com/opsxcq/tasker#docker-tasks>see the official docs</a>.</p>
-<h2 id=references>References</h2>
-<ul>
-<li><a href=https://github.com/opsxcq/tasker>Tasker repository</a></li>
-</ul>
-</div>
-<footer class=content__footer></footer>
-<script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script>
-</section>
-<section class=page__aside>
-<div class=aside__about>
-<div class=aside__about>
-<h1 class=about__title>## STRM ##</h1>
-<p class=about__description>A pro-freedom hacktivist thinktank.</p>
-</div>
-<ul class=aside__social-links>
-<li>
-<a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;
-</li>
-<li>
-<a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;
-</li>
-</ul>
-</div>
-<hr>
-<div class=aside__content>
-<p>
-By [OPSXCQ],
-2018-09-06
-</p>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#your-tasks-need-to-be-ephemeral-as-your-containers>Your tasks need to be ephemeral as your containers</a></li>
-<li><a href=#maintain-custom-images-is-time-consuming>Maintain custom images is time consuming</a></li>
-<li><a href=#no-alerts-when-tasks-fail>No alerts when tasks fail</a></li>
-<li><a href=#is-hard-to-keep-everything-as-code>Is hard to keep everything <em>as code</em></a></li>
-<li><a href=#introduction-to-tasker>Introduction to Tasker</a></li>
-<li><a href=#references>References</a></li>
-</ul>
-</nav>
-</div>
-</section>
-<footer class=page__footer><p class=copyright>STRM</p>
-<p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p>
-</footer>
-</div>
-</body>
-</html>
+more info <a href=https://github.com/opsxcq/tasker#docker-tasks>see the official docs</a>.</p><h2 id=references>References</h2><ul><li><a href=https://github.com/opsxcq/tasker>Tasker repository</a></li></ul></div><footer class=content__footer></footer><script src=https://utteranc.es/client.js repo=opsxcq/blog issue-term=title label=comment theme=dark-blue crossorigin=anonymous async></script></section><section class=page__aside><div class=aside__about><div class=aside__about><h1 class=about__title>## STRM ##</h1><p class=about__description>A pro-freedom hacktivist thinktank.</p></div><ul class=aside__social-links><li><a href=https://github.com/opsxcq/blog rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;</li><li><a href=mailto:trash-can@strm.sh rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/terminator rel=me aria-label="Keybase OPSXCQ" title="Keybase OPSXCQ"><i class="fab fa-keybase" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/cryptoanarquismo rel=me aria-label="Keybase Crypto" title="Keybase Crypto"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://keybase.io/team/deepweb rel=me aria-label="Keybase Deep Web" title="Keybase Deep Web"><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://github.com/opsxcq/blog/discussions/3 rel=me aria-label=Forum title=Forum><i class="fas fa-users" aria-hidden=true></i></a>&nbsp;</li><li><a href=https://gitter.im/strm-blog/community rel=me aria-label=Gitter title=Gitter><i class="fab fa-gitter" aria-hidden=true></i></a>&nbsp;</li></ul></div><hr><div class=aside__content><p>By [OPSXCQ],
+2018-09-06</p><nav id=TableOfContents><ul><li><a href=#your-tasks-need-to-be-ephemeral-as-your-containers>Your tasks need to be ephemeral as your containers</a></li><li><a href=#maintain-custom-images-is-time-consuming>Maintain custom images is time consuming</a></li><li><a href=#no-alerts-when-tasks-fail>No alerts when tasks fail</a></li><li><a href=#is-hard-to-keep-everything-as-code>Is hard to keep everything <em>as code</em></a></li><li><a href=#introduction-to-tasker>Introduction to Tasker</a></li><li><a href=#references>References</a></li></ul></nav></div></section><footer class=page__footer><p class=copyright>STRM</p><p class=advertisement>Powered by <a href=https://github.com/opsxcq/blog>Open Source</a></p></footer></div></body></html>
