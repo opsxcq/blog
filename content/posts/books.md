@@ -44,6 +44,6 @@ specific vulnerabilities, in which are discussed in details some vulnerabilities
 found on famous services, like _Uber, Shopify, Binary.com_ among others.
 
 
-## Notes {#notes}
+## References {#references}
 
 <../../library.bib,../../references.bib>
