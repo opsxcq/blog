@@ -10,12 +10,12 @@ my thoughts on them.
 
 * Machine Learning and Data Science books
 
-** TensorFlow for deep learning : from linear regression to reinforcement learning ([[cite:&BharathRamsundar600]])
+** TensorFlow for deep learning : from linear regression to reinforcement learning [[cite:&BharathRamsundar600]]
 Overall is a subpar /hello world/ kind of book for =Tensorflow=, nothing but the
 basics. Chapter 8 on /Reinforcement Learning/ has some nice examples which are
 easy to be understood.
 
-** Hands-On Neural Networks with TensorFlow 2.0: Understand TensorFlow, from static graph to eager execution, and design neural networks ([[cite:&PaoloGaleone674]])
+** Hands-On Neural Networks with TensorFlow 2.0: Understand TensorFlow, from static graph to eager execution, and design neural networks [[cite:&PaoloGaleone674]]
 Is a book from /Packt/ but besides the bad reputation from this publisher, the
 books is quite good, it touches some more practical subjects, as how to convert
 a model to =Tensorflow.js= and some practical examples of using /Generative
@@ -25,7 +25,7 @@ related problems.
 
 * Security
 
-** Bug Bounty Hunting Essentials : Quick-paced guide to help white-hat hackers get through bug bounty programs ([[cite:&CarlosA.Lozano817]])
+** Bug Bounty Hunting Essentials : Quick-paced guide to help white-hat hackers get through bug bounty programs [[cite:&CarlosA.Lozano817]]
 Chapter on /Basics of Bug Bounty Hunting/ can be skipped, just generic information
 which you could do better by reading the official information of the platform of
 your choice. The chapter /How to Write a Bug Bounty Report/ lacks real content and
@@ -35,6 +35,12 @@ The only interesting point about the book starts on the chapters dedicated to
 specific vulnerabilities, in which are discussed in details some vulnerabilities
 found on famous services, like /Uber, Shopify, Binary.com/ among others.
 
+* Electronics
+
+** Programming with MicroPython : embedded programming with microcontrollers and Python [[cite:&NicholasH.Tollervey800]] 
+Very high level view, basically a book with some /hello world/ examples which
+didn't add any value. Lacks the full view and workflow of using such devices, it
+focused mostly on =micro:bit=.
 
 
 * References
