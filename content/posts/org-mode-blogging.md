@@ -129,6 +129,25 @@ After this is done, references can be added with the key combination `SPC m i c`
 A paper reference will look like this ((<a href="#citeproc_bib_item_2">Diffie and Hellman 1976</a>)) while a book
 reference will be rendered like this ((<a href="#citeproc_bib_item_1">Broedel 2003</a>)).
 
+In case `org-ref` misbehaves while exporting to `HTML`, use the following snippet:
+
+```emacs-lisp
+(use-package org-ref
+  :ensure t
+  :init
+  (with-eval-after-load 'ox
+    (defun my/org-ref-process-buffer--html (backend)
+      "Preprocess `org-ref' citations to HTML format.
+
+Do this only if the export backend is `html' or a derivative of
+that."
+      ;; `ox-hugo' is derived indirectly from `ox-html'.
+      ;; ox-hugo <- ox-blackfriday <- ox-md <- ox-html
+      (when (org-export-derived-backend-p backend 'html)
+        (org-ref-process-buffer 'html)))
+    (add-to-list 'org-export-before-parsing-hook #'my/org-ref-process-buffer--html)))
+```
+
 
 ### footnotes {#footnotes}
 
