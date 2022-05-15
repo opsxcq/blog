@@ -42,3 +42,8 @@ better examples.
 The only interesting point about the book starts on the chapters dedicated to
 specific vulnerabilities, in which are discussed in details some vulnerabilities
 found on famous services, like _Uber, Shopify, Binary.com_ among others.
+
+
+## Notes {#notes}
+
+<../../library.bib,../../references.bib>
