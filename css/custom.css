@@ -106,3 +106,17 @@ table{
 td {
     border-top: 1px solid;
 }
+
+.csl-entry{
+
+}
+
+.csl-entry{
+    padding-top: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.csl-entry:before{
+    content: '> ';
+    color: var(--bright-yellow)
+}
