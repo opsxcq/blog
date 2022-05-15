@@ -102,6 +102,22 @@ except the current sub-tree, there are a few alternatives:
 You can use [[https://alldocs.app/convert-markdown-to-emacs-org-mode][this site]] to easily convert from =markdown= to =Org-Mode=.
 
 ** Auto Export on save
+Auto-export on save can be archived with the following code inside
+=.dir-locals.el= on the root folder:
+
+#+begin_src emacs-lisp
+(("content-org/"
+  . ((org-mode . ((eval . (org-hugo-auto-export-mode)))))))
+#+end_src
+
+Given that some pieces of code may be slow, as for example, training a big
+neural network or crack some hash, is recommended to add the following header to
+avoid evaluating code blocks every time that an export is triggered:
+
+#+begin_example
+#+PROPERTY: header-args :eval never-export
+#+end_example
+
 ** Langtool
 ** Bibtex references
 

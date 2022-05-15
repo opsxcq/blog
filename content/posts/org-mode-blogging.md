@@ -108,6 +108,22 @@ You can use [this site](https://alldocs.app/convert-markdown-to-emacs-org-mode) 
 
 ### Auto Export on save {#auto-export-on-save}
 
+Auto-export on save can be archived with the following code inside
+`.dir-locals.el` on the root folder:
+
+```emacs-lisp
+(("content-org/"
+  . ((org-mode . ((eval . (org-hugo-auto-export-mode)))))))
+```
+
+Given that some pieces of code may be slow, as for example, training a big
+neural network or crack some hash, is recommended to add the following header to
+avoid evaluating code blocks every time that an export is triggered:
+
+```text
+#+PROPERTY: header-args :eval never-export
+```
+
 
 ### Langtool {#langtool}
 
