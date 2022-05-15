@@ -50,7 +50,21 @@ to the section of the document which you want to have the section <code>bibliogr
 rendered the following piece of text:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>bibliography:../../library.bib,../../references.bib
 </span></span></code></pre></div><p>Remember that this is a relative path from your document to the project&rsquo;s root.
 After this is done, references can be added with the key combination <code>SPC m i c</code>.</p><p>A paper reference will look like this ((<a href=#citeproc_bib_item_2>Diffie and Hellman 1976</a>)) while a book
-reference will be rendered like this ((<a href=#citeproc_bib_item_1>Broedel 2003</a>)).</p><h3 id=footnotes>footnotes</h3><p>Sometimes the text gets too clumsy and some explanations are not required for
+reference will be rendered like this ((<a href=#citeproc_bib_item_1>Broedel 2003</a>)).</p><p>In case <code>org-ref</code> misbehaves while exporting to <code>HTML</code>, use the following snippet:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-emacs-lisp data-lang=emacs-lisp><span style=display:flex><span>(use-package org-ref
+</span></span><span style=display:flex><span>  :ensure <span style=color:#66d9ef>t</span>
+</span></span><span style=display:flex><span>  :init
+</span></span><span style=display:flex><span>  (with-eval-after-load <span style=color:#e6db74>&#39;ox</span>
+</span></span><span style=display:flex><span>    (defun my/org-ref-process-buffer--html (backend)
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Preprocess </span><span style=color:#e6db74>`org-ref&#39;</span><span style=color:#e6db74> citations to HTML format.
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>Do this only if the export backend is </span><span style=color:#e6db74>`html&#39;</span><span style=color:#e6db74> or a derivative of
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>that.&#34;</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e>;; `ox-hugo&#39; is derived indirectly from `ox-html&#39;.</span>
+</span></span><span style=display:flex><span>      <span style=color:#75715e>;; ox-hugo &lt;- ox-blackfriday &lt;- ox-md &lt;- ox-html</span>
+</span></span><span style=display:flex><span>      (when (org-export-derived-backend-p backend <span style=color:#e6db74>&#39;html</span>)
+</span></span><span style=display:flex><span>        (org-ref-process-buffer <span style=color:#e6db74>&#39;html</span>)))
+</span></span><span style=display:flex><span>    (add-to-list <span style=color:#e6db74>&#39;org-export-before-parsing-hook</span> <span style=color:#a6e22e>#&#39;</span>my/org-ref-process-buffer--html)))
+</span></span></code></pre></div><h3 id=footnotes>footnotes</h3><p>Sometimes the text gets too clumsy and some explanations are not required for
 some reader, but are for others <sup id=fnref:1><a href=#fn:1 class=footnote-ref role=doc-noteref>1</a></sup> , to add a footnote use <code>, i f.</code></p><h2 id=math-and-latex>Math and LaTeX</h2><p><em>LaTeX</em> is rendered using <code>Katex</code> if <code>math</code> variable is set to <code>true</code> on page or site
 level. On emacs inline <em>LaTeX</em> rendering can be achieved using <a href=https://github.com/io12/org-fragtog>org-fragtog</a> .</p><p>Not all functions are supported, take a look at <a href=https://katex.org/docs/supported.html>Katex limitations</a> to check it
 out before using. Also, if an expression or function is not supported, with
