@@ -3,6 +3,8 @@
 #+date: 2022-01-15
 #+PROPERTY: header-args :eval never-export
 #+hugo_base_dir: ../../
+#+hugo_pandoc_citations: t
+#+bibliography: ../../library.bib,../../references.bib
 #+hugo_section: posts
 #+hugo_tags[]: emacs, org-mode, science, literate programming
 
@@ -104,7 +106,7 @@ You can use [[https://alldocs.app/convert-markdown-to-emacs-org-mode][this site]
 ** Bibtex references
 
 References are handled by =org-ref=, they are exported from =Zotero= and =Calibre=,
-for paper and books respectively. To make sure that they will be reachable add
+for papers and books respectively. To make sure that they will be reachable add
 to the section of the document which you want to have the section =bibliography=
 rendered the following piece of text:
 
@@ -116,7 +118,7 @@ Remember that this is a relative path from your document to the project's root.
 After this is done, references can be added with the key combination ~SPC m i c~.
 
 A paper reference will look like this (cite:diffie_new_1976) while a book
-reference will be rendered like this (cite:StuartScott745).
+reference will be rendered like this ([[cite:&HansPeterBroedel844]]).
 
 ** footnotes
 
@@ -270,7 +272,9 @@ The inclusion of external videos is also possible
 ** Projects
 ** Malware
 
-bibliography:../../library.bib,../../references.bib
+* References
+
+[[bibliography:../../library.bib,../../references.bib]]
+
 * Footnotes
 [fn:1] Not everyone is equal
-

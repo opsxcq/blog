@@ -2,7 +2,6 @@
 #+author: OPSXCQ
 #+date: 2020-01-01
 #+hugo_base_dir: ../../
-#+bibliography: ../../library.bib
 #+hugo_section: posts
 #+hugo_tags[]: study, books, machine learning
 
@@ -36,6 +35,10 @@ The only interesting point about the book starts on the chapters dedicated to
 specific vulnerabilities, in which are discussed in details some vulnerabilities
 found on famous services, like /Uber, Shopify, Binary.com/ among others.
 
+
+
 * References
 
 bibliography:../../library.bib,../../references.bib
+
+* Notes

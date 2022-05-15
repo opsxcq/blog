@@ -115,7 +115,7 @@ You can use [this site](https://alldocs.app/convert-markdown-to-emacs-org-mode) 
 ### Bibtex references {#bibtex-references}
 
 References are handled by `org-ref`, they are exported from `Zotero` and `Calibre`,
-for paper and books respectively. To make sure that they will be reachable add
+for papers and books respectively. To make sure that they will be reachable add
 to the section of the document which you want to have the section `bibliography`
 rendered the following piece of text:
 
@@ -126,8 +126,8 @@ bibliography:../../library.bib,../../references.bib
 Remember that this is a relative path from your document to the project's root.
 After this is done, references can be added with the key combination `SPC m i c`.
 
-A paper reference will look like this (<diffie_new_1976>) while a book
-reference will be rendered like this (<StuartScott745>).
+A paper reference will look like this ((<a href="#citeproc_bib_item_2">Diffie and Hellman 1976</a>)) while a book
+reference will be rendered like this ((<a href="#citeproc_bib_item_1">Broedel 2003</a>)).
 
 
 ### footnotes {#footnotes}
@@ -295,6 +295,12 @@ The inclusion of external videos is also possible
 
 ### Malware {#malware}
 
-<../../library.bib,../../references.bib>
+
+## References {#references}
+
+<div class="csl-bib-body">
+  <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Broedel, Hans Peter. 2003. <i>The Malleus Maleficarum and the Construction of Witchcraft</i>. Vol. 1. Manchester University Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_2"></a>Diffie, Whitfield, and Martin Hellman. 1976. “New Directions in Cryptography.” <i>Ieee Transactions on Information Theory</i> 22 (6): 644–54.</div>
+</div>
 
 [^fn:1]: Not everyone is equal
