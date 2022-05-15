@@ -2,6 +2,7 @@
 #+author: OPSXCQ
 #+date: 2020-01-01
 #+hugo_base_dir: ../../
+#+bibliography: ../../library.bib
 #+hugo_section: posts
 #+hugo_tags[]: study, books, machine learning
 
