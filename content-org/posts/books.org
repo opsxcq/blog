@@ -22,3 +22,15 @@ a model to =Tensorflow.js= and some practical examples of using /Generative
 Adversarial Networks/. Besides other /Packt/ books where chapters usually don't
 maintain a context or narrative in between them, this book focus solely on image
 related problems.
+
+* Security
+
+** Bug Bounty Hunting Essentials : Quick-paced guide to help white-hat hackers get through bug bounty programs ([[cite:&CarlosA.Lozano817]])
+Chapter on /Basics of Bug Bounty Hunting/ can be skipped, just generic information
+which you could do better by reading the official information of the platform of
+your choice. The chapter /How to Write a Bug Bounty Report/ lacks real content and
+better examples.
+
+The only interesting point about the book starts on the chapters dedicated to
+specific vulnerabilities, in which are discussed in details some vulnerabilities
+found on famous services, like /Uber, Shopify, Binary.com/ among others.
